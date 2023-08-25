@@ -10,13 +10,13 @@ _You should take a look at the [example design document](example-design-document
 
 ## 1. Problem Statement
 
-_Explain clearly what problem you are trying to solve._
+_**river** is an application to provide pet owners with pet sitters._
 
 ## 2. Top Questions to Resolve in Review
 
 _List the most important questions you have about your design, or things that you are still debating internally that you might like help working through._
 
-1.
+1. Do we need a calendar or a list of dates as the calendar?
 2.
 3.
 
@@ -24,31 +24,62 @@ _List the most important questions you have about your design, or things that yo
 
 _This is where we work backwards from the customer and define what our customers would like to do (and why). You may also include use cases for yourselves (as developers), or for the organization providing the product to customers._
 
-U1. _As a [product] customer, I want to `<result>` when I `<action>`_
+U1. _As a [pet owner] customer, I want to create a new reservation with an available [pet sitter]_
 
-U2. _As a [product] customer, I want to view my grocery list when I log into the grocery list page_
+U2. _As a [pet owner] customer, I want to view my active reservations_
 
-U3. ...
+U3. _As a [pet owner] customer, I want to view my pet's profile_
+
+U4. _As a [pet owner] customer, I want to update an active reservation_
+
+U5. _As a [pet owner] customer, I want to delete/cancel an active reservation_
+
+U6. _As a [pet sitter] customer, I want to view upcoming reservations_
+
+U7. _As a [pet sitter] customer, I want to delete/cancel an active reservation_
+
+U8. _As a [pet owner] customer, I want to view a list of available sitters_
+
+### 3.1 Stretch Use cases:
+SU1. Reviews and rating for pets
+
+SU2. Messaging between users (sitters and owners).
+
+SU3. Reviews and rating for sitters 
+
 
 ## 4. Project Scope
 
-_Clarify which parts of the problem you intend to solve. It helps reviewers know what questions to ask to make sure you are solving for what you say and stops discussions from getting sidetracked by aspects you do not intend to handle in your design._
+_Clarify which parts of the problem you intend to solve. It helps reviewers know what questions to ask to make sure you 
+are solving for what you say and stops discussions from getting sidetracked by aspects you do not intend to handle in your design._
 
 ### 4.1. In Scope
 
-_Which parts of the problem defined in Sections 1 and 2 will you solve with this design? This should include the base functionality of your product. What pieces are required for your product to work?_
-
+_Which parts of the problem defined in Sections 1 and 2 will you solve with this design? This should include the base 
+functionality of your product. What pieces are required for your product to work?_
 _The functionality described above should be what your design is focused on. You do not need to include the design for any out of scope features or expansions._
+
+- creating, retrieving, updating, deleting a reservation.
+- retrieving all reservations a sitter has.
+- viewing pet profiles
+
 
 ### 4.2. Out of Scope
 
-_Based on your problem description in Sections 1 and 2, are there any aspects you are not planning to solve? Do potential expansions or related problems occur to you that you want to explicitly say you are not worrying about now? Feel free to put anything here that you think your team can't accomplish in the unit, but would love to do with more time._
-
+_Based on your problem description in Sections 1 and 2, are there any aspects you are not planning to solve? 
+Do potential expansions or related problems occur to you that you want to explicitly say you are not worrying about now?
+Feel free to put anything here that you think your team can't accomplish in the unit, but would love to do with more time._
 _The functionality here does not need to be accounted for in your design._
+
+- the 3.1 stretch goals
+- if pets run away, get hurt, or pets damage the sitter's home, etc.
+- notifications when a pet is available to sit
 
 # 5. Proposed Architecture Overview
 
 _Describe broadly how you are proposing to solve for the requirements you described in Section 2. This may include class diagram(s) showing what components you are planning to build. You should argue why this architecture (organization of components) is reasonable. That is, why it represents a good data flow and a good separation of concerns. Where applicable, argue why this architecture satisfies the stated requirements._
+
+
 
 # 6. API
 
