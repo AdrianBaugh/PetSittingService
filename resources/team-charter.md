@@ -26,81 +26,87 @@ The following guide might be helpful as you work through your teams charter:
 
 ### Team Members
 
-- _Team Member A_
-- _Team Member B_
-- _Team Member C_
-- _Team Member D_
+- _Team Member A_: Ryan Roberson
+- _Team Member B_: Justin Locke
+- _Team Member C_: Adrian Baugh
+- _Team Member D_: Yanan Zhao
 
 ### Psychological safety
 
 * **How can we take risks on this team without feeling insecure or embarrassed?**
-  _E.g., Be open to opinions that differ from your own, actively ask for opinions from each member of the team, do not interrupt each other, don’t place blame, all suggestions or questions are encouraged, listened to, considered equally, and never judged_
+  _Make everyone's opinions feel heard and actively ask for opinions from each member of the team. All suggestions or questions are encouraged, and there will be no punishments or judgements for mistakes._
 
 * **How do we address situations where any team member feels unsafe?**
-  _E.g., communicate when there is a misunderstanding, don’t move forward until the situation is resolved, directly address and resolve negativity, give and receive feedback with a positive, strength-building mindset, if necessary, escalate to an instructor 
+  _With strong communication and checking in with one another. Find a way to resolve problems quickly instead of letting them hang around._
 
 ### Dependability, Structure, Clarity
 
 * **How can we count on each other to do high quality work on time?**
-  _E.g., estimate task size, break down large tasks, call out tasks at risk early, ask each other for help, how to ensure timely code reviews, how to share knowledge, help each other hold accountability give frequent, scheduled updates_
+  _Breaking big problems down into smaller ones, and evenly distributing them to all team members. Ask questions if you need help, and check in with each other on where we are._
 
 * **How do we address missed deadlines?**
-  _E.g., acknowledge, but don’t punish slipped dates, figure out what went wrong, identify lessons for future_
+  _Figure out what took the longest on a specific task, and learn from that by better estimating the time in the future._
 
 * **How can we make goals, roles, and execution plans on our team clear?**
-  _E.g., where to track goals and when to review them, use definitive, quantifiable terminology, include clear background on why this goal is necessary, include “done” criteria for the goal (code is pushed with integration tests, document is reviewed, etc.)_
+  _Following our design document and the project board so we don't steer away from the goals of the project. We can also check in with one another each day and make sure everyone is comfortable with their task and goals for that day._
 
 
 ### Goals
 
 * **Overall: What is our overall objective for the Learn & Be Curious unit?**
-  _E.g., “Apply what we’ve learned throughout this program in a team project to prepare ourselves for internships and full-time SDE roles.”_
+  _Apply what we’ve learned throughout this program in a team project to prepare ourselves for internships and full-time SDE roles._
+* _Would like to use the learning style of the course and apply it to the front end side of things. Having a mixture of front-end and back-end would be great._
 
 
 * **Performance: What do we want to prioritize in terms of what we achieve?**
-  _What will be true when you have 'succeeded' on this project? E.g. enjoy ourselves, maintain our energy to the end, ensure all team members participate, create professional connections, exceed instructor expectations, efficiently pace the project so we’re not rushing at the end, etc._
+  _What will be true when you have 'succeeded' on this project? To have a full working application by the end of the project. We want to prioritize learning and enjoying the process of building an application._
 
 
 * **Learning: What are the things that our team wants to learn?**
-  _E.g., develop SDE knowledge, enhance leadership skills, master project planning, improve testing skills, etc_
+  _More REST things_
+* _More front-end knowledge_
+* _Building a program from the ground up_
 
 
 * **Task processes: What processes will our team follow to meet our goals, complete tasks, or to build team relationships?**
-  _E.g., leadership, meeting procedures/length of meetings, expectations for meeting attendance and timeliness, other types of meetings (happy hours, lunch and learns)_
+  _By celebrating our successes and not dwell on the failures._
+* _Open communication will help us move forward on our goals and complete the project in a timely manner._
 
 ## Meaning & Impact
 
 **What is personally important for each team member about becoming an SDE?**
 
-* _Team Member A_:
-* _Team Member B_:
-* _Team Member C_:
-* _Team Member D_:
+* _Team Member A_: _To become someone that a software developing team enjoys having aboard._
+* _Team Member B_: _To continue to grow and contribute to my fascination and understanding with technology._
+* _Team Member C_: _To change careers from what I was doing previously and to apply what I learned here at NSS in the real world._
+* _Team Member D_: _To make life better for my family._
 
 **What each team member wants to achieve: e.g. improve analytical skills, learn project management skills, develop public speaking skills, speak up more, speak up less, etc.**
 
-* _Team Member A_:
-* _Team Member B_:
-* _Team Member C_:
-* _Team Member D_:
+* _Team Member A_: _Learn how to develop an application from the ground up._
+* _Team Member B_: _Be able to speak with an in depth understanding of technology._
+* _Team Member C_: _Improve communication skills and have a good understanding with the team so we can accomplish our goals._
+* _Team Member D_: _Learn project management skills._
 
 ## Team Member Roles and Responsibilities
 
 _Filling out the following roles and responsibilities is suggested only. Some roles will be permanent and some may be temporary. Some roles may be assigned to one or two people, and others may be rotated. Feel free to create additional rotating or permanent roles as you go._
 
-|**Role**               |**Responsibilities** |**Primary person** |**Secondary person** |
-|---                    |---                  |---                |---                  |
-|Liaison to Instructors |                     |                   |                     |
-|Rotating Role 1        |                     |                   |                     |
-|Rotating Role 2        |                     |                   |                     |
-|Rotating Role 3        |                     |                   |                     |
-|Rotating Role 4        |                     |                   |                     |
+|**Role**               | **Responsibilities** |**Primary person** |**Secondary person** |
+|---                    |----------------------|---                |---                  |
+|Liaison to Instructors | Rotate everyday      |                   |                     |
+|Rotating Role 1        |                      |                   |                     |
+|Rotating Role 2        |                      |                   |                     |
+|Rotating Role 3        |                      |                   |                     |
+|Rotating Role 4        |                      |                   |                     |
+
+_We want everyone to be able to learn and do everything instead of having specific roles._
 
 ## Acknowledgement
 
 **I agree to the terms and conditions of these team agreements:**
 
-* _Team Member A_:
-* _Team Member B_:
-* _Team Member C_:
-* _Team Member D_:
+* _Team Member A_: _Ryan Roberson_
+* _Team Member B_: _Justin Locke_
+* _Team Member C_: _Adrian Baugh_
+* _Team Member D_: _Yanan Zhao_
