@@ -1,11 +1,5 @@
 # Design Document
 
-## Instructions
-
-_Replace italicized text (including this text!) with details of the design you are proposing for your team project. (Your replacement text shouldn't be in italics)._
-
-_You should take a look at the [example design document](example-design-document.md) in the same folder as this template for more guidance on the types of information to capture, and the level of detail to aim for._
-
 ## _Project Title_ Design
 
 ## 1. Problem Statement
@@ -21,8 +15,6 @@ _List the most important questions you have about your design, or things that yo
 3.
 
 ## 3. Use Cases
-
-_This is where we work backwards from the customer and define what our customers would like to do (and why). You may also include use cases for yourselves (as developers), or for the organization providing the product to customers._
 
 U1. _As a [pet owner] customer, I want to create a new reservation with an available [pet sitter]_
 
@@ -46,6 +38,8 @@ SU1. Reviews and rating for pets
 SU2. Messaging between users (sitters and owners).
 
 SU3. Reviews and rating for sitters 
+
+SU4. set availability 
 
 
 ## 4. Project Scope
@@ -77,25 +71,120 @@ _The functionality here does not need to be accounted for in your design._
 
 # 5. Proposed Architecture Overview
 
-_Describe broadly how you are proposing to solve for the requirements you described in Section 2. This may include class diagram(s) showing what components you are planning to build. You should argue why this architecture (organization of components) is reasonable. That is, why it represents a good data flow and a good separation of concerns. Where applicable, argue why this architecture satisfies the stated requirements._
+_Describe broadly how you are proposing to solve for the requirements you described in Section 2. This may include 
+class diagram(s) showing what components you are planning to build. You should argue why this architecture 
+(organization of components) is reasonable. That is, why it represents a good data flow and a good separation of 
+concerns. Where applicable, argue why this architecture satisfies the stated requirements._
 
+This initial iteration will provide the minimum lovable product (MLP) including creating, retrieving, and updating reservations for pet sitting requests.
+It will also allow users to set up and manage pet profiles.
+
+We will use API Gateway and AWS Lambda to create the following endpoints: 
+- CreateReservation
+- GetReservation
+- UpdateReservation
+- CancelReservation
+- GetUserProfile
+- createUserProfile
+- UpdateUserProfile
+- GetPetProfile
+- CreatePetProfile
+- UpdatePetProfile
+
+We will store reservation, user, and pet data in a DynamoDB table.
 
 
 # 6. API
 
 ## 6.1. Public Models
 
-_Define the data models your service will expose in its responses via your *`-Model`* package. These will be equivalent to the *`PlaylistModel`* and *`SongModel`* from the Unit 3 project._
+_Define the data models your service will expose in its responses via your *`-Model`* package. These will be 
+equivalent to the *`PlaylistModel`* and *`SongModel`* from the Unit 3 project._
 
-## 6.2. _First Endpoint_
+```
+// ReservationModel
+ 
+String reservationId
+Date startDate
+Date endDate
 
-_Describe the behavior of the first endpoint you will build into your service API. This should include what data it requires, what data it returns, and how it will handle any known failure cases. You should also include a sequence diagram showing how a user interaction goes from user to website to service to database, and back. This first endpoint can serve as a template for subsequent endpoints. (If there is a significant difference on a subsequent endpoint, review that with your team before building it!)_
+the user ids for sitter, owner, and pet(s)
+```
 
-_(You should have a separate section for each of the endpoints you are expecting to build...)_
+```
+// UserModel
 
-## 6.3 _Second Endpoint_
+String userId
+Boolean isSitter
+List<Reservation>
+List<pet>
 
-_(repeat, but you can use shorthand here, indicating what is different, likely primarily the data in/out and error conditions. If the sequence diagram is nearly identical, you can say in a few words how it is the same/different from the first endpoint)_
+availabilty?
+```
+
+```
+// PetModel
+
+String petId
+String petName
+Owner
+
+optional
+pet photo
+String breed
+String age
+etc
+```
+
+## 6.2. _Create Reservation Endpoint_
+- Accepts `POST` requests to `/reservations`
+- Accepts data to create a new reservation with a provided Pet owner ID, pet Sitter ID, pet ID, start date,
+and end date. Returns the new reservation, including a reservation ID assigned by the service.
+
+## 6.3 _Get Reservation Endpoint_
+- Accepts `GET` requests to `/reservation/:id`
+- Accepts a reservation ID and returns the corresponding ReservationModel
+  - If the given reservation ID is not found, will throw a `ReservationNotFoundException`
+
+## 6.4 _Cancel Reservation Endpoint_
+- Accepts a `DELETE` request to `/reservation/:id`
+- Accepts a reservation ID and returns the corresponding Deleted ReservationModel
+  - If the given reservation ID is not found, will throw a `ReservationNotFoundException`
+
+## 6.5 _Update Reservation Endpoint_
+- Accepts a `PUT` request to `/reservation/:id`
+- Accepts data to update a reservation including the updated start and end dates. returns the updated reservation
+  - If the given reservation ID is not found, will throw a `ReservationNotFoundException`
+
+## 6.6 _Get User Profile Endpoint_
+- Accepts `GET` request to `/users/:id`
+- Accepts a user ID and returns the corresponding UserModel
+    - If the given user ID is not found, will throw a `UserIdNotFoundException`
+
+## 6.6 _Create User Profile Endpoint_
+- Accepts `POST` request to `/users`
+- Accepts data to create a new user with a provided username, if they are a sitter or not, empty list of reservations, 
+and a list of pet IDs. returns the UserModel with user ID assigned by the service
+
+## 6.7 _Update User Profile Endpoint_
+- Accepts `PUT` request to `/users/:id`
+- Accepts data to update a user with a provided user ID to update desired fields. returns the updated userModel.
+    - If the given user ID is not found, will throw a `UserIdNotFoundException`
+
+## 6.8 _Get Pet Profile Endpoint_
+- Accepts `GET` request to `/pets/:id`
+- Accepts a Pet ID and returns the corresponding PetModel
+    - If the given pet ID is not found, will throw a `PetIdNotFoundException`
+
+## 6.9 _Create Pet Profile Endpoint_
+- Accepts `POST` request to `/pets`
+- Accepts data to create a new Pet with a provided  pet name, their pet owner's ID. returns the petModel with pet ID assigned by the service.
+   
+
+## 6.10 _Update Pet Profile Endpoint_
+- Accepts `PUT` request to `/pets/:id`
+- Accepts data to update a pet with a provided user ID to update desired fields. returns the updated userModel.
+    - If the given Pet ID is not found, will throw a `PetIdNotFoundException`
 
 # 7. Tables
 
