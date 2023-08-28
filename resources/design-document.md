@@ -107,6 +107,7 @@ equivalent to the *`PlaylistModel`* and *`SongModel`* from the Unit 3 project._
 String reservationId
 Date startDate
 Date endDate
+String status (enum, completed, upcoming, etc)
 
 the user ids for sitter, owner, and pet(s)
 ```
@@ -188,8 +189,34 @@ and a list of pet IDs. returns the UserModel with user ID assigned by the servic
 
 # 7. Tables
 
-_Define the DynamoDB tables you will need for the data your service will use. It may be helpful to first think of what objects your service will need, then translate that to a table structure, like with the *`Playlist` POJO* versus the `playlists` table in the Unit 3 project._
+_Define the DynamoDB tables you will need for the data your service will use. It may be helpful to first think of what 
+objects your service will need, then translate that to a table structure, like with the *`Playlist` POJO* versus the
+`playlists` table in the Unit 3 project._
 
+## 7.1 `reservations`
+```
+id // partition key, string
+startDate // string (converted date)
+endDate // string (converted date)
+sitterId // String
+ownerId // String
+status // String
+```
+
+## 7.2 `User`
+```
+id // partition key, string
+isSitter // Boolean
+reservations // List<Reservation>
+pets // List<pet>
+```
+
+## 7.3 `Pets`
+```
+id // partition key, string
+petName // String
+ownerId // String
+```
 # 8. Pages
 
 _Include mock-ups of the web pages you expect to build. These can be as sophisticated as mockups/wireframes using drawing software, or as simple as hand-drawn pictures that represent the key customer-facing components of the pages. It should be clear what the interactions will be on the page, especially where customers enter and submit data. You may want to accompany the mockups with some description of behaviors of the page (e.g. “When customer submits the submit-dog-photo button, the customer is sent to the doggie detail page”)_
