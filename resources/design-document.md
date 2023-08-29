@@ -12,7 +12,7 @@ _List the most important questions you have about your design, or things that yo
 
 1. Do we need a calendar or a list of dates as the calendar?
 2. Should we have a user table at all? If so, should it have 1 table for users OR 1 table for owners and 1 for sitters?
-3.
+3. Best way to add pictures?
 
 ## 3. Use Cases
 
@@ -50,13 +50,15 @@ SU4. Set availability
 
 SU5. Invites to accept a booking
 
+SU6. View/ sort pets by breed
+
 
 # 4. Project Scope
 
 ### 4.1. In Scope
 
 - creating, retrieving, updating, deleting a reservation.
-- retrieving all reservations a sitter has.
+- retrieving all pets a owner has.
 - viewing pet profiles
 
 
@@ -182,8 +184,8 @@ objects your service will need, then translate that to a table structure, like w
 
 ## 7.1 `reservations`
 ```
-id // partition key, string
-ownerId // sort, key, String
+ownerId // partition key, string
+reservationId // sort, key, String
 startDate // string (converted date)
 endDate // string (converted date)
 status // String
