@@ -33,6 +33,7 @@ U7. _As a [pet owner] customer, I want to add a new pet to my list of pet profil
 
 ## 3.1 Stretch Use cases:
 SU0. Add [pet sitter] functionality
+
   SU0.1 _As a [pet sitter] customer, I want to view upcoming reservations_
   
   SU0.2 _As a [pet sitter] customer, I want to delete/cancel an active reservation_
@@ -76,6 +77,8 @@ We will use API Gateway and AWS Lambda to create the following endpoints:
 - GetPetProfile
 - CreatePetProfile
 - UpdatePetProfile
+- GetPetByBreed
+- GetPetsByOwnerId
 
 We will store reservation and pet data in separate DynamoDB tables.
 
@@ -100,11 +103,11 @@ the user ids for sitter, owner, and pet(s)
 
 String petId
 String petName
-Owner - maybe do not need
+String breed
+String ownerId
 
 Stretch/ optional
 pet photo
-String breed
 String age
 etc
 ```
@@ -159,6 +162,11 @@ and end date. Returns the new reservation, including a reservation ID assigned b
 - Accepts data to update a pet with a provided user ID to update desired fields. returns the updated userModel.
     - If the given Pet ID is not found, will throw a `PetIdNotFoundException`
 
+### 6.2.7 _Get Pet by breed Endpoint_
+- Accepts `GET` request to `/pets/:breed`
+- Accepts a pet breed and returns the corresponding pet name, breed, and picture(Stretch goal)
+  
+
 # 7. Tables
 
 _Define the DynamoDB tables you will need for the data your service will use. It may be helpful to first think of what 
@@ -183,10 +191,20 @@ sitterId // String
 id // partition key, string
 ownerId // sort, key, String
 petName // String
+breed // String
 
 Stretch goal:
+pet picture // 
 pet details
-pet picture
+```
+
+```
+### 7.2.1 `PetsBreedIndex` GSI table
+breed // partition key, String
+petName // string
+
+Stretch goal:
+pet picture //
 ```
 
 # 8. Page storyboard
