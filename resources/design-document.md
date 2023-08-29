@@ -30,6 +30,8 @@ U6. _As a [pet owner] customer, I want to update my pet's profile_
 
 U7. _As a [pet owner] customer, I want to add a new pet to my list of pet profiles_
 
+U7. _As a [pet owner] customer, I want to view a list of my pets_
+
 
 ## 3.1 Stretch Use cases:
 SU0. Add [pet sitter] functionality
@@ -77,8 +79,10 @@ We will use API Gateway and AWS Lambda to create the following endpoints:
 - GetPetProfile
 - CreatePetProfile
 - UpdatePetProfile
-- GetPetByBreed
 - GetPetsByOwnerId
+
+Stretch goal:
+- GetPetByBreed
 
 We will store reservation and pet data in separate DynamoDB tables.
 
@@ -156,16 +160,19 @@ and end date. Returns the new reservation, including a reservation ID assigned b
 - Accepts `POST` request to `/pets`
 - Accepts data to create a new Pet with a provided  pet name, their pet owner's ID. returns the petModel with pet ID assigned by the service.
    
-
 ### 6.2.6 _Update Pet Profile Endpoint_
 - Accepts `PUT` request to `/pets/:id`
 - Accepts data to update a pet with a provided user ID to update desired fields. returns the updated userModel.
     - If the given Pet ID is not found, will throw a `PetIdNotFoundException`
 
-### 6.2.7 _Get Pet by breed Endpoint_
+### 6.2.7 _Get Pet by owner Endpoint_
+- Accepts `GET` request to `/pets/:ownerId`
+- Accepts a pet breed and returns the corresponding pet name, breed, and picture(Stretch goal)
+
+Stretch goal endpoint:
+### 6.2.8 _Get Pet by breed Endpoint_
 - Accepts `GET` request to `/pets/:breed`
 - Accepts a pet breed and returns the corresponding pet name, breed, and picture(Stretch goal)
-  
 
 # 7. Tables
 
@@ -189,7 +196,7 @@ sitterId // String
 ## 7.2 `Pets`
 ```
 id // partition key, string
-ownerId // sort, key, String
+ownerId // String
 petName // String
 breed // String
 
@@ -198,12 +205,17 @@ pet picture //
 pet details
 ```
 
+### 7.2.1 `PetsByOwnerIndex` GSI table
 ```
+ownerId // partition key, String
+petName // string
+```
+
+Stretch goal table:
 ### 7.2.1 `PetsBreedIndex` GSI table
+```
 breed // partition key, String
 petName // string
-
-Stretch goal:
 pet picture //
 ```
 
