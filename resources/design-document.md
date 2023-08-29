@@ -138,43 +138,53 @@ availabilty?
 - Accepts data to create a new reservation with a provided Pet owner ID, pet Sitter ID, pet ID, start date,
 and end date. Returns the new reservation, including a reservation ID assigned by the service.
 
-### 6.2.1 _Get Reservation Endpoint_
-- Accepts `GET` requests to `/reservation/:id`
-- Accepts a reservation ID and returns the corresponding ReservationModel
+### 6.2.1 _Get single Reservation Endpoint_
+- Accepts `GET` requests to `/reservations/:reservationId`
+- Takes the ownerId from cognito
+- Accepts a ownerId and reservation ID and returns the corresponding ReservationModel.
+  - If the given reservation ID is not found, will throw a `ReservationNotFoundException`
+
+### 6.2.1.1 _Get all Reservations by owner Endpoint_
+- Accepts `GET` requests to `/reservations/:`
+- Takes the ownerId from cognito
+- Accepts a owner ID and returns the corresponding list of ReservationModels.
   - If the given reservation ID is not found, will throw a `ReservationNotFoundException`
 
 ### 6.2.2 _Cancel Reservation Endpoint_
-- Accepts a `DELETE` request to `/reservation/:id`
-- Accepts a reservation ID and returns the corresponding Deleted ReservationModel
+- Accepts a `DELETE` request to `/reservations/:reservationId`
+- Takes the ownerId from cognito
+- Accepts a reservation ID and returns the corresponding Deleted ReservationModel.
   - If the given reservation ID is not found, will throw a `ReservationNotFoundException`
 
 ### 6.2.3 _Update Reservation Endpoint_
-- Accepts a `PUT` request to `/reservation/:id`
-- Accepts data to update a reservation including the updated start and end dates. returns the updated reservation
+- Accepts a `PUT` request to `/reservations/:reservationId`
+- Takes the ownerId from cognito
+- Accepts data to update a reservation including the updated start and end dates. returns the updated reservation.
   - If the given reservation ID is not found, will throw a `ReservationNotFoundException`
+  - throws `UnauthorizedOwnerException` if attempted to be updated by an unauthorized user.
 
 ### 6.2.4 _Get Pet Profile Endpoint_
 - Accepts `GET` request to `/pets/:id`
-- Accepts a Pet ID and returns the corresponding PetModel
+- Accepts a Pet ID and returns the corresponding PetModel.
     - If the given pet ID is not found, will throw a `PetIdNotFoundException`
 
 ### 6.2.5 _Create Pet Profile Endpoint_
 - Accepts `POST` request to `/pets`
-- Accepts data to create a new Pet with a provided  pet name, their pet owner's ID. returns the petModel with pet ID assigned by the service.
+- Accepts data to create a new Pet with a provided  pet name, their pet owner's ID, and pet breed. returns the petModel with pet ID assigned by the service.
    
 ### 6.2.6 _Update Pet Profile Endpoint_
 - Accepts `PUT` request to `/pets/:id`
-- Accepts data to update a pet with a provided user ID to update desired fields. returns the updated userModel.
+- Accepts data to update a pet with a provided pet ID to update desired fields. returns the updated userModel.
     - If the given Pet ID is not found, will throw a `PetIdNotFoundException`
 
-### 6.2.7 _Get Pet by owner Endpoint_
-- Accepts `GET` request to `/pets/:ownerId`
-- Accepts a pet breed and returns the corresponding pet name, breed, and picture(Stretch goal)
+### 6.2.7 _Get Pet(s) by owner Endpoint_
+- Accepts `GET` request to `/PetsByOwnerIndex/:ownerId`
+- Accepts a ownerId and returns a list of corresponding pet names.
 
 Stretch goal endpoint:
 ### 6.2.8 _Get Pet by breed Endpoint_
 - Accepts `GET` request to `/pets/:breed`
-- Accepts a pet breed and returns the corresponding pet name, breed, and picture(Stretch goal)
+- Accepts a pet breed and returns the corresponding pet name, breed, and picture(Stretch goal).
 
 # 7. Tables
 
