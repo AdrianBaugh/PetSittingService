@@ -1,186 +1,256 @@
 openapi: 3.0.0
 info:
-  title: Music Playlist Service
-  description: "This is the API definition for the Music Playlist Service."
+  title: River Pet Sitting Service
+  description: "This is the API definition for the River Pet Sitting Service."
   version: 1.0.0
 
 servers:
   - url: http://localhost:3000
 
 tags:
-  - name: Playlists
-    description: Create, view, and update playlists
+  - name: Reservations
+    description: Create, view, delete, and update reservations
 
-  - name: Songs
-    description: View and add songs to playlists
+  - name: Pets
+    description: View, update and add pets to a profile
 
 paths:
 
-  /playlists:
+  /reservations:
     post:
       tags:
-        - Playlists
-      summary: Create a new playlist (CreatePlaylistLambda)
+        - Reservations
+      summary: Create a new reservation (CreateReservationLambda)
       requestBody:
         content:
           application/json:
             schema:
               type: object
               properties:
-                name:
+                startDate:
                   type: string
-                customerId:
+                endDate:
                   type: string
-                tags:
+                ownerId:
+                  type: string
+                pets:
                   type: array
                   items:
                     type: string
+                sitterId:
+                  type: string
       responses:
         "200":
-          description: A playlist object
+          description: A reservation object
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  id:
+                  reservationId:
                     type: string
-                  name:
+                  startDate:
                     type: string
-                  customerId:
+                  endDate:
                     type: string
-                  songCount:
-                    type: integer
-                  tags:
+                  status:
+                    type: string
+                  ownerId:
+                    type: string
+                  pets:
                     type: array
                     items:
                       type: string
-
-  /playlists/{id}:
+                  sitterId:
+                    type: string
     get:
       tags:
-        - Playlists
-      summary: Get an existing playlist (GetPlaylistLambda)
+        - Reservations
+      summary: Get all reservations (GetReservationLambda). Owner Id will be pulled from cognito.
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ownerId:
+                  type: string
+      responses:
+        "200":
+          description: All reservations
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reservationList:
+                    type: array
+                    items:
+                      properties:
+                        reservationId:
+                          type: string
+                        startDate:
+                          type: string
+                        endDate:
+                          type: string
+                        status:
+                          type: string
+
+
+
+  /reservations/{reservationId}:
+    get:
+      tags:
+        - Reservations
+      summary: Get an existing reservation (GetReservationLambda). Owner Id will be pulled from cognito.
       parameters:
-        - name: id
+        - name: reservationId
           in: path
-          description: ID of playlist to retrieve
+          description: reservationId to retrieve
           required: true
           schema:
             type: string
       responses:
         "200":
-          description: PlaylistResponse
+          description: ReservationResponse
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  id:
+                  reservationId:
                     type: string
-                  name:
+                  startDate:
                     type: string
-                  customerId:
+                  endDate:
                     type: string
-                  songCount:
-                    type: integer
-                  tags:
+                  status:
+                    type: string
+                  ownerId:
+                    type: string
+                  pets:
                     type: array
                     items:
                       type: string
+                  sitterId:
+                    type: string
+        "404":
+          description: "Reservation not found"
+
         "500":
-          description: "Invalid input parameters"
+          description: "Invalid input"
 
     put:
       tags:
-        - Playlists
-      summary: Update the name of an existing playlist (UpdatePlaylistLambda)
+        - Reservations
+      summary: Update the existing Reservation (UpdateReservationLambda)
       parameters:
-        - name: id
+        - name: reservationId
           in: path
-          description: ID of playlist to retrieve
+          description: Reservation to update
           required: true
           schema:
             type: string
+
       requestBody:
         content:
           application/json:
             schema:
               type: object
               properties:
-                id:
+                startDate:
                   type: string
-                name:
+                endDate:
                   type: string
-                customerId:
+                ownerId:
                   type: string
 
       responses:
         "200":
-          description: PlaylistResponse
+          description: ReservationResponse
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  id:
+                  reservationId:
                     type: string
-                  name:
+                  startDate:
                     type: string
-                  customerId:
+                  endDate:
                     type: string
-                  songCount:
-                    type: integer
-                  tags:
+                  status:
+                    type: string
+                  ownerId:
+                    type: string
+                  pets:
                     type: array
                     items:
                       type: string
+                  sitterId:
+                    type: string
         "500":
           description: "Invalid input parameters"
 
-  /playlists/{id}/songs:
-    get:
+    delete:
       tags:
-        - Songs
-      summary: Retrieves a list of all songs in a playlist (GetPlaylistSongsLambda)
-      operationId: getSongs
+        - Reservations
+      summary: Delete an existing Reservation (CancelReservationLambda)
       parameters:
-        - name: id
+        - name: reservationId
           in: path
-          description: ID of playlist to return
+          description: reservationId to delete
           required: true
           schema:
             type: string
       responses:
         "200":
-          description: A playlist object
+          description: ReservationResponse
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  songList:
-                    type: array
-                    items:
-                      properties:
-                        asin:
-                          type: string
-                        title:
-                          type: string
-                        album:
-                          type: string
-                        trackNumber:
-                          type: integer
+                  reservationId:
+                    type: string
 
-    post:
+  /pets/{petId}:
+    get:
       tags:
-        - Songs
-      summary: Add a song to a playlist (AddSongToPlaylistLambda)
-      operationId: addSong
+        - Pets
+      summary: Retrieves a pet(GetPetLambda)
+      operationId: getPet
       parameters:
-        - name: id
+        - name: petId
           in: path
-          description: ID of playlist to return
+          description: ID of pet to return
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: A pet object
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  petId:
+                    type: string
+                  ownerId:
+                    type: string
+                  petName:
+                    type: string
+    put:
+      tags:
+        - Pets
+      summary: Updates a pet a user owns (UpdatePetLambda)
+      operationId: updatePet
+      parameters:
+        - name: petId
+          in: path
+          description: Id of pet to update
           required: true
           schema:
             type: string
@@ -190,30 +260,84 @@ paths:
             schema:
               type: object
               properties:
-                asin:
+                petName:
                   type: string
-                trackNumber:
-                  type: integer
-                id:
-                  type: string
-
       responses:
         "200":
-          description: the song
+          description: An updated pet object
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  songList:
+                  petId:
+                    type: string
+                  ownerId:
+                    type: string
+                  petName:
+                    type: string
+        "500":
+          description: "Invalid input parameters"
+
+  /pets:
+    post:
+      tags:
+        - Pets
+      summary: Add a pet to a profle (AddPetLambda)
+      operationId: addPet
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ownerId:
+                  type: string
+                petName:
+                  type: string
+
+      responses:
+        "200":
+          description: the pet that got added.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  petId:
+                    type: string
+                  ownerId:
+                    type: string
+                  petName:
+                    type: string
+
+    get:
+      tags:
+        - Pets
+      summary: Get all pets (GetPetLambda). Owner Id will be pulled from cognito.
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ownerId:
+                  type: string
+      responses:
+        "200":
+          description: All pets
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  petList:
                     type: array
                     items:
                       properties:
-                        asin:
+                        petId:
                           type: string
-                        title:
+                        petName:
                           type: string
-                        album:
-                          type: string
-                        trackNumber:
-                          type: integer
+
