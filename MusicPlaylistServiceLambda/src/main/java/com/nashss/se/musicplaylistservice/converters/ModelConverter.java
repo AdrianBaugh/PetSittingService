@@ -2,8 +2,10 @@ package com.nashss.se.musicplaylistservice.converters;
 
 import com.nashss.se.musicplaylistservice.dynamodb.models.Pet;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Reservation;
-import com.nashss.se.musicplaylistservice.models.PlaylistModel;
+
 import com.nashss.se.musicplaylistservice.models.PetModel;
+import com.nashss.se.musicplaylistservice.models.ReservationModel;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,18 +15,18 @@ import java.util.List;
  */
 public class ModelConverter {
     /**
-     * Converts a provided {@link Reservation} into a {@link PlaylistModel} representation.
+     * Converts a provided {@link Reservation} into a {@link ReservationModel} representation.
      *
      * @param playlist the playlist to convert
      * @return the converted playlist
      */
-    public PlaylistModel toPlaylistModel(Reservation playlist) {
+    public ReservationModel toPlaylistModel(Reservation playlist) {
         List<String> tags = null;
         if (playlist.getTags() != null) {
             tags = new ArrayList<>(playlist.getTags());
         }
 
-        return PlaylistModel.builder()
+        return ReservationModel.builder()
                 .withId(playlist.getReservationId())
                 .withName(playlist.getPetOwnerId())
                 .withCustomerId(playlist.getSitterId())
@@ -70,8 +72,8 @@ public class ModelConverter {
      * @param playlists The Playlists to convert to PlaylistModels
      * @return The converted list of PlaylistModels
      */
-    public List<PlaylistModel> toPlaylistModelList(List<Reservation> playlists) {
-        List<PlaylistModel> playlistModels = new ArrayList<>();
+    public List<ReservationModel> toPlaylistModelList(List<Reservation> playlists) {
+        List<ReservationModel> playlistModels = new ArrayList<>();
 
         for (Reservation playlist : playlists) {
             playlistModels.add(toPlaylistModel(playlist));

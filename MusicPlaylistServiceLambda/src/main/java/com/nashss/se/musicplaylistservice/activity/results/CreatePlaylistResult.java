@@ -1,15 +1,15 @@
 package com.nashss.se.musicplaylistservice.activity.results;
 
-import com.nashss.se.musicplaylistservice.models.PlaylistModel;
+import com.nashss.se.musicplaylistservice.models.ReservationModel;
 
 public class CreatePlaylistResult {
-    private final PlaylistModel playlist;
+    private final ReservationModel playlist;
 
-    private CreatePlaylistResult(PlaylistModel playlist) {
+    private CreatePlaylistResult(ReservationModel playlist) {
         this.playlist = playlist;
     }
 
-    public PlaylistModel getPlaylist() {
+    public ReservationModel getPlaylist() {
         return playlist;
     }
 
@@ -26,9 +26,9 @@ public class CreatePlaylistResult {
     }
 
     public static class Builder {
-        private PlaylistModel playlist;
+        private ReservationModel playlist;
 
-        public Builder withPlaylist(PlaylistModel playlist) {
+        public Builder withPlaylist(ReservationModel playlist) {
             this.playlist = playlist;
             return this;
         }

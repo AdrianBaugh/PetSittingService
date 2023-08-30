@@ -8,7 +8,7 @@ import com.nashss.se.musicplaylistservice.dynamodb.models.Reservation;
 import com.nashss.se.musicplaylistservice.exceptions.InvalidAttributeValueException;
 import com.nashss.se.musicplaylistservice.metrics.MetricsConstants;
 import com.nashss.se.musicplaylistservice.metrics.MetricsPublisher;
-import com.nashss.se.musicplaylistservice.models.PlaylistModel;
+import com.nashss.se.musicplaylistservice.models.ReservationModel;
 import com.nashss.se.projectresources.music.playlist.servic.util.MusicPlaylistServiceUtils;
 
 import org.apache.logging.log4j.LogManager;
@@ -55,7 +55,7 @@ public class UpdatePlaylistActivity {
      *
      * @param updatePlaylistRequest request object containing the playlist ID, playlist name, and customer ID
      *                              associated with it
-     * @return updatePlaylistResult result object containing the API defined {@link PlaylistModel}
+     * @return updatePlaylistResult result object containing the API defined {@link ReservationModel}
      */
     public UpdatePlaylistResult handleRequest(final UpdatePlaylistRequest updatePlaylistRequest) {
         log.info("Received UpdatePlaylistRequest {}", updatePlaylistRequest);

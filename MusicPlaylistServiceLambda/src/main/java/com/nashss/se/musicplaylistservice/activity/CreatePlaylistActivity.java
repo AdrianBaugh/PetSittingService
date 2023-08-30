@@ -6,7 +6,7 @@ import com.nashss.se.musicplaylistservice.converters.ModelConverter;
 import com.nashss.se.musicplaylistservice.dynamodb.PlaylistDao;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Reservation;
 import com.nashss.se.musicplaylistservice.exceptions.InvalidAttributeValueException;
-import com.nashss.se.musicplaylistservice.models.PlaylistModel;
+import com.nashss.se.musicplaylistservice.models.ReservationModel;
 
 import com.nashss.se.projectresources.music.playlist.servic.util.MusicPlaylistServiceUtils;
 
@@ -48,7 +48,7 @@ public class CreatePlaylistActivity {
      *
      * @param createPlaylistRequest request object containing the playlist name and customer ID
      *                              associated with it
-     * @return createPlaylistResult result object containing the API defined {@link PlaylistModel}
+     * @return createPlaylistResult result object containing the API defined {@link ReservationModel}
      */
     public CreatePlaylistResult handleRequest(final CreatePlaylistRequest createPlaylistRequest) {
         log.info("Received CreatePlaylistRequest {}", createPlaylistRequest);
@@ -79,7 +79,7 @@ public class CreatePlaylistActivity {
 
         playlistDao.savePlaylist(newPlaylist);
 
-        PlaylistModel playlistModel = new ModelConverter().toPlaylistModel(newPlaylist);
+        ReservationModel playlistModel = new ModelConverter().toPlaylistModel(newPlaylist);
         return CreatePlaylistResult.builder()
                 .withPlaylist(playlistModel)
                 .build();
