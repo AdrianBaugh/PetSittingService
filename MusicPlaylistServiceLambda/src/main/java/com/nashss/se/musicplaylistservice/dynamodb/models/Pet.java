@@ -2,12 +2,13 @@ package com.nashss.se.musicplaylistservice.dynamodb.models;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBIndexHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 
 import java.util.Objects;
 
 /**
- * Represents a record in the album_tracks table.
+ * Represents a Pet in the Pets table.
  */
 @DynamoDBTable(tableName = "pets")
 public class Pet {
@@ -15,7 +16,7 @@ public class Pet {
     private String petName;
     private String ownerId;
 
-
+    private static final String GSI_INDEX_NAME = "PetsByOwnerIndex";
     @DynamoDBHashKey(attributeName = "petId")
     public String getPetId() {
         return petId;
@@ -35,6 +36,7 @@ public class Pet {
     }
 
     @DynamoDBAttribute(attributeName = "ownerId")
+    @DynamoDBIndexHashKey(globalSecondaryIndexName = GSI_INDEX_NAME)
     public String getOwnerId() {
         return ownerId;
     }

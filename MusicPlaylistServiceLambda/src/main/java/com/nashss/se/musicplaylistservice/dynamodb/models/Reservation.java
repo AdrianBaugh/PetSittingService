@@ -2,6 +2,7 @@ package com.nashss.se.musicplaylistservice.dynamodb.models;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
 import com.nashss.se.musicplaylistservice.converters.AlbumTrackLinkedListConverter;
+import com.nashss.se.musicplaylistservice.converters.LocalDateConverter;
 
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -51,7 +52,7 @@ public class Reservation {
     }
 
     @DynamoDBAttribute(attributeName = "startDate")
-    @DynamoDBTypeConverted(converter = _TO_BE_NAMED_)
+    @DynamoDBTypeConverted(converter = LocalDateConverter.class)
     public LocalDate getStartDate() {
         return startDate;
     }
@@ -61,7 +62,7 @@ public class Reservation {
     }
 
     @DynamoDBAttribute(attributeName = "endDate")
-    @DynamoDBTypeConverted(converter = _TO_BE_NAMED_)
+    @DynamoDBTypeConverted(converter = LocalDateConverter.class)
     public LocalDate getEndDate() {
         return endDate;
     }
