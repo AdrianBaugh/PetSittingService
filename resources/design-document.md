@@ -16,21 +16,23 @@ _List the most important questions you have about your design, or things that yo
 
 ## 3. Use Cases
 
-U1. _As a [pet owner] customer, I want to create a new reservation with an available [pet sitter]_
+U1. _As a [pet owner], I want to create a new reservation with an available [pet sitter]_
 
-U2. _As a [pet owner] customer, I want to view(get) my active reservations_
+U2. _As a [pet owner], I want to view(get) a list of reservations_
 
-U3. _As a [pet owner] customer, I want to update an active reservation_
+U3. _As a [pet owner], I want to view(get) a single reservation_
 
-U4. _As a [pet owner] customer, I want to delete/cancel an active reservation_
+U4. _As a [pet owner], I want to update an active reservation_
 
-U5. _As a [pet owner] customer, I want to view my pet's profile_
+U5. _As a [pet owner], I want to delete/cancel an active reservation_
 
-U6. _As a [pet owner] customer, I want to update my pet's profile_
+U6. _As a [pet owner], I want to view my pet's profile_
 
-U7. _As a [pet owner] customer, I want to add a new pet to my list of pet profiles_
+U7. _As a [pet owner], I want to update my pet's profile_
 
-U7. _As a [pet owner] customer, I want to view a list of my pets_
+U8. _As a [pet owner], I want to add a new pet to my list of pet profiles_
+
+U9. _As a [pet owner], I want to view a list of my pets_
 
 
 ## 3.1 Stretch Use cases:
@@ -76,6 +78,7 @@ It will also allow users to set up and manage pet profiles.
 We will use API Gateway and AWS Lambda to create the following endpoints: 
 - CreateReservation
 - GetReservation
+- GetReservations
 - UpdateReservation
 - CancelReservation
 - GetPetProfile
@@ -135,8 +138,8 @@ availabilty?
 
 ### 6.2.0 _Create Reservation Endpoint_
 - Accepts `POST` requests to `/reservations`
-- Accepts data to create a new reservation with a provided Pet owner ID, pet Sitter ID, pet ID, start date,
-and end date. Returns the new reservation, including a reservation ID assigned by the service.
+- Accepts data to create a new reservation with a provided Pet owner ID, pet Sitter ID, a list of pet ID, start date,
+and end date. Returns the new reservation, including a status and reservation ID assigned by the service.
 
 ### 6.2.1 _Get single Reservation Endpoint_
 - Accepts `GET` requests to `/reservations/:reservationId`
@@ -199,7 +202,7 @@ reservationId // sort, key, String
 startDate // string (converted date)
 endDate // string (converted date)
 status // String
-petId // String
+pets // List of String of petIds
 
 Stretch goal:
 sitterId // String
