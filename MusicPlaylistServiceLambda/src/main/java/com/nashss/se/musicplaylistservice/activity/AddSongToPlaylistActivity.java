@@ -7,7 +7,7 @@ import com.nashss.se.musicplaylistservice.dynamodb.AlbumTrackDao;
 import com.nashss.se.musicplaylistservice.dynamodb.PlaylistDao;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Pet;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Reservation;
-import com.nashss.se.musicplaylistservice.models.SongModel;
+import com.nashss.se.musicplaylistservice.models.PetModel;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -51,7 +51,7 @@ public class AddSongToPlaylistActivity {
      * @param addSongToPlaylistRequest request object containing the playlist ID and an asin and track number
      *                                 to retrieve the song data
      * @return addSongToPlaylistResult result object containing the playlist's updated list of
-     *                                 API defined {@link SongModel}s
+     *                                 API defined {@link PetModel}s
      */
     public AddSongToPlaylistResult handleRequest(final AddSongToPlaylistRequest addSongToPlaylistRequest) {
         log.info("Received AddSongToPlaylistRequest {} ", addSongToPlaylistRequest);
@@ -79,9 +79,9 @@ public class AddSongToPlaylistActivity {
         playlist.setEndDate(playlist.getPetList().size());
         playlist = playlistDao.savePlaylist(playlist);
 
-        List<SongModel> songModels = new ModelConverter().toSongModelList(playlist.getPetList());
+        List<PetModel> petModels = new ModelConverter().toSongModelList(playlist.getPetList());
         return AddSongToPlaylistResult.builder()
-                .withSongList(songModels)
+                .withSongList(petModels)
                 .build();
     }
 }

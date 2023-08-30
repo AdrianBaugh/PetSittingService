@@ -2,7 +2,7 @@ package com.nashss.se.musicplaylistservice.converters;
 
 import com.nashss.se.musicplaylistservice.dynamodb.models.Pet;
 import com.nashss.se.musicplaylistservice.models.PlaylistModel;
-import com.nashss.se.musicplaylistservice.models.SongModel;
+import com.nashss.se.musicplaylistservice.models.PetModel;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Reservation;
 import com.nashss.se.musicplaylistservice.test.helper.AlbumTrackTestHelper;
 
@@ -59,7 +59,7 @@ public class ModelConverterTest {
         Pet pet = AlbumTrackTestHelper.generateAlbumTrack(2);
 
         // WHEN
-        SongModel result = modelConverter.toSongModel(pet);
+        PetModel result = modelConverter.toPetModel(pet);
 
         // THEN
         AlbumTrackTestHelper.assertAlbumTrackEqualsSongModel(
@@ -82,7 +82,7 @@ public class ModelConverterTest {
         }
 
         // WHEN
-        List<SongModel> result = modelConverter.toSongModelList(pets);
+        List<PetModel> result = modelConverter.toSongModelList(pets);
 
         // THEN
         AlbumTrackTestHelper.assertAlbumTracksEqualSongModels(pets, result);

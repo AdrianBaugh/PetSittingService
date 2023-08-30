@@ -4,7 +4,7 @@ import com.nashss.se.musicplaylistservice.activity.requests.AddSongToPlaylistReq
 import com.nashss.se.musicplaylistservice.activity.results.AddSongToPlaylistResult;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Pet;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Reservation;
-import com.nashss.se.musicplaylistservice.models.SongModel;
+import com.nashss.se.musicplaylistservice.models.PetModel;
 import com.nashss.se.musicplaylistservice.dynamodb.AlbumTrackDao;
 import com.nashss.se.musicplaylistservice.dynamodb.PlaylistDao;
 import com.nashss.se.musicplaylistservice.exceptions.AlbumTrackNotFoundException;
@@ -68,7 +68,7 @@ public class AddSongToReservationActivityTest {
         verify(playlistDao).savePlaylist(originalPlaylist);
 
         assertEquals(2, result.getSongList().size());
-        SongModel secondSong = result.getSongList().get(1);
+        PetModel secondSong = result.getSongList().get(1);
         AlbumTrackTestHelper.assertAlbumTrackEqualsSongModel(petToAdd, secondSong);
     }
 
@@ -144,7 +144,7 @@ public class AddSongToReservationActivityTest {
         verify(playlistDao).savePlaylist(originalPlaylist);
 
         assertEquals(startingTrackCount + 1, result.getSongList().size());
-        SongModel lastSong = result.getSongList().get(result.getSongList().size() - 1);
+        PetModel lastSong = result.getSongList().get(result.getSongList().size() - 1);
         AlbumTrackTestHelper.assertAlbumTrackEqualsSongModel(petToAdd, lastSong);
     }
 
@@ -180,7 +180,7 @@ public class AddSongToReservationActivityTest {
         verify(playlistDao).savePlaylist(originalPlaylist);
 
         assertEquals(startingPlaylistSize + 1, result.getSongList().size());
-        SongModel firstSong = result.getSongList().get(0);
+        PetModel firstSong = result.getSongList().get(0);
         AlbumTrackTestHelper.assertAlbumTrackEqualsSongModel(petToAdd, firstSong);
     }
 }

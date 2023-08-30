@@ -4,7 +4,7 @@ import com.nashss.se.musicplaylistservice.activity.requests.GetPlaylistSongsRequ
 import com.nashss.se.musicplaylistservice.activity.results.GetPlaylistSongsResult;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Reservation;
 import com.nashss.se.musicplaylistservice.models.SongOrder;
-import com.nashss.se.musicplaylistservice.models.SongModel;
+import com.nashss.se.musicplaylistservice.models.PetModel;
 import com.nashss.se.musicplaylistservice.converters.ModelConverter;
 import com.nashss.se.musicplaylistservice.dynamodb.PlaylistDao;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Pet;
@@ -119,7 +119,7 @@ public class GetReservationSongsActivityTest {
         Reservation playlist = PlaylistTestHelper.generatePlaylistWithNAlbumTracks(8);
         String playlistId = playlist.getReservationId();
 
-        List<SongModel> songModels = new ModelConverter().toSongModelList(playlist.getPetList());
+        List<PetModel> petModels = new ModelConverter().toSongModelList(playlist.getPetList());
 
         GetPlaylistSongsRequest request = GetPlaylistSongsRequest.builder()
                                               .withId(playlistId)
@@ -137,12 +137,12 @@ public class GetReservationSongsActivityTest {
                                    playlist.getPetList(),
                                    result.getSongList()));
         assertTrue(
-            songModels.containsAll(result.getSongList()),
+            petModels.containsAll(result.getSongList()),
             String.format("album list (%s) and song models (%s) are the same length, but don't contain the same " +
                           "entries. Expected song models: %s. Returned song models: %s",
                           playlist.getPetList(),
                           result.getSongList(),
-                          songModels,
+                    petModels,
                           result.getSongList()));
     }
 

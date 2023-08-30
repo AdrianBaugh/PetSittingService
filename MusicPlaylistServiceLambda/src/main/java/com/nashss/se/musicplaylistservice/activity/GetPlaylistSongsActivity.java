@@ -6,7 +6,7 @@ import com.nashss.se.musicplaylistservice.converters.ModelConverter;
 import com.nashss.se.musicplaylistservice.dynamodb.PlaylistDao;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Reservation;
 import com.nashss.se.musicplaylistservice.exceptions.InvalidAttributeValueException;
-import com.nashss.se.musicplaylistservice.models.SongModel;
+import com.nashss.se.musicplaylistservice.models.PetModel;
 import com.nashss.se.musicplaylistservice.models.SongOrder;
 
 import org.apache.logging.log4j.LogManager;
@@ -44,7 +44,7 @@ public class GetPlaylistSongsActivity {
      * If the playlist does not exist, this should throw a PlaylistNotFoundException.
      *
      * @param getPlaylistSongsRequest request object containing the playlist ID
-     * @return getPlaylistSongsResult result object containing the playlist's list of API defined {@link SongModel}s
+     * @return getPlaylistSongsResult result object containing the playlist's list of API defined {@link PetModel}s
      */
     public GetPlaylistSongsResult handleRequest(final GetPlaylistSongsRequest getPlaylistSongsRequest) {
         log.info("Received GetPlaylistSongsRequest {}", getPlaylistSongsRequest);
@@ -52,16 +52,16 @@ public class GetPlaylistSongsActivity {
         String songOrder = computeSongOrder(getPlaylistSongsRequest.getOrder());
 
         Reservation playlist = playlistDao.getPlaylist(getPlaylistSongsRequest.getId());
-        List<SongModel> songModels = new ModelConverter().toSongModelList(playlist.getPetList());
+        List<PetModel> petModels = new ModelConverter().toSongModelList(playlist.getPetList());
 
         if (songOrder.equals(SongOrder.REVERSED)) {
-            Collections.reverse(songModels);
+            Collections.reverse(petModels);
         } else if (songOrder.equals(SongOrder.SHUFFLED)) {
-            Collections.shuffle(songModels);
+            Collections.shuffle(petModels);
         }
 
         return GetPlaylistSongsResult.builder()
-                .withSongList(songModels)
+                .withSongList(petModels)
                 .build();
     }
 

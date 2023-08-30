@@ -3,7 +3,7 @@ package com.nashss.se.musicplaylistservice.converters;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Pet;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Reservation;
 import com.nashss.se.musicplaylistservice.models.PlaylistModel;
-import com.nashss.se.musicplaylistservice.models.SongModel;
+import com.nashss.se.musicplaylistservice.models.PetModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,17 +35,16 @@ public class ModelConverter {
     }
 
     /**
-     * Converts a provided Pet into a SongModel representation.
+     * Converts a provided Pet into a PetModel representation.
      *
-     * @param pet the Pet to convert to SongModel
-     * @return the converted SongModel with fields mapped from pet
+     * @param pet the Pet to convert to PetModel
+     * @return the converted PetModel with fields mapped from pet
      */
-    public SongModel toSongModel(Pet pet) {
-        return SongModel.builder()
-                .withAsin(pet.getPetId())
-                .withTrackNumber(pet.getPetName())
-                .withAlbum(pet.getOwnerId())
-                .withTitle(pet.getSongTitle())
+    public PetModel toPetModel(Pet pet) {
+        return PetModel.builder()
+                .withPetId(pet.getPetId())
+                .withPetName(pet.getPetName())
+                .withOwnerId(pet.getOwnerId())
                 .build();
     }
 
@@ -55,14 +54,14 @@ public class ModelConverter {
      * @param pets The AlbumTracks to convert to SongModels
      * @return The converted list of SongModels
      */
-    public List<SongModel> toSongModelList(List<Pet> pets) {
-        List<SongModel> songModels = new ArrayList<>();
+    public List<PetModel> toSongModelList(List<Pet> pets) {
+        List<PetModel> petModels = new ArrayList<>();
 
         for (Pet pet : pets) {
-            songModels.add(toSongModel(pet));
+            petModels.add(toPetModel(pet));
         }
 
-        return songModels;
+        return petModels;
     }
 
     /**
