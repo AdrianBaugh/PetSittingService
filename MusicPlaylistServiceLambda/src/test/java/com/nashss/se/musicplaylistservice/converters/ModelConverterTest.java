@@ -33,7 +33,7 @@ public class ModelConverterTest {
         playlist.setEndDate(0);
         playlist.setTags(Sets.newHashSet("tag"));
 
-        ReservationModel playlistModel = modelConverter.toPlaylistModel(playlist);
+        ReservationModel playlistModel = modelConverter.toReservationModel(playlist);
         assertEquals(playlist.getReservationId(), playlistModel.getId());
         assertEquals(playlist.getPetOwnerId(), playlistModel.getName());
         assertEquals(playlist.getSitterId(), playlistModel.getCustomerId());
@@ -50,7 +50,7 @@ public class ModelConverterTest {
         playlist.setEndDate(0);
         playlist.setTags(null);
 
-        ReservationModel playlistModel = modelConverter.toPlaylistModel(playlist);
+        ReservationModel playlistModel = modelConverter.toReservationModel(playlist);
         assertEquals(playlist.getReservationId(), playlistModel.getId());
         assertEquals(playlist.getPetOwnerId(), playlistModel.getName());
         assertEquals(playlist.getSitterId(), playlistModel.getCustomerId());
@@ -87,7 +87,7 @@ public class ModelConverterTest {
         }
 
         // WHEN
-        List<PetModel> result = modelConverter.toSongModelList(pets);
+        List<PetModel> result = modelConverter.toPetModelList(pets);
 
         // THEN
         AlbumTrackTestHelper.assertAlbumTracksEqualSongModels(pets, result);

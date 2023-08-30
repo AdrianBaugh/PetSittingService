@@ -78,7 +78,7 @@ public class UpdatePlaylistActivity {
 
         publishExceptionMetrics(false, false);
         return UpdatePlaylistResult.builder()
-                .withPlaylist(new ModelConverter().toPlaylistModel(playlist))
+                .withPlaylist(new ModelConverter().toReservationModel(playlist))
                 .build();
     }
 

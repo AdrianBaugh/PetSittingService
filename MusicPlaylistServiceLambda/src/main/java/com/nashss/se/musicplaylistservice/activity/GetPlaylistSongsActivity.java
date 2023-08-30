@@ -52,7 +52,7 @@ public class GetPlaylistSongsActivity {
         String songOrder = computeSongOrder(getPlaylistSongsRequest.getOrder());
 
         Reservation playlist = playlistDao.getPlaylist(getPlaylistSongsRequest.getId());
-        List<PetModel> petModels = new ModelConverter().toSongModelList(playlist.getPetList());
+        List<PetModel> petModels = new ModelConverter().toPetModelList(playlist.getPetList());
 
         if (songOrder.equals(SongOrder.REVERSED)) {
             Collections.reverse(petModels);

@@ -50,7 +50,7 @@ public class SearchPlaylistsActivity {
         String[] criteriaArray = criteria.isBlank() ? new String[0] : criteria.split("\\s");
 
         List<Reservation> results = playlistDao.searchPlaylists(criteriaArray);
-        List<ReservationModel> playlistModels = new ModelConverter().toPlaylistModelList(results);
+        List<ReservationModel> playlistModels = new ModelConverter().toReservationModelList(results);
 
         return SearchPlaylistsResult.builder()
                 .withPlaylists(playlistModels)

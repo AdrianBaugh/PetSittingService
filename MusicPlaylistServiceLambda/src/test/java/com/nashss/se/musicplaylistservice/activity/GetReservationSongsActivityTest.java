@@ -119,7 +119,7 @@ public class GetReservationSongsActivityTest {
         Reservation playlist = PlaylistTestHelper.generatePlaylistWithNAlbumTracks(8);
         String playlistId = playlist.getReservationId();
 
-        List<PetModel> petModels = new ModelConverter().toSongModelList(playlist.getPetList());
+        List<PetModel> petModels = new ModelConverter().toPetModelList(playlist.getPetList());
 
         GetPlaylistSongsRequest request = GetPlaylistSongsRequest.builder()
                                               .withId(playlistId)

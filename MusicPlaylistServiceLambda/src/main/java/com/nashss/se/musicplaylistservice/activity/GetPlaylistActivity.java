@@ -45,7 +45,7 @@ public class GetPlaylistActivity {
         log.info("Received GetPlaylistRequest {}", getPlaylistRequest);
         String requestedId = getPlaylistRequest.getId();
         Reservation playlist = playlistDao.getPlaylist(requestedId);
-        ReservationModel playlistModel = new ModelConverter().toPlaylistModel(playlist);
+        ReservationModel playlistModel = new ModelConverter().toReservationModel(playlist);
 
         return GetPlaylistResult.builder()
                 .withPlaylist(playlistModel)

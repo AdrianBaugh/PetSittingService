@@ -17,22 +17,19 @@ public class ModelConverter {
     /**
      * Converts a provided {@link Reservation} into a {@link ReservationModel} representation.
      *
-     * @param playlist the playlist to convert
-     * @return the converted playlist
+     * @param reservation the reservation to convert
+     * @return the converted reservation
      */
-    public ReservationModel toPlaylistModel(Reservation playlist) {
-        List<String> tags = null;
-        if (playlist.getTags() != null) {
-            tags = new ArrayList<>(playlist.getTags());
-        }
+    public ReservationModel toReservationModel(Reservation reservation) {
 
         return ReservationModel.builder()
-                .withId(playlist.getReservationId())
-                .withName(playlist.getPetOwnerId())
-                .withCustomerId(playlist.getSitterId())
-                .withCustomerName(playlist.getStartDate())
-                .withSongCount(playlist.getEndDate())
-                .withTags(tags)
+                .withReservationId(reservation.getReservationId())
+                .withPetOwnerId(reservation.getPetOwnerId())
+                .withSitterId(reservation.getSitterId())
+                .withStartDate(reservation.getStartDate())
+                .withEndDate(reservation.getEndDate())
+                .withPetList(reservation.getPetList())
+                .withStatus(reservation.getStatus())
                 .build();
     }
 
@@ -51,12 +48,12 @@ public class ModelConverter {
     }
 
     /**
-     * Converts a list of AlbumTracks to a list of SongModels.
+     * Converts a list of pets to a list of PetModels.
      *
-     * @param pets The AlbumTracks to convert to SongModels
-     * @return The converted list of SongModels
+     * @param pets The pets to convert to PetModels
+     * @return The converted list of PetModels
      */
-    public List<PetModel> toSongModelList(List<Pet> pets) {
+    public List<PetModel> toPetModelList(List<Pet> pets) {
         List<PetModel> petModels = new ArrayList<>();
 
         for (Pet pet : pets) {
@@ -67,18 +64,18 @@ public class ModelConverter {
     }
 
     /**
-     * Converts a list of Playlists to a list of PlaylistModels.
+     * Converts a list of Reservations to a list of Reservation Models.
      *
-     * @param playlists The Playlists to convert to PlaylistModels
-     * @return The converted list of PlaylistModels
+     * @param reservations The Reservations to convert to ReservationsModels
+     * @return The converted list of ReservationModels
      */
-    public List<ReservationModel> toPlaylistModelList(List<Reservation> playlists) {
-        List<ReservationModel> playlistModels = new ArrayList<>();
+    public List<ReservationModel> toReservationModelList(List<Reservation> reservations) {
+        List<ReservationModel> reservationModels = new ArrayList<>();
 
-        for (Reservation playlist : playlists) {
-            playlistModels.add(toPlaylistModel(playlist));
+        for (Reservation reservation : reservations) {
+            reservationModels.add(toReservationModel(reservation));
         }
 
-        return playlistModels;
+        return reservationModels;
     }
 }

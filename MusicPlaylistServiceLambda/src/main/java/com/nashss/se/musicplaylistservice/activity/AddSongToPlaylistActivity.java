@@ -79,7 +79,7 @@ public class AddSongToPlaylistActivity {
         playlist.setEndDate(playlist.getPetList().size());
         playlist = playlistDao.savePlaylist(playlist);
 
-        List<PetModel> petModels = new ModelConverter().toSongModelList(playlist.getPetList());
+        List<PetModel> petModels = new ModelConverter().toPetModelList(playlist.getPetList());
         return AddSongToPlaylistResult.builder()
                 .withSongList(petModels)
                 .build();

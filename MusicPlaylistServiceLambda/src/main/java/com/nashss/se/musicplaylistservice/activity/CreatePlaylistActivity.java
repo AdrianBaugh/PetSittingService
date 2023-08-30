@@ -79,7 +79,7 @@ public class CreatePlaylistActivity {
 
         playlistDao.savePlaylist(newPlaylist);
 
-        ReservationModel playlistModel = new ModelConverter().toPlaylistModel(newPlaylist);
+        ReservationModel playlistModel = new ModelConverter().toReservationModel(newPlaylist);
         return CreatePlaylistResult.builder()
                 .withPlaylist(playlistModel)
                 .build();
