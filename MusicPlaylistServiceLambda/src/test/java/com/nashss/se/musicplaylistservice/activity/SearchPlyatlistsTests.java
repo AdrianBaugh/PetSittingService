@@ -4,7 +4,7 @@ import com.nashss.se.musicplaylistservice.activity.requests.SearchPlaylistsReque
 import com.nashss.se.musicplaylistservice.activity.results.SearchPlaylistsResult;
 import com.nashss.se.musicplaylistservice.dynamodb.PlaylistDao;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Reservation;
-import com.nashss.se.musicplaylistservice.models.PlaylistModel;
+import com.nashss.se.musicplaylistservice.models.ReservationModel;
 
 import com.google.common.collect.Sets;
 
@@ -52,7 +52,7 @@ public class SearchPlyatlistsTests {
         SearchPlaylistsResult result = searchPlaylistsActivity.handleRequest(request);
 
         // THEN
-        List<PlaylistModel> resultPlaylists = result.getPlaylists();
+        List<ReservationModel> resultPlaylists = result.getPlaylists();
         assertEquals(expected.size(), resultPlaylists.size());
 
         for (int i=0; i<expected.size(); i++) {
