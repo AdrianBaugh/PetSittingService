@@ -1,75 +1,239 @@
 # Design Document
 
-## Instructions
-
-_Replace italicized text (including this text!) with details of the design you are proposing for your team project. (Your replacement text shouldn't be in italics)._
-
-_You should take a look at the [example design document](example-design-document.md) in the same folder as this template for more guidance on the types of information to capture, and the level of detail to aim for._
-
-## _Project Title_ Design
+# _river Pet Sitting Application_ Design
 
 ## 1. Problem Statement
 
-_Explain clearly what problem you are trying to solve._
+_**river** is an application to provide pet owners with pet sitters._
 
 ## 2. Top Questions to Resolve in Review
 
 _List the most important questions you have about your design, or things that you are still debating internally that you might like help working through._
 
-1.
-2.
-3.
+1. Do we need a calendar or a list of dates as the calendar?
+2. Should we have a user table at all? If so, should it have 1 table for users OR 1 table for owners and 1 for sitters?
+3. Best way to add pictures?
 
 ## 3. Use Cases
 
-_This is where we work backwards from the customer and define what our customers would like to do (and why). You may also include use cases for yourselves (as developers), or for the organization providing the product to customers._
+U1. _As a [pet owner], I want to create a new reservation with an available [pet sitter]_
 
-U1. _As a [product] customer, I want to `<result>` when I `<action>`_
+U2. _As a [pet owner], I want to view(get) a list of reservations_
 
-U2. _As a [product] customer, I want to view my grocery list when I log into the grocery list page_
+U3. _As a [pet owner], I want to view(get) a single reservation_
 
-U3. ...
+U4. _As a [pet owner], I want to update an active reservation_
 
-## 4. Project Scope
+U5. _As a [pet owner], I want to delete/cancel an active reservation_
 
-_Clarify which parts of the problem you intend to solve. It helps reviewers know what questions to ask to make sure you are solving for what you say and stops discussions from getting sidetracked by aspects you do not intend to handle in your design._
+U6. _As a [pet owner], I want to view my pet's profile_
+
+U7. _As a [pet owner], I want to update my pet's profile_
+
+U8. _As a [pet owner], I want to add a new pet to my list of pet profiles_
+
+U9. _As a [pet owner], I want to view a list of my pets_
+
+
+## 3.1 Stretch Use cases:
+SU0. Add [pet sitter] functionality
+
+  SU0.1 _As a [pet sitter] customer, I want to view upcoming reservations_
+  
+  SU0.2 _As a [pet sitter] customer, I want to delete/cancel an active reservation_
+
+SU1. Reviews and rating for pets
+
+SU2. Messaging between users (sitters and owners).
+
+SU3. Reviews and rating for sitters 
+
+SU4. Set availability 
+
+SU5. Invites to accept a booking
+
+SU6. View/ sort pets by breed
+
+
+# 4. Project Scope
 
 ### 4.1. In Scope
 
-_Which parts of the problem defined in Sections 1 and 2 will you solve with this design? This should include the base functionality of your product. What pieces are required for your product to work?_
+- creating, retrieving, updating, deleting a reservation.
+- retrieving all pets a owner has.
+- viewing pet profiles
 
-_The functionality described above should be what your design is focused on. You do not need to include the design for any out of scope features or expansions._
 
 ### 4.2. Out of Scope
 
-_Based on your problem description in Sections 1 and 2, are there any aspects you are not planning to solve? Do potential expansions or related problems occur to you that you want to explicitly say you are not worrying about now? Feel free to put anything here that you think your team can't accomplish in the unit, but would love to do with more time._
-
-_The functionality here does not need to be accounted for in your design._
+- the 3.1 stretch goals
+- if pets run away, get hurt, or pets damage the sitter's home, etc.
+- notifications when a pet is available to sit
 
 # 5. Proposed Architecture Overview
 
-_Describe broadly how you are proposing to solve for the requirements you described in Section 2. This may include class diagram(s) showing what components you are planning to build. You should argue why this architecture (organization of components) is reasonable. That is, why it represents a good data flow and a good separation of concerns. Where applicable, argue why this architecture satisfies the stated requirements._
+This initial iteration will provide the minimum lovable product (MLP) including creating, retrieving, and updating reservations for pet sitting requests.
+It will also allow users to set up and manage pet profiles.
+
+We will use API Gateway and AWS Lambda to create the following endpoints: 
+- CreateReservation
+- GetReservation
+- GetReservations
+- UpdateReservation
+- CancelReservation
+- GetPetProfile
+- CreatePetProfile
+- UpdatePetProfile
+- GetPetsByOwnerId
+
+Stretch goal:
+- GetPetByBreed
+
+We will store reservation and pet data in separate DynamoDB tables.
+
 
 # 6. API
 
 ## 6.1. Public Models
 
-_Define the data models your service will expose in its responses via your *`-Model`* package. These will be equivalent to the *`PlaylistModel`* and *`SongModel`* from the Unit 3 project._
+```
+// ReservationModel
+ 
+String reservationId
+Date startDate
+Date endDate
+String status (enum, completed, upcoming, etc)
 
-## 6.2. _First Endpoint_
+the user ids for sitter, owner, and pet(s)
+```
 
-_Describe the behavior of the first endpoint you will build into your service API. This should include what data it requires, what data it returns, and how it will handle any known failure cases. You should also include a sequence diagram showing how a user interaction goes from user to website to service to database, and back. This first endpoint can serve as a template for subsequent endpoints. (If there is a significant difference on a subsequent endpoint, review that with your team before building it!)_
+```
+// PetModel
 
-_(You should have a separate section for each of the endpoints you are expecting to build...)_
+String petId
+String petName
+String breed
+String ownerId
 
-## 6.3 _Second Endpoint_
+Stretch/ optional
+pet photo
+String age
+etc
+```
 
-_(repeat, but you can use shorthand here, indicating what is different, likely primarily the data in/out and error conditions. If the sequence diagram is nearly identical, you can say in a few words how it is the same/different from the first endpoint)_
+Optional model:
+```
+// UserModel
+
+String userId
+List<ReservationId>
+List<petId>
+
+Stretch 
+Boolean isSitter
+availabilty?
+```
+
+## 6.2 Endpoints
+
+### 6.2.0 _Create Reservation Endpoint_
+- Accepts `POST` requests to `/reservations`
+- Accepts data to create a new reservation with a provided Pet owner ID, pet Sitter ID, a list of pet ID, start date,
+and end date. Returns the new reservation, including a status and reservation ID assigned by the service.
+
+### 6.2.1 _Get single Reservation Endpoint_
+- Accepts `GET` requests to `/reservations/:reservationId`
+- Takes the ownerId from cognito
+- Accepts a ownerId and reservation ID and returns the corresponding ReservationModel.
+  - If the given reservation ID is not found, will throw a `ReservationNotFoundException`
+
+### 6.2.1.1 _Get all Reservations by owner Endpoint_
+- Accepts `GET` requests to `/reservations/:`
+- Takes the ownerId from cognito
+- Accepts a owner ID and returns the corresponding list of ReservationModels.
+  - If the given reservation ID is not found, will throw a `ReservationNotFoundException`
+
+### 6.2.2 _Cancel Reservation Endpoint_
+- Accepts a `DELETE` request to `/reservations/:reservationId`
+- Takes the ownerId from cognito
+- Accepts a reservation ID and returns the corresponding Deleted ReservationModel.
+  - If the given reservation ID is not found, will throw a `ReservationNotFoundException`
+
+### 6.2.3 _Update Reservation Endpoint_
+- Accepts a `PUT` request to `/reservations/:reservationId`
+- Takes the ownerId from cognito
+- Accepts data to update a reservation including the updated start and end dates. returns the updated reservation.
+  - If the given reservation ID is not found, will throw a `ReservationNotFoundException`
+  - throws `UnauthorizedOwnerException` if attempted to be updated by an unauthorized user.
+
+### 6.2.4 _Get Pet Profile Endpoint_
+- Accepts `GET` request to `/pets/:id`
+- Accepts a Pet ID and returns the corresponding PetModel.
+    - If the given pet ID is not found, will throw a `PetIdNotFoundException`
+
+### 6.2.5 _Create Pet Profile Endpoint_
+- Accepts `POST` request to `/pets`
+- Accepts data to create a new Pet with a provided  pet name, their pet owner's ID, and pet breed. returns the petModel with pet ID assigned by the service.
+   
+### 6.2.6 _Update Pet Profile Endpoint_
+- Accepts `PUT` request to `/pets/:id`
+- Accepts data to update a pet with a provided pet ID to update desired fields. returns the updated userModel.
+    - If the given Pet ID is not found, will throw a `PetIdNotFoundException`
+
+### 6.2.7 _Get Pet(s) by owner Endpoint_
+- Accepts `GET` request to `/PetsByOwnerIndex/:ownerId`
+- Accepts a ownerId and returns a list of corresponding pet names.
+
+Stretch goal endpoint:
+### 6.2.8 _Get Pet by breed Endpoint_
+- Accepts `GET` request to `/pets/:breed`
+- Accepts a pet breed and returns the corresponding pet name, breed, and picture(Stretch goal).
 
 # 7. Tables
 
-_Define the DynamoDB tables you will need for the data your service will use. It may be helpful to first think of what objects your service will need, then translate that to a table structure, like with the *`Playlist` POJO* versus the `playlists` table in the Unit 3 project._
+_Define the DynamoDB tables you will need for the data your service will use. It may be helpful to first think of what 
+objects your service will need, then translate that to a table structure, like with the *`Playlist` POJO* versus the
+`playlists` table in the Unit 3 project._
 
-# 8. Pages
+## 7.1 `reservations`
+```
+ownerId // partition key, string
+reservationId // sort, key, String
+startDate // string (converted date)
+endDate // string (converted date)
+status // String
+pets // List of String of petIds
 
-_Include mock-ups of the web pages you expect to build. These can be as sophisticated as mockups/wireframes using drawing software, or as simple as hand-drawn pictures that represent the key customer-facing components of the pages. It should be clear what the interactions will be on the page, especially where customers enter and submit data. You may want to accompany the mockups with some description of behaviors of the page (e.g. “When customer submits the submit-dog-photo button, the customer is sent to the doggie detail page”)_
+Stretch goal:
+sitterId // String
+```
+
+## 7.2 `Pets`
+```
+id // partition key, string
+ownerId // String
+petName // String
+breed // String
+
+Stretch goal:
+pet picture // 
+pet details
+```
+
+### 7.2.1 `PetsByOwnerIndex` GSI table
+```
+ownerId // partition key, String
+petName // string
+```
+
+Stretch goal table:
+### 7.2.1 `PetsBreedIndex` GSI table
+```
+breed // partition key, String
+petName // string
+pet picture //
+```
+
+# 8. Page storyboard
+ 
+[Link to mock up board with all slides](https://jamboard.google.com/d/1c84t7fw7jzF-kTn_Kt-GqQ_6qjUedguBNpj2mGOLJTw/edit?usp=sharing)
