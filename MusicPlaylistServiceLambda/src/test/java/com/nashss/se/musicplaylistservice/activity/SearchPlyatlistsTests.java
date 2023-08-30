@@ -3,7 +3,7 @@ package com.nashss.se.musicplaylistservice.activity;
 import com.nashss.se.musicplaylistservice.activity.requests.SearchPlaylistsRequest;
 import com.nashss.se.musicplaylistservice.activity.results.SearchPlaylistsResult;
 import com.nashss.se.musicplaylistservice.dynamodb.PlaylistDao;
-import com.nashss.se.musicplaylistservice.dynamodb.models.Playlist;
+import com.nashss.se.musicplaylistservice.dynamodb.models.Reservation;
 import com.nashss.se.musicplaylistservice.models.PlaylistModel;
 
 import com.google.common.collect.Sets;
@@ -38,7 +38,7 @@ public class SearchPlyatlistsTests {
         String criteria = "good";
         String[] criteriaArray = {criteria};
 
-        List<Playlist> expected = List.of(
+        List<Reservation> expected = List.of(
                 newPlaylist("id1", "a good playlist", List.of("tag1", "tag2")),
                 newPlaylist("id2", "another good playlist", List.of("tag1", "tag2")));
 
@@ -56,8 +56,8 @@ public class SearchPlyatlistsTests {
         assertEquals(expected.size(), resultPlaylists.size());
 
         for (int i=0; i<expected.size(); i++) {
-            assertEquals(expected.get(i).getId(), resultPlaylists.get(i).getId());
-            assertEquals(expected.get(i).getName(), resultPlaylists.get(i).getName());
+            assertEquals(expected.get(i).getReservationId(), resultPlaylists.get(i).getId());
+            assertEquals(expected.get(i).getPetOwnerId(), resultPlaylists.get(i).getName());
         }
     }
 
@@ -80,16 +80,16 @@ public class SearchPlyatlistsTests {
         assertEquals(0, criteriaArray.getValue().length, "Criteria Array should be empty");
     }
 
-    private static Playlist newPlaylist(String id, String name, List<String> tags) {
-        Playlist playlist = new Playlist();
+    private static Reservation newPlaylist(String id, String name, List<String> tags) {
+        Reservation playlist = new Reservation();
 
-        playlist.setId(id);
-        playlist.setName(name);
+        playlist.setReservationId(id);
+        playlist.setPetOwnerId(name);
         playlist.setTags(Sets.newHashSet(tags));
 
         // the test code doesn't need these properties to be distinct.
-        playlist.setCustomerId("a customer id");
-        playlist.setSongCount(0);
+        playlist.setSitterId("a customer id");
+        playlist.setEndDate(0);
 
         return playlist;
     }

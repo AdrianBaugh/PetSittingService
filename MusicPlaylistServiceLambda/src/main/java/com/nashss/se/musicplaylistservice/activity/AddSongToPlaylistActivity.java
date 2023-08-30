@@ -5,8 +5,8 @@ import com.nashss.se.musicplaylistservice.activity.results.AddSongToPlaylistResu
 import com.nashss.se.musicplaylistservice.converters.ModelConverter;
 import com.nashss.se.musicplaylistservice.dynamodb.AlbumTrackDao;
 import com.nashss.se.musicplaylistservice.dynamodb.PlaylistDao;
-import com.nashss.se.musicplaylistservice.dynamodb.models.AlbumTrack;
-import com.nashss.se.musicplaylistservice.dynamodb.models.Playlist;
+import com.nashss.se.musicplaylistservice.dynamodb.models.Pet;
+import com.nashss.se.musicplaylistservice.dynamodb.models.Reservation;
 import com.nashss.se.musicplaylistservice.models.SongModel;
 
 import org.apache.logging.log4j.LogManager;
@@ -60,26 +60,26 @@ public class AddSongToPlaylistActivity {
         // Allow NPE when unboxing Integer if track number is null (getTrackNumber returns Integer)
         int trackNumber = addSongToPlaylistRequest.getTrackNumber();
 
-        Playlist playlist = playlistDao.getPlaylist(addSongToPlaylistRequest.getId());
+        Reservation playlist = playlistDao.getPlaylist(addSongToPlaylistRequest.getId());
 
-        if (!playlist.getCustomerId().equals(addSongToPlaylistRequest.getCustomerId())) {
+        if (!playlist.getSitterId().equals(addSongToPlaylistRequest.getCustomerId())) {
             throw new SecurityException("You must own a playlist to add songs to it.");
         }
 
-        AlbumTrack albumTrackToAdd = albumTrackDao.getAlbumTrack(asin, trackNumber);
+        Pet petToAdd = albumTrackDao.getAlbumTrack(asin, trackNumber);
 
-        LinkedList<AlbumTrack> albumTracks = (LinkedList<AlbumTrack>) (playlist.getSongList());
+        LinkedList<Pet> pets = (LinkedList<Pet>) (playlist.getPetList());
         if (addSongToPlaylistRequest.isQueueNext()) {
-            albumTracks.addFirst(albumTrackToAdd);
+            pets.addFirst(petToAdd);
         } else {
-            albumTracks.addLast(albumTrackToAdd);
+            pets.addLast(petToAdd);
         }
 
-        playlist.setSongList(albumTracks);
-        playlist.setSongCount(playlist.getSongList().size());
+        playlist.setPetList(pets);
+        playlist.setEndDate(playlist.getPetList().size());
         playlist = playlistDao.savePlaylist(playlist);
 
-        List<SongModel> songModels = new ModelConverter().toSongModelList(playlist.getSongList());
+        List<SongModel> songModels = new ModelConverter().toSongModelList(playlist.getPetList());
         return AddSongToPlaylistResult.builder()
                 .withSongList(songModels)
                 .build();

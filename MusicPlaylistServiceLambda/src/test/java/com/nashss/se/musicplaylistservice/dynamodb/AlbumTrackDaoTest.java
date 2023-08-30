@@ -1,6 +1,6 @@
 package com.nashss.se.musicplaylistservice.dynamodb;
 
-import com.nashss.se.musicplaylistservice.dynamodb.models.AlbumTrack;
+import com.nashss.se.musicplaylistservice.dynamodb.models.Pet;
 import com.nashss.se.musicplaylistservice.exceptions.AlbumTrackNotFoundException;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
@@ -31,19 +31,19 @@ public class AlbumTrackDaoTest {
         // GIVEN
         String asin = "asin";
         int trackNumber = 1;
-        AlbumTrack albumTrack = new AlbumTrack();
-        albumTrack.setAsin(asin);
-        albumTrack.setTrackNumber(trackNumber);
-        when(dynamoDBMapper.load(AlbumTrack.class, asin, trackNumber)).thenReturn(albumTrack);
+        Pet pet = new Pet();
+        pet.setPetId(asin);
+        pet.setPetName(trackNumber);
+        when(dynamoDBMapper.load(Pet.class, asin, trackNumber)).thenReturn(pet);
 
         // WHEN
-        AlbumTrack result = albumTrackDao.getAlbumTrack(asin, trackNumber);
+        Pet result = albumTrackDao.getAlbumTrack(asin, trackNumber);
 
         // THEN
-        verify(dynamoDBMapper).load(AlbumTrack.class, asin, trackNumber);
-        assertEquals(albumTrack, result,
-                     String.format("Expected to receive AlbumTrack returned by DDB (%s), but received %s",
-                                   albumTrack,
+        verify(dynamoDBMapper).load(Pet.class, asin, trackNumber);
+        assertEquals(pet, result,
+                     String.format("Expected to receive Pet returned by DDB (%s), but received %s",
+                             pet,
                                    result)
         );
     }
@@ -55,7 +55,7 @@ public class AlbumTrackDaoTest {
         int trackNumber = -1;
 
         // also part of THEN - expect this mock call
-        when(dynamoDBMapper.load(AlbumTrack.class, asin, trackNumber)).thenReturn(null);
+        when(dynamoDBMapper.load(Pet.class, asin, trackNumber)).thenReturn(null);
 
         // WHEN + THEN
         assertThrows(AlbumTrackNotFoundException.class, () -> albumTrackDao.getAlbumTrack(asin, trackNumber));

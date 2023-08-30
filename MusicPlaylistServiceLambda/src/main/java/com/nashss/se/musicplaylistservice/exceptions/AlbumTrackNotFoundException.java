@@ -1,7 +1,7 @@
 package com.nashss.se.musicplaylistservice.exceptions;
 
 /**
- * Exception to throw when a given AlbumTrack ASIN and track number is not found
+ * Exception to throw when a given Pet ASIN and track number is not found
  * in the database.
  */
 public class AlbumTrackNotFoundException extends RuntimeException {

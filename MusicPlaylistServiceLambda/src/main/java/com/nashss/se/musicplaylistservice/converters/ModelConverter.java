@@ -1,7 +1,7 @@
 package com.nashss.se.musicplaylistservice.converters;
 
-import com.nashss.se.musicplaylistservice.dynamodb.models.AlbumTrack;
-import com.nashss.se.musicplaylistservice.dynamodb.models.Playlist;
+import com.nashss.se.musicplaylistservice.dynamodb.models.Pet;
+import com.nashss.se.musicplaylistservice.dynamodb.models.Reservation;
 import com.nashss.se.musicplaylistservice.models.PlaylistModel;
 import com.nashss.se.musicplaylistservice.models.SongModel;
 
@@ -13,53 +13,53 @@ import java.util.List;
  */
 public class ModelConverter {
     /**
-     * Converts a provided {@link Playlist} into a {@link PlaylistModel} representation.
+     * Converts a provided {@link Reservation} into a {@link PlaylistModel} representation.
      *
      * @param playlist the playlist to convert
      * @return the converted playlist
      */
-    public PlaylistModel toPlaylistModel(Playlist playlist) {
+    public PlaylistModel toPlaylistModel(Reservation playlist) {
         List<String> tags = null;
         if (playlist.getTags() != null) {
             tags = new ArrayList<>(playlist.getTags());
         }
 
         return PlaylistModel.builder()
-                .withId(playlist.getId())
-                .withName(playlist.getName())
-                .withCustomerId(playlist.getCustomerId())
-                .withCustomerName(playlist.getCustomerName())
-                .withSongCount(playlist.getSongCount())
+                .withId(playlist.getReservationId())
+                .withName(playlist.getPetOwnerId())
+                .withCustomerId(playlist.getSitterId())
+                .withCustomerName(playlist.getStartDate())
+                .withSongCount(playlist.getEndDate())
                 .withTags(tags)
                 .build();
     }
 
     /**
-     * Converts a provided AlbumTrack into a SongModel representation.
+     * Converts a provided Pet into a SongModel representation.
      *
-     * @param albumTrack the AlbumTrack to convert to SongModel
-     * @return the converted SongModel with fields mapped from albumTrack
+     * @param pet the Pet to convert to SongModel
+     * @return the converted SongModel with fields mapped from pet
      */
-    public SongModel toSongModel(AlbumTrack albumTrack) {
+    public SongModel toSongModel(Pet pet) {
         return SongModel.builder()
-                .withAsin(albumTrack.getAsin())
-                .withTrackNumber(albumTrack.getTrackNumber())
-                .withAlbum(albumTrack.getAlbumName())
-                .withTitle(albumTrack.getSongTitle())
+                .withAsin(pet.getPetId())
+                .withTrackNumber(pet.getPetName())
+                .withAlbum(pet.getOwnerId())
+                .withTitle(pet.getSongTitle())
                 .build();
     }
 
     /**
      * Converts a list of AlbumTracks to a list of SongModels.
      *
-     * @param albumTracks The AlbumTracks to convert to SongModels
+     * @param pets The AlbumTracks to convert to SongModels
      * @return The converted list of SongModels
      */
-    public List<SongModel> toSongModelList(List<AlbumTrack> albumTracks) {
+    public List<SongModel> toSongModelList(List<Pet> pets) {
         List<SongModel> songModels = new ArrayList<>();
 
-        for (AlbumTrack albumTrack : albumTracks) {
-            songModels.add(toSongModel(albumTrack));
+        for (Pet pet : pets) {
+            songModels.add(toSongModel(pet));
         }
 
         return songModels;
@@ -71,10 +71,10 @@ public class ModelConverter {
      * @param playlists The Playlists to convert to PlaylistModels
      * @return The converted list of PlaylistModels
      */
-    public List<PlaylistModel> toPlaylistModelList(List<Playlist> playlists) {
+    public List<PlaylistModel> toPlaylistModelList(List<Reservation> playlists) {
         List<PlaylistModel> playlistModels = new ArrayList<>();
 
-        for (Playlist playlist : playlists) {
+        for (Reservation playlist : playlists) {
             playlistModels.add(toPlaylistModel(playlist));
         }
 

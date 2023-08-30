@@ -4,7 +4,7 @@ import com.nashss.se.musicplaylistservice.activity.requests.GetPlaylistSongsRequ
 import com.nashss.se.musicplaylistservice.activity.results.GetPlaylistSongsResult;
 import com.nashss.se.musicplaylistservice.converters.ModelConverter;
 import com.nashss.se.musicplaylistservice.dynamodb.PlaylistDao;
-import com.nashss.se.musicplaylistservice.dynamodb.models.Playlist;
+import com.nashss.se.musicplaylistservice.dynamodb.models.Reservation;
 import com.nashss.se.musicplaylistservice.exceptions.InvalidAttributeValueException;
 import com.nashss.se.musicplaylistservice.models.SongModel;
 import com.nashss.se.musicplaylistservice.models.SongOrder;
@@ -51,8 +51,8 @@ public class GetPlaylistSongsActivity {
 
         String songOrder = computeSongOrder(getPlaylistSongsRequest.getOrder());
 
-        Playlist playlist = playlistDao.getPlaylist(getPlaylistSongsRequest.getId());
-        List<SongModel> songModels = new ModelConverter().toSongModelList(playlist.getSongList());
+        Reservation playlist = playlistDao.getPlaylist(getPlaylistSongsRequest.getId());
+        List<SongModel> songModels = new ModelConverter().toSongModelList(playlist.getPetList());
 
         if (songOrder.equals(SongOrder.REVERSED)) {
             Collections.reverse(songModels);

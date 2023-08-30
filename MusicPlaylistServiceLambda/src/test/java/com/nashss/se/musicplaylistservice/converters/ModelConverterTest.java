@@ -1,9 +1,9 @@
 package com.nashss.se.musicplaylistservice.converters;
 
+import com.nashss.se.musicplaylistservice.dynamodb.models.Pet;
 import com.nashss.se.musicplaylistservice.models.PlaylistModel;
 import com.nashss.se.musicplaylistservice.models.SongModel;
-import com.nashss.se.musicplaylistservice.dynamodb.models.AlbumTrack;
-import com.nashss.se.musicplaylistservice.dynamodb.models.Playlist;
+import com.nashss.se.musicplaylistservice.dynamodb.models.Reservation;
 import com.nashss.se.musicplaylistservice.test.helper.AlbumTrackTestHelper;
 
 import com.google.common.collect.Sets;
@@ -21,52 +21,52 @@ public class ModelConverterTest {
 
     @Test
     void toPlaylistModel_withTags_convertsPlaylist() {
-        Playlist playlist = new Playlist();
-        playlist.setId("id");
-        playlist.setName("name");
-        playlist.setCustomerId("customerId");
-        playlist.setSongCount(0);
+        Reservation playlist = new Reservation();
+        playlist.setReservationId("id");
+        playlist.setPetOwnerId("name");
+        playlist.setSitterId("customerId");
+        playlist.setEndDate(0);
         playlist.setTags(Sets.newHashSet("tag"));
 
         PlaylistModel playlistModel = modelConverter.toPlaylistModel(playlist);
-        assertEquals(playlist.getId(), playlistModel.getId());
-        assertEquals(playlist.getName(), playlistModel.getName());
-        assertEquals(playlist.getCustomerId(), playlistModel.getCustomerId());
-        assertEquals(playlist.getSongCount(), playlistModel.getSongCount());
+        assertEquals(playlist.getReservationId(), playlistModel.getId());
+        assertEquals(playlist.getPetOwnerId(), playlistModel.getName());
+        assertEquals(playlist.getSitterId(), playlistModel.getCustomerId());
+        assertEquals(playlist.getEndDate(), playlistModel.getSongCount());
         assertEquals(playlist.getTags(), copyToSet(playlistModel.getTags()));
     }
 
     @Test
     void toPlaylistModel_nullTags_convertsPlaylist() {
-        Playlist playlist = new Playlist();
-        playlist.setId("id");
-        playlist.setName("name");
-        playlist.setCustomerId("customerId");
-        playlist.setSongCount(0);
+        Reservation playlist = new Reservation();
+        playlist.setReservationId("id");
+        playlist.setPetOwnerId("name");
+        playlist.setSitterId("customerId");
+        playlist.setEndDate(0);
         playlist.setTags(null);
 
         PlaylistModel playlistModel = modelConverter.toPlaylistModel(playlist);
-        assertEquals(playlist.getId(), playlistModel.getId());
-        assertEquals(playlist.getName(), playlistModel.getName());
-        assertEquals(playlist.getCustomerId(), playlistModel.getCustomerId());
-        assertEquals(playlist.getSongCount(), playlistModel.getSongCount());
+        assertEquals(playlist.getReservationId(), playlistModel.getId());
+        assertEquals(playlist.getPetOwnerId(), playlistModel.getName());
+        assertEquals(playlist.getSitterId(), playlistModel.getCustomerId());
+        assertEquals(playlist.getEndDate(), playlistModel.getSongCount());
         assertNull(playlistModel.getTags());
     }
 
     @Test
     void toSongModel_withAlbumTrack_convertsToSongModel() {
         // GIVEN
-        AlbumTrack albumTrack = AlbumTrackTestHelper.generateAlbumTrack(2);
+        Pet pet = AlbumTrackTestHelper.generateAlbumTrack(2);
 
         // WHEN
-        SongModel result = modelConverter.toSongModel(albumTrack);
+        SongModel result = modelConverter.toSongModel(pet);
 
         // THEN
         AlbumTrackTestHelper.assertAlbumTrackEqualsSongModel(
-            albumTrack,
+                pet,
             result,
             String.format("Expected album track %s to match song model %s",
-                          albumTrack,
+                    pet,
                           result)
         );
     }
@@ -76,15 +76,15 @@ public class ModelConverterTest {
         // GIVEN
         // list of AlbumTracks
         int numTracks = 4;
-        List<AlbumTrack> albumTracks = new LinkedList<>();
+        List<Pet> pets = new LinkedList<>();
         for (int i = 0; i < numTracks; i++) {
-            albumTracks.add(AlbumTrackTestHelper.generateAlbumTrack(i));
+            pets.add(AlbumTrackTestHelper.generateAlbumTrack(i));
         }
 
         // WHEN
-        List<SongModel> result = modelConverter.toSongModelList(albumTracks);
+        List<SongModel> result = modelConverter.toSongModelList(pets);
 
         // THEN
-        AlbumTrackTestHelper.assertAlbumTracksEqualSongModels(albumTracks, result);
+        AlbumTrackTestHelper.assertAlbumTracksEqualSongModels(pets, result);
     }
 }

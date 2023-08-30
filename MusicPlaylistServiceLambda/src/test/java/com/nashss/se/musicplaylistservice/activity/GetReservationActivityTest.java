@@ -3,7 +3,7 @@ package com.nashss.se.musicplaylistservice.activity;
 import com.nashss.se.musicplaylistservice.activity.requests.GetPlaylistRequest;
 import com.nashss.se.musicplaylistservice.activity.results.GetPlaylistResult;
 import com.nashss.se.musicplaylistservice.dynamodb.PlaylistDao;
-import com.nashss.se.musicplaylistservice.dynamodb.models.Playlist;
+import com.nashss.se.musicplaylistservice.dynamodb.models.Reservation;
 
 import com.google.common.collect.Sets;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-public class GetPlaylistActivityTest {
+public class GetReservationActivityTest {
     @Mock
     private PlaylistDao playlistDao;
 
@@ -37,11 +37,11 @@ public class GetPlaylistActivityTest {
         int expectedSongCount = 0;
         List<String> expectedTags = List.of("tag");
 
-        Playlist playlist = new Playlist();
-        playlist.setId(expectedId);
-        playlist.setName(expectedName);
-        playlist.setCustomerId(expectedCustomerId);
-        playlist.setSongCount(expectedSongCount);
+        Reservation playlist = new Reservation();
+        playlist.setReservationId(expectedId);
+        playlist.setPetOwnerId(expectedName);
+        playlist.setSitterId(expectedCustomerId);
+        playlist.setEndDate(expectedSongCount);
         playlist.setTags(Sets.newHashSet(expectedTags));
 
         when(playlistDao.getPlaylist(expectedId)).thenReturn(playlist);

@@ -4,7 +4,7 @@ import com.nashss.se.musicplaylistservice.activity.requests.UpdatePlaylistReques
 import com.nashss.se.musicplaylistservice.activity.results.UpdatePlaylistResult;
 import com.nashss.se.musicplaylistservice.converters.ModelConverter;
 import com.nashss.se.musicplaylistservice.dynamodb.PlaylistDao;
-import com.nashss.se.musicplaylistservice.dynamodb.models.Playlist;
+import com.nashss.se.musicplaylistservice.dynamodb.models.Reservation;
 import com.nashss.se.musicplaylistservice.exceptions.InvalidAttributeValueException;
 import com.nashss.se.musicplaylistservice.metrics.MetricsConstants;
 import com.nashss.se.musicplaylistservice.metrics.MetricsPublisher;
@@ -62,18 +62,18 @@ public class UpdatePlaylistActivity {
 
         if (!MusicPlaylistServiceUtils.isValidString(updatePlaylistRequest.getName())) {
             publishExceptionMetrics(true, false);
-            throw new InvalidAttributeValueException("Playlist name [" + updatePlaylistRequest.getName() +
+            throw new InvalidAttributeValueException("Reservation name [" + updatePlaylistRequest.getName() +
                                                      "] contains illegal characters");
         }
 
-        Playlist playlist = playlistDao.getPlaylist(updatePlaylistRequest.getId());
+        Reservation playlist = playlistDao.getPlaylist(updatePlaylistRequest.getId());
 
-        if (!playlist.getCustomerId().equals(updatePlaylistRequest.getCustomerId())) {
+        if (!playlist.getSitterId().equals(updatePlaylistRequest.getCustomerId())) {
             publishExceptionMetrics(false, true);
             throw new SecurityException("You must own a playlist to update it.");
         }
 
-        playlist.setName(updatePlaylistRequest.getName());
+        playlist.setPetOwnerId(updatePlaylistRequest.getName());
         playlist = playlistDao.savePlaylist(playlist);
 
         publishExceptionMetrics(false, false);
