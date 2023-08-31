@@ -1,7 +1,7 @@
 package com.nashss.se.musicplaylistservice.dynamodb;
 
 import com.nashss.se.musicplaylistservice.dynamodb.models.AlbumTrack;
-import com.nashss.se.musicplaylistservice.exceptions.AlbumTrackNotFoundException;
+import com.nashss.se.musicplaylistservice.exceptions.PetIdNotFoundException;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -58,6 +58,6 @@ public class AlbumTrackDaoTest {
         when(dynamoDBMapper.load(AlbumTrack.class, asin, trackNumber)).thenReturn(null);
 
         // WHEN + THEN
-        assertThrows(AlbumTrackNotFoundException.class, () -> albumTrackDao.getAlbumTrack(asin, trackNumber));
+        assertThrows(PetIdNotFoundException.class, () -> albumTrackDao.getAlbumTrack(asin, trackNumber));
     }
 }
