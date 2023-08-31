@@ -1,7 +1,7 @@
 package com.nashss.se.musicplaylistservice.dynamodb;
 
 import com.nashss.se.musicplaylistservice.dynamodb.models.Playlist;
-import com.nashss.se.musicplaylistservice.exceptions.PlaylistNotFoundException;
+import com.nashss.se.musicplaylistservice.exceptions.ReservationNotFoundException;
 import com.nashss.se.musicplaylistservice.metrics.MetricsConstants;
 import com.nashss.se.musicplaylistservice.metrics.MetricsPublisher;
 
@@ -57,7 +57,7 @@ public class PlaylistDaoTest {
         when(dynamoDBMapper.load(Playlist.class, nonexistentPlaylistId)).thenReturn(null);
 
         // WHEN + THEN
-        assertThrows(PlaylistNotFoundException.class, () -> playlistDao.getPlaylist(nonexistentPlaylistId));
+        assertThrows(ReservationNotFoundException.class, () -> playlistDao.getPlaylist(nonexistentPlaylistId));
         verify(metricsPublisher).addCount(eq(MetricsConstants.GETPLAYLIST_PLAYLISTNOTFOUND_COUNT), anyDouble());
     }
 

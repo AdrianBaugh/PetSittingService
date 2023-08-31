@@ -9,7 +9,7 @@ import com.nashss.se.musicplaylistservice.dynamodb.PlaylistDao;
 import com.nashss.se.musicplaylistservice.dynamodb.models.AlbumTrack;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Playlist;
 import com.nashss.se.musicplaylistservice.exceptions.InvalidAttributeValueException;
-import com.nashss.se.musicplaylistservice.exceptions.PlaylistNotFoundException;
+import com.nashss.se.musicplaylistservice.exceptions.ReservationNotFoundException;
 import com.nashss.se.musicplaylistservice.test.helper.AlbumTrackTestHelper;
 import com.nashss.se.musicplaylistservice.test.helper.PlaylistTestHelper;
 
@@ -155,10 +155,10 @@ public class GetPlaylistSongsActivityTest {
                                               .build();
 
         // WHEN
-        when(playlistDao.getPlaylist(id)).thenThrow(new PlaylistNotFoundException());
+        when(playlistDao.getPlaylist(id)).thenThrow(new ReservationNotFoundException());
 
         // WHEN + THEN
-        assertThrows(PlaylistNotFoundException.class, () -> getPlaylistSongsActivity.handleRequest(request));
+        assertThrows(ReservationNotFoundException.class, () -> getPlaylistSongsActivity.handleRequest(request));
     }
 
     @Test

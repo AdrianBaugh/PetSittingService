@@ -7,8 +7,8 @@ import com.nashss.se.musicplaylistservice.dynamodb.AlbumTrackDao;
 import com.nashss.se.musicplaylistservice.dynamodb.PlaylistDao;
 import com.nashss.se.musicplaylistservice.dynamodb.models.AlbumTrack;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Playlist;
-import com.nashss.se.musicplaylistservice.exceptions.AlbumTrackNotFoundException;
-import com.nashss.se.musicplaylistservice.exceptions.PlaylistNotFoundException;
+import com.nashss.se.musicplaylistservice.exceptions.PetIdNotFoundException;
+import com.nashss.se.musicplaylistservice.exceptions.ReservationNotFoundException;
 import com.nashss.se.musicplaylistservice.test.helper.AlbumTrackTestHelper;
 import com.nashss.se.musicplaylistservice.test.helper.PlaylistTestHelper;
 
@@ -82,10 +82,10 @@ public class AddSongToPlaylistActivityTest {
                                                .withTrackNumber(1)
                                                .withCustomerId("doesn't matter")
                                                .build();
-        when(playlistDao.getPlaylist(playlistId)).thenThrow(new PlaylistNotFoundException());
+        when(playlistDao.getPlaylist(playlistId)).thenThrow(new ReservationNotFoundException());
 
         // WHEN + THEN
-        assertThrows(PlaylistNotFoundException.class, () -> addSongToPlaylistActivity.handleRequest(request));
+        assertThrows(ReservationNotFoundException.class, () -> addSongToPlaylistActivity.handleRequest(request));
     }
 
     @Test
@@ -106,10 +106,10 @@ public class AddSongToPlaylistActivityTest {
 
         // WHEN
         when(playlistDao.getPlaylist(playlistId)).thenReturn(playlist);
-        when(albumTrackDao.getAlbumTrack(asin, trackNumber)).thenThrow(new AlbumTrackNotFoundException());
+        when(albumTrackDao.getAlbumTrack(asin, trackNumber)).thenThrow(new PetIdNotFoundException());
 
         // THEN
-        assertThrows(AlbumTrackNotFoundException.class, () -> addSongToPlaylistActivity.handleRequest(request));
+        assertThrows(PetIdNotFoundException.class, () -> addSongToPlaylistActivity.handleRequest(request));
     }
 
     @Test

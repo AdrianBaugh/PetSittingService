@@ -1,16 +1,15 @@
 package com.nashss.se.musicplaylistservice.exceptions;
-
 /**
- * Exception to throw when a given playlist ID is not found in the database.
+ * Exception to throw when a given sitter ID is not found in the database.
  */
-public class PlaylistNotFoundException extends RuntimeException {
+public class SitterNotFoundException extends RuntimeException{
 
-    private static final long serialVersionUID = -912326717789387971L;
+    private static final long serialVersionUID = 5594991634843817514L;
 
     /**
      * Exception with no message or cause.
      */
-    public PlaylistNotFoundException() {
+    public SitterNotFoundException() {
         super();
     }
 
@@ -18,7 +17,7 @@ public class PlaylistNotFoundException extends RuntimeException {
      * Exception with a message, but no cause.
      * @param message A descriptive message for this exception.
      */
-    public PlaylistNotFoundException(String message) {
+    public SitterNotFoundException(String message) {
         super(message);
     }
 
@@ -26,7 +25,7 @@ public class PlaylistNotFoundException extends RuntimeException {
      * Exception with no message, but with a cause.
      * @param cause The original throwable resulting in this exception.
      */
-    public PlaylistNotFoundException(Throwable cause) {
+    public SitterNotFoundException(Throwable cause) {
         super(cause);
     }
 
@@ -35,7 +34,8 @@ public class PlaylistNotFoundException extends RuntimeException {
      * @param message A descriptive message for this exception.
      * @param cause The original throwable resulting in this exception.
      */
-    public PlaylistNotFoundException(String message, Throwable cause) {
+    public SitterNotFoundException(String message, Throwable cause) {
         super(message, cause);
     }
 }
+
