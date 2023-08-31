@@ -1,13 +1,11 @@
 package com.nashss.se.musicplaylistservice.converters;
 
 import com.nashss.se.musicplaylistservice.dynamodb.models.Pet;
-<<<<<<< HEAD
-import com.nashss.se.musicplaylistservice.models.PlaylistModel;
+
 import com.nashss.se.musicplaylistservice.models.PetModel;
-=======
+
 import com.nashss.se.musicplaylistservice.models.ReservationModel;
-import com.nashss.se.musicplaylistservice.models.SongModel;
->>>>>>> 26cdff9b30dec99d60f572266b40aef933072187
+
 import com.nashss.se.musicplaylistservice.dynamodb.models.Reservation;
 import com.nashss.se.musicplaylistservice.test.helper.AlbumTrackTestHelper;
 
