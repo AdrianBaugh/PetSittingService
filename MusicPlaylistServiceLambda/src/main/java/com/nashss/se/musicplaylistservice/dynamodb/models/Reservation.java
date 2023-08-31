@@ -23,7 +23,7 @@ public class Reservation {
     private String status;
     private List<String> petList;
 
-    @DynamoDBRangeKey(attributeName = "id")
+    @DynamoDBRangeKey(attributeName = "reservationId")
     public String getReservationId() {
         return reservationId;
     }
