@@ -5,9 +5,9 @@ import com.nashss.se.musicplaylistservice.activity.results.AddSongToPlaylistResu
 import com.nashss.se.musicplaylistservice.converters.ModelConverter;
 import com.nashss.se.musicplaylistservice.dynamodb.AlbumTrackDao;
 import com.nashss.se.musicplaylistservice.dynamodb.PlaylistDao;
-import com.nashss.se.musicplaylistservice.dynamodb.models.AlbumTrack;
-import com.nashss.se.musicplaylistservice.dynamodb.models.Playlist;
-import com.nashss.se.musicplaylistservice.models.SongModel;
+import com.nashss.se.musicplaylistservice.dynamodb.models.Pet;
+import com.nashss.se.musicplaylistservice.dynamodb.models.Reservation;
+import com.nashss.se.musicplaylistservice.models.PetModel;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -51,37 +51,38 @@ public class AddSongToPlaylistActivity {
      * @param addSongToPlaylistRequest request object containing the playlist ID and an asin and track number
      *                                 to retrieve the song data
      * @return addSongToPlaylistResult result object containing the playlist's updated list of
-     *                                 API defined {@link SongModel}s
+     *                                 API defined {@link PetModel}s
      */
     public AddSongToPlaylistResult handleRequest(final AddSongToPlaylistRequest addSongToPlaylistRequest) {
-        log.info("Received AddSongToPlaylistRequest {} ", addSongToPlaylistRequest);
-
-        String asin = addSongToPlaylistRequest.getAsin();
-        // Allow NPE when unboxing Integer if track number is null (getTrackNumber returns Integer)
-        int trackNumber = addSongToPlaylistRequest.getTrackNumber();
-
-        Playlist playlist = playlistDao.getPlaylist(addSongToPlaylistRequest.getId());
-
-        if (!playlist.getCustomerId().equals(addSongToPlaylistRequest.getCustomerId())) {
-            throw new SecurityException("You must own a playlist to add songs to it.");
-        }
-
-        AlbumTrack albumTrackToAdd = albumTrackDao.getAlbumTrack(asin, trackNumber);
-
-        LinkedList<AlbumTrack> albumTracks = (LinkedList<AlbumTrack>) (playlist.getSongList());
-        if (addSongToPlaylistRequest.isQueueNext()) {
-            albumTracks.addFirst(albumTrackToAdd);
-        } else {
-            albumTracks.addLast(albumTrackToAdd);
-        }
-
-        playlist.setSongList(albumTracks);
-        playlist.setSongCount(playlist.getSongList().size());
-        playlist = playlistDao.savePlaylist(playlist);
-
-        List<SongModel> songModels = new ModelConverter().toSongModelList(playlist.getSongList());
-        return AddSongToPlaylistResult.builder()
-                .withSongList(songModels)
-                .build();
+//        log.info("Received AddSongToPlaylistRequest {} ", addSongToPlaylistRequest);
+//
+//        String asin = addSongToPlaylistRequest.getAsin();
+//        // Allow NPE when unboxing Integer if track number is null (getTrackNumber returns Integer)
+//        int trackNumber = addSongToPlaylistRequest.getTrackNumber();
+//
+//        Reservation playlist = playlistDao.getPlaylist(addSongToPlaylistRequest.getId());
+//
+//        if (!playlist.getSitterId().equals(addSongToPlaylistRequest.getCustomerId())) {
+//            throw new SecurityException("You must own a playlist to add songs to it.");
+//        }
+//
+//        Pet petToAdd = albumTrackDao.getAlbumTrack(asin, trackNumber);
+//
+//        LinkedList<Pet> pets = (LinkedList<Pet>) (playlist.getPetList());
+//        if (addSongToPlaylistRequest.isQueueNext()) {
+//            pets.addFirst(petToAdd);
+//        } else {
+//            pets.addLast(petToAdd);
+//        }
+//
+//        playlist.setPetList(pets);
+//        playlist.setEndDate(playlist.getPetList().size());
+//        playlist = playlistDao.savePlaylist(playlist);
+//
+//        List<PetModel> petModels = new ModelConverter().toPetModelList(playlist.getPetList());
+//        return AddSongToPlaylistResult.builder()
+//                .withSongList(petModels)
+//                .build();
+        return null;
     }
 }

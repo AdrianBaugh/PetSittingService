@@ -2,6 +2,7 @@ package com.nashss.se.musicplaylistservice.exceptions;
 
 /**
  * Exception to throw when a given Pet ID is not found
+ * MusicPlaylistServiceLambda/src/main/java/com/nashss/se/musicplaylistservice/exceptions/PetIdNotFoundException.java
  * in the database.
  */
 public class PetIdNotFoundException extends RuntimeException {

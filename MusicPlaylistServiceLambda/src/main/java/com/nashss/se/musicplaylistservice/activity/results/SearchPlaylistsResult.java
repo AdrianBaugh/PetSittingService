@@ -1,18 +1,18 @@
 package com.nashss.se.musicplaylistservice.activity.results;
 
-import com.nashss.se.musicplaylistservice.models.PlaylistModel;
+import com.nashss.se.musicplaylistservice.models.ReservationModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SearchPlaylistsResult {
-    private final List<PlaylistModel> playlists;
+    private final List<ReservationModel> playlists;
 
-    private SearchPlaylistsResult(List<PlaylistModel> playlists) {
+    private SearchPlaylistsResult(List<ReservationModel> playlists) {
         this.playlists = playlists;
     }
 
-    public List<PlaylistModel> getPlaylists() {
+    public List<ReservationModel> getPlaylists() {
         return playlists;
     }
 
@@ -29,9 +29,9 @@ public class SearchPlaylistsResult {
     }
 
     public static class Builder {
-        private List<PlaylistModel> playlists ;
+        private List<ReservationModel> playlists ;
 
-        public Builder withPlaylists(List<PlaylistModel> playlists) {
+        public Builder withPlaylists(List<ReservationModel> playlists) {
             this.playlists = new ArrayList<>(playlists);
             return this;
         }

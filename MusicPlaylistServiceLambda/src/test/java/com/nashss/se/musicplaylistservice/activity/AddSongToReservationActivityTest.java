@@ -2,13 +2,13 @@
 //
 //import com.nashss.se.musicplaylistservice.activity.requests.AddSongToPlaylistRequest;
 //import com.nashss.se.musicplaylistservice.activity.results.AddSongToPlaylistResult;
-//import com.nashss.se.musicplaylistservice.models.SongModel;
+//import com.nashss.se.musicplaylistservice.dynamodb.models.Pet;
+//import com.nashss.se.musicplaylistservice.dynamodb.models.Reservation;
+//import com.nashss.se.musicplaylistservice.models.PetModel;
 //import com.nashss.se.musicplaylistservice.dynamodb.AlbumTrackDao;
 //import com.nashss.se.musicplaylistservice.dynamodb.PlaylistDao;
-//import com.nashss.se.musicplaylistservice.dynamodb.models.AlbumTrack;
-//import com.nashss.se.musicplaylistservice.dynamodb.models.Playlist;
-//import com.nashss.se.musicplaylistservice.exceptions.PetIdNotFoundException;
-//import com.nashss.se.musicplaylistservice.exceptions.ReservationNotFoundException;
+//import com.nashss.se.musicplaylistservice.exceptions.AlbumTrackNotFoundException;
+//import com.nashss.se.musicplaylistservice.exceptions.PlaylistNotFoundException;
 //import com.nashss.se.musicplaylistservice.test.helper.AlbumTrackTestHelper;
 //import com.nashss.se.musicplaylistservice.test.helper.PlaylistTestHelper;
 //
@@ -22,7 +22,7 @@
 //import static org.mockito.Mockito.when;
 //import static org.mockito.MockitoAnnotations.openMocks;
 //
-//public class AddSongToPlaylistActivityTest {
+//public class AddSongToReservationActivityTest {
 //    @Mock
 //    private PlaylistDao playlistDao;
 //
@@ -41,18 +41,18 @@
 //    void handleRequest_validRequest_addsSongToEndOfPlaylist() {
 //        // GIVEN
 //        // a non-empty playlist
-//        Playlist originalPlaylist = PlaylistTestHelper.generatePlaylist();
-//        String playlistId = originalPlaylist.getId();
-//        String customerId = originalPlaylist.getCustomerId();
+//        Reservation originalPlaylist = PlaylistTestHelper.generatePlaylist();
+//        String playlistId = originalPlaylist.getReservationId();
+//        String customerId = originalPlaylist.getSitterId();
 //
 //        // the new song to add to the playlist
-//        AlbumTrack albumTrackToAdd = AlbumTrackTestHelper.generateAlbumTrack(2);
-//        String addedAsin = albumTrackToAdd.getAsin();
-//        int addedTracknumber = albumTrackToAdd.getTrackNumber();
+//        Pet petToAdd = AlbumTrackTestHelper.generateAlbumTrack(2);
+//        String addedAsin = petToAdd.getPetId();
+//        int addedTracknumber = petToAdd.getPetName();
 //
 //        when(playlistDao.getPlaylist(playlistId)).thenReturn(originalPlaylist);
 //        when(playlistDao.savePlaylist(originalPlaylist)).thenReturn(originalPlaylist);
-//        when(albumTrackDao.getAlbumTrack(addedAsin, addedTracknumber)).thenReturn(albumTrackToAdd);
+//        when(albumTrackDao.getAlbumTrack(addedAsin, addedTracknumber)).thenReturn(petToAdd);
 //
 //        AddSongToPlaylistRequest request = AddSongToPlaylistRequest.builder()
 //            .withId(playlistId)
@@ -68,8 +68,8 @@
 //        verify(playlistDao).savePlaylist(originalPlaylist);
 //
 //        assertEquals(2, result.getSongList().size());
-//        SongModel secondSong = result.getSongList().get(1);
-//        AlbumTrackTestHelper.assertAlbumTrackEqualsSongModel(albumTrackToAdd, secondSong);
+//        PetModel secondSong = result.getSongList().get(1);
+//        AlbumTrackTestHelper.assertAlbumTrackEqualsSongModel(petToAdd, secondSong);
 //    }
 //
 //    @Test
@@ -82,19 +82,19 @@
 //                                               .withTrackNumber(1)
 //                                               .withCustomerId("doesn't matter")
 //                                               .build();
-//        when(playlistDao.getPlaylist(playlistId)).thenThrow(new ReservationNotFoundException());
+//        when(playlistDao.getPlaylist(playlistId)).thenThrow(new PlaylistNotFoundException());
 //
 //        // WHEN + THEN
-//        assertThrows(ReservationNotFoundException.class, () -> addSongToPlaylistActivity.handleRequest(request));
+//        assertThrows(PlaylistNotFoundException.class, () -> addSongToPlaylistActivity.handleRequest(request));
 //    }
 //
 //    @Test
 //    public void handleRequest_noMatchingAlbumTrack_throwsAlbumTrackNotFoundException() {
 //        // GIVEN
-//        Playlist playlist = PlaylistTestHelper.generatePlaylist();
+//        Reservation playlist = PlaylistTestHelper.generatePlaylist();
 //
-//        String playlistId = playlist.getId();
-//        String cusomerId = playlist.getCustomerId();
+//        String playlistId = playlist.getReservationId();
+//        String cusomerId = playlist.getSitterId();
 //        String asin = "nonexistent asin";
 //        int trackNumber = -1;
 //        AddSongToPlaylistRequest request = AddSongToPlaylistRequest.builder()
@@ -106,28 +106,28 @@
 //
 //        // WHEN
 //        when(playlistDao.getPlaylist(playlistId)).thenReturn(playlist);
-//        when(albumTrackDao.getAlbumTrack(asin, trackNumber)).thenThrow(new PetIdNotFoundException());
+//        when(albumTrackDao.getAlbumTrack(asin, trackNumber)).thenThrow(new AlbumTrackNotFoundException());
 //
 //        // THEN
-//        assertThrows(PetIdNotFoundException.class, () -> addSongToPlaylistActivity.handleRequest(request));
+//        assertThrows(AlbumTrackNotFoundException.class, () -> addSongToPlaylistActivity.handleRequest(request));
 //    }
 //
 //    @Test
 //    void handleRequest_validRequestWithQueueNextFalse_addsSongToEndOfPlaylist() {
 //        // GIVEN
 //        int startingTrackCount = 3;
-//        Playlist originalPlaylist = PlaylistTestHelper.generatePlaylistWithNAlbumTracks(startingTrackCount);
-//        String playlistId = originalPlaylist.getId();
-//        String customerId = originalPlaylist.getCustomerId();
+//        Reservation originalPlaylist = PlaylistTestHelper.generatePlaylistWithNAlbumTracks(startingTrackCount);
+//        String playlistId = originalPlaylist.getReservationId();
+//        String customerId = originalPlaylist.getSitterId();
 //
 //        // the new song to add to the playlist
-//        AlbumTrack albumTrackToAdd = AlbumTrackTestHelper.generateAlbumTrack(8);
-//        String addedAsin = albumTrackToAdd.getAsin();
-//        int addedTracknumber = albumTrackToAdd.getTrackNumber();
+//        Pet petToAdd = AlbumTrackTestHelper.generateAlbumTrack(8);
+//        String addedAsin = petToAdd.getPetId();
+//        int addedTracknumber = petToAdd.getPetName();
 //
 //        when(playlistDao.getPlaylist(playlistId)).thenReturn(originalPlaylist);
 //        when(playlistDao.savePlaylist(originalPlaylist)).thenReturn(originalPlaylist);
-//        when(albumTrackDao.getAlbumTrack(addedAsin, addedTracknumber)).thenReturn(albumTrackToAdd);
+//        when(albumTrackDao.getAlbumTrack(addedAsin, addedTracknumber)).thenReturn(petToAdd);
 //
 //        AddSongToPlaylistRequest request = AddSongToPlaylistRequest.builder()
 //                                               .withId(playlistId)
@@ -144,26 +144,26 @@
 //        verify(playlistDao).savePlaylist(originalPlaylist);
 //
 //        assertEquals(startingTrackCount + 1, result.getSongList().size());
-//        SongModel lastSong = result.getSongList().get(result.getSongList().size() - 1);
-//        AlbumTrackTestHelper.assertAlbumTrackEqualsSongModel(albumTrackToAdd, lastSong);
+//        PetModel lastSong = result.getSongList().get(result.getSongList().size() - 1);
+//        AlbumTrackTestHelper.assertAlbumTrackEqualsSongModel(petToAdd, lastSong);
 //    }
 //
 //    @Test
 //    void handleRequest_validRequestWithQueueNextTrue_addsSongToBeginningOfPlaylist() {
 //        // GIVEN
 //        int startingPlaylistSize = 2;
-//        Playlist originalPlaylist = PlaylistTestHelper.generatePlaylistWithNAlbumTracks(startingPlaylistSize);
-//        String playlistId = originalPlaylist.getId();
-//        String customerId = originalPlaylist.getCustomerId();
+//        Reservation originalPlaylist = PlaylistTestHelper.generatePlaylistWithNAlbumTracks(startingPlaylistSize);
+//        String playlistId = originalPlaylist.getReservationId();
+//        String customerId = originalPlaylist.getSitterId();
 //
 //        // the new song to add to the playlist
-//        AlbumTrack albumTrackToAdd = AlbumTrackTestHelper.generateAlbumTrack(6);
-//        String addedAsin = albumTrackToAdd.getAsin();
-//        int addedTracknumber = albumTrackToAdd.getTrackNumber();
+//        Pet petToAdd = AlbumTrackTestHelper.generateAlbumTrack(6);
+//        String addedAsin = petToAdd.getPetId();
+//        int addedTracknumber = petToAdd.getPetName();
 //
 //        when(playlistDao.getPlaylist(playlistId)).thenReturn(originalPlaylist);
 //        when(playlistDao.savePlaylist(originalPlaylist)).thenReturn(originalPlaylist);
-//        when(albumTrackDao.getAlbumTrack(addedAsin, addedTracknumber)).thenReturn(albumTrackToAdd);
+//        when(albumTrackDao.getAlbumTrack(addedAsin, addedTracknumber)).thenReturn(petToAdd);
 //
 //        AddSongToPlaylistRequest request = AddSongToPlaylistRequest.builder()
 //                                               .withId(playlistId)
@@ -180,7 +180,7 @@
 //        verify(playlistDao).savePlaylist(originalPlaylist);
 //
 //        assertEquals(startingPlaylistSize + 1, result.getSongList().size());
-//        SongModel firstSong = result.getSongList().get(0);
-//        AlbumTrackTestHelper.assertAlbumTrackEqualsSongModel(albumTrackToAdd, firstSong);
+//        PetModel firstSong = result.getSongList().get(0);
+//        AlbumTrackTestHelper.assertAlbumTrackEqualsSongModel(petToAdd, firstSong);
 //    }
 //}

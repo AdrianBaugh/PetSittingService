@@ -1,5 +1,5 @@
 const main = async () => {
-    console.log('I created a new page!');
+    console.log('Future home of river Pet sitting!!');
 };
 
 window.addEventListener('DOMContentLoaded', main);

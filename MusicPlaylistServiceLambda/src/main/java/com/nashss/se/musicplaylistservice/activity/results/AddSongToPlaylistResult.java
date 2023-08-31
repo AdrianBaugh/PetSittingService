@@ -1,18 +1,18 @@
 package com.nashss.se.musicplaylistservice.activity.results;
 
-import com.nashss.se.musicplaylistservice.models.SongModel;
+import com.nashss.se.musicplaylistservice.models.PetModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AddSongToPlaylistResult {
-    private final List<SongModel> songList;
+    private final List<PetModel> songList;
 
-    private AddSongToPlaylistResult(List<SongModel> songList) {
+    private AddSongToPlaylistResult(List<PetModel> songList) {
         this.songList = songList;
     }
 
-    public List<SongModel> getSongList() {
+    public List<PetModel> getSongList() {
         return new ArrayList<>(songList);
     }
 
@@ -29,9 +29,9 @@ public class AddSongToPlaylistResult {
     }
 
     public static class Builder {
-        private List<SongModel> songList;
+        private List<PetModel> songList;
 
-        public Builder withSongList(List<SongModel> songList) {
+        public Builder withSongList(List<PetModel> songList) {
             this.songList = new ArrayList<>(songList);
             return this;
         }

@@ -12,7 +12,7 @@ import dagger.Component;
 import javax.inject.Singleton;
 
 /**
- * Dagger component for providing dependency injection in the Music Playlist Service.
+ * Dagger component for providing dependency injection in the Music Reservation Service.
  */
 @Singleton
 @Component(modules = {DaoModule.class, MetricsModule.class})

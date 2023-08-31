@@ -1,6 +1,6 @@
 package com.nashss.se.musicplaylistservice.converters;
 
-import com.nashss.se.musicplaylistservice.dynamodb.models.AlbumTrack;
+import com.nashss.se.musicplaylistservice.dynamodb.models.Pet;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTypeConverter;
 import com.google.gson.Gson;
@@ -28,6 +28,6 @@ public class AlbumTrackLinkedListConverter implements DynamoDBTypeConverter<Stri
     @Override
     public List unconvert(String dynamoDbRepresentation) {
         // need to provide the type parameter of the list to convert correctly
-        return GSON.fromJson(dynamoDbRepresentation, new TypeToken<LinkedList<AlbumTrack>>() { } .getType());
+        return GSON.fromJson(dynamoDbRepresentation, new TypeToken<LinkedList<Pet>>() { } .getType());
     }
 }

@@ -4,8 +4,8 @@ import com.nashss.se.musicplaylistservice.activity.requests.GetPlaylistRequest;
 import com.nashss.se.musicplaylistservice.activity.results.GetPlaylistResult;
 import com.nashss.se.musicplaylistservice.converters.ModelConverter;
 import com.nashss.se.musicplaylistservice.dynamodb.PlaylistDao;
-import com.nashss.se.musicplaylistservice.dynamodb.models.Playlist;
-import com.nashss.se.musicplaylistservice.models.PlaylistModel;
+import com.nashss.se.musicplaylistservice.dynamodb.models.Reservation;
+import com.nashss.se.musicplaylistservice.models.ReservationModel;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -39,13 +39,13 @@ public class GetPlaylistActivity {
      * If the playlist does not exist, this should throw a PlaylistNotFoundException.
      *
      * @param getPlaylistRequest request object containing the playlist ID
-     * @return getPlaylistResult result object containing the API defined {@link PlaylistModel}
+     * @return getPlaylistResult result object containing the API defined {@link ReservationModel}
      */
     public GetPlaylistResult handleRequest(final GetPlaylistRequest getPlaylistRequest) {
         log.info("Received GetPlaylistRequest {}", getPlaylistRequest);
         String requestedId = getPlaylistRequest.getId();
-        Playlist playlist = playlistDao.getPlaylist(requestedId);
-        PlaylistModel playlistModel = new ModelConverter().toPlaylistModel(playlist);
+        Reservation playlist = playlistDao.getPlaylist(requestedId);
+        ReservationModel playlistModel = new ModelConverter().toReservationModel(playlist);
 
         return GetPlaylistResult.builder()
                 .withPlaylist(playlistModel)

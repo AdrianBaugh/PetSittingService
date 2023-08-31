@@ -4,8 +4,8 @@ import com.nashss.se.musicplaylistservice.activity.requests.SearchPlaylistsReque
 import com.nashss.se.musicplaylistservice.activity.results.SearchPlaylistsResult;
 import com.nashss.se.musicplaylistservice.converters.ModelConverter;
 import com.nashss.se.musicplaylistservice.dynamodb.PlaylistDao;
-import com.nashss.se.musicplaylistservice.dynamodb.models.Playlist;
-import com.nashss.se.musicplaylistservice.models.PlaylistModel;
+import com.nashss.se.musicplaylistservice.dynamodb.models.Reservation;
+import com.nashss.se.musicplaylistservice.models.ReservationModel;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -49,8 +49,8 @@ public class SearchPlaylistsActivity {
         String criteria = ifNull(searchPlaylistsRequest.getCriteria(), "");
         String[] criteriaArray = criteria.isBlank() ? new String[0] : criteria.split("\\s");
 
-        List<Playlist> results = playlistDao.searchPlaylists(criteriaArray);
-        List<PlaylistModel> playlistModels = new ModelConverter().toPlaylistModelList(results);
+        List<Reservation> results = playlistDao.searchPlaylists(criteriaArray);
+        List<ReservationModel> playlistModels = new ModelConverter().toReservationModelList(results);
 
         return SearchPlaylistsResult.builder()
                 .withPlaylists(playlistModels)

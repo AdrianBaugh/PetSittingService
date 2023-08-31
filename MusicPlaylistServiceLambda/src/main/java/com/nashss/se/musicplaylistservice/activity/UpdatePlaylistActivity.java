@@ -4,11 +4,11 @@ import com.nashss.se.musicplaylistservice.activity.requests.UpdatePlaylistReques
 import com.nashss.se.musicplaylistservice.activity.results.UpdatePlaylistResult;
 import com.nashss.se.musicplaylistservice.converters.ModelConverter;
 import com.nashss.se.musicplaylistservice.dynamodb.PlaylistDao;
-import com.nashss.se.musicplaylistservice.dynamodb.models.Playlist;
+import com.nashss.se.musicplaylistservice.dynamodb.models.Reservation;
 import com.nashss.se.musicplaylistservice.exceptions.InvalidAttributeValueException;
 import com.nashss.se.musicplaylistservice.metrics.MetricsConstants;
 import com.nashss.se.musicplaylistservice.metrics.MetricsPublisher;
-import com.nashss.se.musicplaylistservice.models.PlaylistModel;
+import com.nashss.se.musicplaylistservice.models.ReservationModel;
 import com.nashss.se.projectresources.music.playlist.servic.util.MusicPlaylistServiceUtils;
 
 import org.apache.logging.log4j.LogManager;
@@ -55,30 +55,30 @@ public class UpdatePlaylistActivity {
      *
      * @param updatePlaylistRequest request object containing the playlist ID, playlist name, and customer ID
      *                              associated with it
-     * @return updatePlaylistResult result object containing the API defined {@link PlaylistModel}
+     * @return updatePlaylistResult result object containing the API defined {@link ReservationModel}
      */
     public UpdatePlaylistResult handleRequest(final UpdatePlaylistRequest updatePlaylistRequest) {
         log.info("Received UpdatePlaylistRequest {}", updatePlaylistRequest);
 
         if (!MusicPlaylistServiceUtils.isValidString(updatePlaylistRequest.getName())) {
             publishExceptionMetrics(true, false);
-            throw new InvalidAttributeValueException("Playlist name [" + updatePlaylistRequest.getName() +
+            throw new InvalidAttributeValueException("Reservation name [" + updatePlaylistRequest.getName() +
                                                      "] contains illegal characters");
         }
 
-        Playlist playlist = playlistDao.getPlaylist(updatePlaylistRequest.getId());
+        Reservation playlist = playlistDao.getPlaylist(updatePlaylistRequest.getId());
 
-        if (!playlist.getCustomerId().equals(updatePlaylistRequest.getCustomerId())) {
+        if (!playlist.getSitterId().equals(updatePlaylistRequest.getCustomerId())) {
             publishExceptionMetrics(false, true);
             throw new SecurityException("You must own a playlist to update it.");
         }
 
-        playlist.setName(updatePlaylistRequest.getName());
+        playlist.setPetOwnerId(updatePlaylistRequest.getName());
         playlist = playlistDao.savePlaylist(playlist);
 
         publishExceptionMetrics(false, false);
         return UpdatePlaylistResult.builder()
-                .withPlaylist(new ModelConverter().toPlaylistModel(playlist))
+                .withPlaylist(new ModelConverter().toReservationModel(playlist))
                 .build();
     }
 
@@ -89,9 +89,9 @@ public class UpdatePlaylistActivity {
      */
     private void publishExceptionMetrics(final boolean isInvalidAttributeValue,
                                          final boolean isInvalidAttributeChange) {
-        metricsPublisher.addCount(MetricsConstants.UPDATEPLAYLIST_INVALIDATTRIBUTEVALUE_COUNT,
+        metricsPublisher.addCount(MetricsConstants.UPDATERESERVATION_INVALIDATTRIBUTEVALUE_COUNT,
             isInvalidAttributeValue ? 1 : 0);
-        metricsPublisher.addCount(MetricsConstants.UPDATEPLAYLIST_INVALIDATTRIBUTECHANGE_COUNT,
+        metricsPublisher.addCount(MetricsConstants.UPDATERESERVATION_INVALIDATTRIBUTECHANGE_COUNT,
             isInvalidAttributeChange ? 1 : 0);
     }
 }

@@ -4,9 +4,9 @@ import com.nashss.se.musicplaylistservice.activity.requests.GetPlaylistSongsRequ
 import com.nashss.se.musicplaylistservice.activity.results.GetPlaylistSongsResult;
 import com.nashss.se.musicplaylistservice.converters.ModelConverter;
 import com.nashss.se.musicplaylistservice.dynamodb.PlaylistDao;
-import com.nashss.se.musicplaylistservice.dynamodb.models.Playlist;
+import com.nashss.se.musicplaylistservice.dynamodb.models.Reservation;
 import com.nashss.se.musicplaylistservice.exceptions.InvalidAttributeValueException;
-import com.nashss.se.musicplaylistservice.models.SongModel;
+import com.nashss.se.musicplaylistservice.models.PetModel;
 import com.nashss.se.musicplaylistservice.models.SongOrder;
 
 import org.apache.logging.log4j.LogManager;
@@ -44,25 +44,26 @@ public class GetPlaylistSongsActivity {
      * If the playlist does not exist, this should throw a PlaylistNotFoundException.
      *
      * @param getPlaylistSongsRequest request object containing the playlist ID
-     * @return getPlaylistSongsResult result object containing the playlist's list of API defined {@link SongModel}s
+     * @return getPlaylistSongsResult result object containing the playlist's list of API defined {@link PetModel}s
      */
     public GetPlaylistSongsResult handleRequest(final GetPlaylistSongsRequest getPlaylistSongsRequest) {
-        log.info("Received GetPlaylistSongsRequest {}", getPlaylistSongsRequest);
-
-        String songOrder = computeSongOrder(getPlaylistSongsRequest.getOrder());
-
-        Playlist playlist = playlistDao.getPlaylist(getPlaylistSongsRequest.getId());
-        List<SongModel> songModels = new ModelConverter().toSongModelList(playlist.getSongList());
-
-        if (songOrder.equals(SongOrder.REVERSED)) {
-            Collections.reverse(songModels);
-        } else if (songOrder.equals(SongOrder.SHUFFLED)) {
-            Collections.shuffle(songModels);
-        }
-
-        return GetPlaylistSongsResult.builder()
-                .withSongList(songModels)
-                .build();
+//        log.info("Received GetPlaylistSongsRequest {}", getPlaylistSongsRequest);
+//
+//        String songOrder = computeSongOrder(getPlaylistSongsRequest.getOrder());
+//
+//        Reservation playlist = playlistDao.getPlaylist(getPlaylistSongsRequest.getId());
+//        List<PetModel> petModels = new ModelConverter().toPetModelList(playlist.getPetList());
+//
+//        if (songOrder.equals(SongOrder.REVERSED)) {
+//            Collections.reverse(petModels);
+//        } else if (songOrder.equals(SongOrder.SHUFFLED)) {
+//            Collections.shuffle(petModels);
+//        }
+//
+//        return GetPlaylistSongsResult.builder()
+//                .withSongList(petModels)
+//                .build();
+        return null;
     }
 
     private String computeSongOrder(String songOrder) {

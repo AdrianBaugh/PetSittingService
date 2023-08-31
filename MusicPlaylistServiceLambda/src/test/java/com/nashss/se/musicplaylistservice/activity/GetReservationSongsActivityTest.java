@@ -2,14 +2,14 @@
 //
 //import com.nashss.se.musicplaylistservice.activity.requests.GetPlaylistSongsRequest;
 //import com.nashss.se.musicplaylistservice.activity.results.GetPlaylistSongsResult;
+//import com.nashss.se.musicplaylistservice.dynamodb.models.Reservation;
 //import com.nashss.se.musicplaylistservice.models.SongOrder;
-//import com.nashss.se.musicplaylistservice.models.SongModel;
+//import com.nashss.se.musicplaylistservice.models.PetModel;
 //import com.nashss.se.musicplaylistservice.converters.ModelConverter;
 //import com.nashss.se.musicplaylistservice.dynamodb.PlaylistDao;
-//import com.nashss.se.musicplaylistservice.dynamodb.models.AlbumTrack;
-//import com.nashss.se.musicplaylistservice.dynamodb.models.Playlist;
+//import com.nashss.se.musicplaylistservice.dynamodb.models.Pet;
 //import com.nashss.se.musicplaylistservice.exceptions.InvalidAttributeValueException;
-//import com.nashss.se.musicplaylistservice.exceptions.ReservationNotFoundException;
+//import com.nashss.se.musicplaylistservice.exceptions.PlaylistNotFoundException;
 //import com.nashss.se.musicplaylistservice.test.helper.AlbumTrackTestHelper;
 //import com.nashss.se.musicplaylistservice.test.helper.PlaylistTestHelper;
 //
@@ -27,7 +27,7 @@
 //import static org.mockito.Mockito.when;
 //import static org.mockito.MockitoAnnotations.openMocks;
 //
-//public class GetPlaylistSongsActivityTest {
+//public class GetReservationSongsActivityTest {
 //    @Mock
 //    private PlaylistDao playlistDao;
 //
@@ -42,8 +42,8 @@
 //    @Test
 //    void handleRequest_playlistExistsWithSongs_returnsSongsInPlaylist() {
 //        // GIVEN
-//        Playlist playlist = PlaylistTestHelper.generatePlaylistWithNAlbumTracks(3);
-//        String playlistId = playlist.getId();
+//        Reservation playlist = PlaylistTestHelper.generatePlaylistWithNAlbumTracks(3);
+//        String playlistId = playlist.getReservationId();
 //        GetPlaylistSongsRequest request = GetPlaylistSongsRequest.builder()
 //                                              .withId(playlistId)
 //                                              .build();
@@ -53,14 +53,14 @@
 //        GetPlaylistSongsResult result = getPlaylistSongsActivity.handleRequest(request);
 //
 //        // THEN
-//        AlbumTrackTestHelper.assertAlbumTracksEqualSongModels(playlist.getSongList(), result.getSongList());
+//        AlbumTrackTestHelper.assertAlbumTracksEqualSongModels(playlist.getPetList(), result.getSongList());
 //    }
 //
 //    @Test
 //    void handleRequest_playlistExistsWithoutSongs_returnsEmptyList() {
 //        // GIVEN
-//        Playlist emptyPlaylist = PlaylistTestHelper.generatePlaylistWithNAlbumTracks(0);
-//        String playlistId = emptyPlaylist.getId();
+//        Reservation emptyPlaylist = PlaylistTestHelper.generatePlaylistWithNAlbumTracks(0);
+//        String playlistId = emptyPlaylist.getReservationId();
 //        GetPlaylistSongsRequest request = GetPlaylistSongsRequest.builder()
 //                                              .withId(playlistId)
 //                                              .build();
@@ -77,8 +77,8 @@
 //    @Test
 //    void handleRequest_withDefaultSongOrder_returnsDefaultOrderedPlaylistSongs() {
 //        // GIVEN
-//        Playlist playlist = PlaylistTestHelper.generatePlaylistWithNAlbumTracks(10);
-//        String playlistId = playlist.getId();
+//        Reservation playlist = PlaylistTestHelper.generatePlaylistWithNAlbumTracks(10);
+//        String playlistId = playlist.getReservationId();
 //
 //        GetPlaylistSongsRequest request = GetPlaylistSongsRequest.builder()
 //                                              .withId(playlistId)
@@ -90,16 +90,16 @@
 //        GetPlaylistSongsResult result = getPlaylistSongsActivity.handleRequest(request);
 //
 //        // THEN
-//        AlbumTrackTestHelper.assertAlbumTracksEqualSongModels(playlist.getSongList(), result.getSongList());
+//        AlbumTrackTestHelper.assertAlbumTracksEqualSongModels(playlist.getPetList(), result.getSongList());
 //    }
 //
 //    @Test
 //    void handleRequest_withReversedSongOrder_returnsReversedPlaylistSongs() {
 //        // GIVEN
-//        Playlist playlist = PlaylistTestHelper.generatePlaylistWithNAlbumTracks(9);
-//        String playlistId = playlist.getId();
-//        List<AlbumTrack> reversedAlbumTracks = new LinkedList<>(playlist.getSongList());
-//        Collections.reverse(reversedAlbumTracks);
+//        Reservation playlist = PlaylistTestHelper.generatePlaylistWithNAlbumTracks(9);
+//        String playlistId = playlist.getReservationId();
+//        List<Pet> reversedPets = new LinkedList<>(playlist.getPetList());
+//        Collections.reverse(reversedPets);
 //
 //        GetPlaylistSongsRequest request = GetPlaylistSongsRequest.builder()
 //                                              .withId(playlistId)
@@ -111,15 +111,15 @@
 //        GetPlaylistSongsResult result = getPlaylistSongsActivity.handleRequest(request);
 //
 //        // THEN
-//        AlbumTrackTestHelper.assertAlbumTracksEqualSongModels(reversedAlbumTracks, result.getSongList());
+//        AlbumTrackTestHelper.assertAlbumTracksEqualSongModels(reversedPets, result.getSongList());
 //    }
 //
 //    @Test
 //    void handleRequest_withShuffledSongOrder_returnsSongsInAnyOrder() {
-//        Playlist playlist = PlaylistTestHelper.generatePlaylistWithNAlbumTracks(8);
-//        String playlistId = playlist.getId();
+//        Reservation playlist = PlaylistTestHelper.generatePlaylistWithNAlbumTracks(8);
+//        String playlistId = playlist.getReservationId();
 //
-//        List<SongModel> songModels = new ModelConverter().toSongModelList(playlist.getSongList());
+//        List<PetModel> petModels = new ModelConverter().toPetModelList(playlist.getPetList());
 //
 //        GetPlaylistSongsRequest request = GetPlaylistSongsRequest.builder()
 //                                              .withId(playlistId)
@@ -131,18 +131,18 @@
 //        GetPlaylistSongsResult result = getPlaylistSongsActivity.handleRequest(request);
 //
 //        // THEN
-//        assertEquals(playlist.getSongList().size(),
+//        assertEquals(playlist.getPetList().size(),
 //                     result.getSongList().size(),
 //                     String.format("Expected album tracks (%s) and song models (%s) to be the same length",
-//                                   playlist.getSongList(),
+//                                   playlist.getPetList(),
 //                                   result.getSongList()));
 //        assertTrue(
-//            songModels.containsAll(result.getSongList()),
+//            petModels.containsAll(result.getSongList()),
 //            String.format("album list (%s) and song models (%s) are the same length, but don't contain the same " +
 //                          "entries. Expected song models: %s. Returned song models: %s",
-//                          playlist.getSongList(),
+//                          playlist.getPetList(),
 //                          result.getSongList(),
-//                          songModels,
+//                    petModels,
 //                          result.getSongList()));
 //    }
 //
@@ -155,17 +155,17 @@
 //                                              .build();
 //
 //        // WHEN
-//        when(playlistDao.getPlaylist(id)).thenThrow(new ReservationNotFoundException());
+//        when(playlistDao.getPlaylist(id)).thenThrow(new PlaylistNotFoundException());
 //
 //        // WHEN + THEN
-//        assertThrows(ReservationNotFoundException.class, () -> getPlaylistSongsActivity.handleRequest(request));
+//        assertThrows(PlaylistNotFoundException.class, () -> getPlaylistSongsActivity.handleRequest(request));
 //    }
 //
 //    @Test
 //    public void handleRequest_withInvalidSongOrder_throwsException() {
 //        // GIVEN
-//        Playlist playlist = PlaylistTestHelper.generatePlaylist();
-//        String id = playlist.getId();
+//        Reservation playlist = PlaylistTestHelper.generatePlaylist();
+//        String id = playlist.getReservationId();
 //        GetPlaylistSongsRequest request = GetPlaylistSongsRequest.builder()
 //            .withId(id)
 //            .withOrder("NOT A VALID ORDER")
