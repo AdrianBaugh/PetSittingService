@@ -46,7 +46,7 @@ public class ReservationDaoTest {
         // THEN
         assertNotNull(playlist);
         verify(dynamoDBMapper).load(Reservation.class, playlistId);
-        verify(metricsPublisher).addCount(eq(MetricsConstants.GETPLAYLIST_PLAYLISTNOTFOUND_COUNT), anyDouble());
+        verify(metricsPublisher).addCount(eq(MetricsConstants.GETRESERVATION_RESERVATIONNOTFOUND_COUNT), anyDouble());
 
     }
 
@@ -58,7 +58,7 @@ public class ReservationDaoTest {
 
         // WHEN + THEN
         assertThrows(PlaylistNotFoundException.class, () -> playlistDao.getPlaylist(nonexistentPlaylistId));
-        verify(metricsPublisher).addCount(eq(MetricsConstants.GETPLAYLIST_PLAYLISTNOTFOUND_COUNT), anyDouble());
+        verify(metricsPublisher).addCount(eq(MetricsConstants.GETRESERVATION_RESERVATIONNOTFOUND_COUNT), anyDouble());
     }
 
     @Test

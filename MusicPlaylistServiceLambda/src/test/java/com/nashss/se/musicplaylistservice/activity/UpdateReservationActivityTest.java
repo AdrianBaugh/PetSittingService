@@ -80,8 +80,8 @@ public class UpdateReservationActivityTest {
             updatePlaylistActivity.handleRequest(request);
             fail("Expected InvalidAttributeValueException to be thrown");
         } catch (InvalidAttributeValueException e) {
-            verify(metricsPublisher).addCount(MetricsConstants.UPDATEPLAYLIST_INVALIDATTRIBUTEVALUE_COUNT, 1);
-            verify(metricsPublisher).addCount(MetricsConstants.UPDATEPLAYLIST_INVALIDATTRIBUTECHANGE_COUNT, 0);
+            verify(metricsPublisher).addCount(MetricsConstants.UPDATERESERVATION_INVALIDATTRIBUTEVALUE_COUNT, 1);
+            verify(metricsPublisher).addCount(MetricsConstants.UPDATERESERVATION_INVALIDATTRIBUTECHANGE_COUNT, 0);
         }
     }
 
@@ -121,8 +121,8 @@ public class UpdateReservationActivityTest {
             updatePlaylistActivity.handleRequest(request);
             fail("Expected InvalidAttributeChangeException to be thrown");
         } catch (SecurityException e) {
-            verify(metricsPublisher).addCount(MetricsConstants.UPDATEPLAYLIST_INVALIDATTRIBUTEVALUE_COUNT, 0);
-            verify(metricsPublisher).addCount(MetricsConstants.UPDATEPLAYLIST_INVALIDATTRIBUTECHANGE_COUNT, 1);
+            verify(metricsPublisher).addCount(MetricsConstants.UPDATERESERVATION_INVALIDATTRIBUTEVALUE_COUNT, 0);
+            verify(metricsPublisher).addCount(MetricsConstants.UPDATERESERVATION_INVALIDATTRIBUTECHANGE_COUNT, 1);
         }
     }
 }
