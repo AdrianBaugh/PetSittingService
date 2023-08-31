@@ -1,7 +1,8 @@
 package com.nashss.se.musicplaylistservice.dynamodb;
 
 import com.nashss.se.musicplaylistservice.dynamodb.models.Pet;
-import com.nashss.se.musicplaylistservice.exceptions.AlbumTrackNotFoundException;
+import com.nashss.se.musicplaylistservice.exceptions.PetIdNotFoundException;
+
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 
@@ -37,7 +38,7 @@ public class AlbumTrackDao {
     public Pet getAlbumTrack(String asin, int trackNumber) {
         Pet pet = dynamoDbMapper.load(Pet.class, asin, trackNumber);
         if (null == pet) {
-            throw new AlbumTrackNotFoundException(
+            throw new PetIdNotFoundException(
                 String.format("Could not find Pet with ASIN '%s' and track number %d", asin, trackNumber));
         }
 

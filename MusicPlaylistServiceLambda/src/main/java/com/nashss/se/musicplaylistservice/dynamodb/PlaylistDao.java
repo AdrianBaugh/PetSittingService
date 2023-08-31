@@ -1,7 +1,7 @@
 package com.nashss.se.musicplaylistservice.dynamodb;
 
 import com.nashss.se.musicplaylistservice.dynamodb.models.Reservation;
-import com.nashss.se.musicplaylistservice.exceptions.PlaylistNotFoundException;
+import com.nashss.se.musicplaylistservice.exceptions.ReservationNotFoundException;
 import com.nashss.se.musicplaylistservice.metrics.MetricsConstants;
 import com.nashss.se.musicplaylistservice.metrics.MetricsPublisher;
 
@@ -47,7 +47,7 @@ public class PlaylistDao {
 
         if (playlist == null) {
             metricsPublisher.addCount(MetricsConstants.GETRESERVATION_RESERVATIONNOTFOUND_COUNT, 1);
-            throw new PlaylistNotFoundException("Could not find playlist with id " + id);
+            throw new ReservationNotFoundException("Could not find playlist with id " + id);
         }
         metricsPublisher.addCount(MetricsConstants.GETRESERVATION_RESERVATIONNOTFOUND_COUNT, 0);
         return playlist;
