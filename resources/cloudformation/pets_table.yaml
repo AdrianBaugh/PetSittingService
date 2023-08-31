@@ -1,0 +1,23 @@
+Resources:
+  PetsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: pets
+      AttributeDefinitions:
+        - AttributeName: "petId"
+          AttributeType: "S"
+        - AttributeName: "ownerId"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "petId"
+          KeyType: "HASH"
+      BillingMode: "PAY_PER_REQUEST"
+      GlobalSecondaryIndexes:
+        - IndexName: "PetsByOwnerIndex"
+          KeySchema:
+            - AttributeName: "ownerId"
+              KeyType: "HASH"
+          Projection:
+            ProjectionType: "INCLUDE"
+            NonKeyAttributes:
+              - "petName"
