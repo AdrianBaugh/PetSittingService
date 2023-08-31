@@ -7,13 +7,13 @@ import java.util.Objects;
 import static com.nashss.se.musicplaylistservice.utils.CollectionUtils.copyToList;
 
 public class ReservationModel {
-    private String reservationId;
-    private String petOwnerId;
-    private String sitterId;
-    private LocalDate startDate;
-    private LocalDate endDate;
-    private String status;
-    private List<String> petList;
+    private final String reservationId;
+    private final String petOwnerId;
+    private final String sitterId;
+    private final LocalDate startDate;
+    private final LocalDate endDate;
+    private final String status;
+    private final List<String> petList;
 
     public ReservationModel(String reservationId, String petOwnerId, String sitterId, LocalDate startDate,
                             LocalDate endDate, String status, List<String> petList) {
