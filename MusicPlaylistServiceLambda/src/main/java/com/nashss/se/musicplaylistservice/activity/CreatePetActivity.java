@@ -6,7 +6,6 @@ import com.nashss.se.musicplaylistservice.dynamodb.PetDao;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Pet;
 import com.nashss.se.musicplaylistservice.exceptions.InvalidAttributeValueException;
 import com.nashss.se.musicplaylistservice.models.PetModel;
-import com.nashss.se.musicplaylistservice.models.ReservationModel;
 import com.nashss.se.musicplaylistservice.utils.IdUtils;
 
 import javax.inject.Inject;
@@ -35,9 +34,9 @@ public class CreatePetActivity {
      * If the provided pet name or customer ID has invalid characters, throws an
      * InvalidAttributeValueException
      *
-     * @param createPetRequest request object containing the playlist name and customer ID
+     * @param createPetRequest request object containing the pet name and pet ownerID
      *                              associated with it
-     * @return createPetResult result object containing the API defined {@link ReservationModel}
+     * @return createPetResult result object containing the API defined {@link PetModel}
      */
     public CreatePetResult handleRequest(final CreatePetRequest createPetRequest) {
         log.info("received CreatePetRequest {}", createPetRequest);
