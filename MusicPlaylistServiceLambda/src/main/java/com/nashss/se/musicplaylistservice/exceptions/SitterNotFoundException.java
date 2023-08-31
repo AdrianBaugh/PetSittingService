@@ -4,7 +4,7 @@ package com.nashss.se.musicplaylistservice.exceptions;
  */
 public class SitterNotFoundException extends RuntimeException{
 
-    private static final long serialVersionUID = -912326717789387971L;
+    private static final long serialVersionUID = 5594991634843817514L;
 
     /**
      * Exception with no message or cause.

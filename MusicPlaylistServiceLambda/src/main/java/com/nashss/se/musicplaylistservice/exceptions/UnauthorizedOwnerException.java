@@ -3,7 +3,7 @@ package com.nashss.se.musicplaylistservice.exceptions;
  * Exception to throw when a UnauthorizedOwner or user is not found in the database.
  */
 public class UnauthorizedOwnerException extends RuntimeException{
-    private static final long serialVersionUID = -912326717789387971L;
+    private static final long serialVersionUID = -5477697802062215741L;
 
     /**
      * Exception with no message or cause.
