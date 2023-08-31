@@ -54,34 +54,35 @@ public class AddSongToPlaylistActivity {
      *                                 API defined {@link PetModel}s
      */
     public AddSongToPlaylistResult handleRequest(final AddSongToPlaylistRequest addSongToPlaylistRequest) {
-        log.info("Received AddSongToPlaylistRequest {} ", addSongToPlaylistRequest);
-
-        String asin = addSongToPlaylistRequest.getAsin();
-        // Allow NPE when unboxing Integer if track number is null (getTrackNumber returns Integer)
-        int trackNumber = addSongToPlaylistRequest.getTrackNumber();
-
-        Reservation playlist = playlistDao.getPlaylist(addSongToPlaylistRequest.getId());
-
-        if (!playlist.getSitterId().equals(addSongToPlaylistRequest.getCustomerId())) {
-            throw new SecurityException("You must own a playlist to add songs to it.");
-        }
-
-        Pet petToAdd = albumTrackDao.getAlbumTrack(asin, trackNumber);
-
-        LinkedList<Pet> pets = (LinkedList<Pet>) (playlist.getPetList());
-        if (addSongToPlaylistRequest.isQueueNext()) {
-            pets.addFirst(petToAdd);
-        } else {
-            pets.addLast(petToAdd);
-        }
-
-        playlist.setPetList(pets);
-        playlist.setEndDate(playlist.getPetList().size());
-        playlist = playlistDao.savePlaylist(playlist);
-
-        List<PetModel> petModels = new ModelConverter().toPetModelList(playlist.getPetList());
-        return AddSongToPlaylistResult.builder()
-                .withSongList(petModels)
-                .build();
+//        log.info("Received AddSongToPlaylistRequest {} ", addSongToPlaylistRequest);
+//
+//        String asin = addSongToPlaylistRequest.getAsin();
+//        // Allow NPE when unboxing Integer if track number is null (getTrackNumber returns Integer)
+//        int trackNumber = addSongToPlaylistRequest.getTrackNumber();
+//
+//        Reservation playlist = playlistDao.getPlaylist(addSongToPlaylistRequest.getId());
+//
+//        if (!playlist.getSitterId().equals(addSongToPlaylistRequest.getCustomerId())) {
+//            throw new SecurityException("You must own a playlist to add songs to it.");
+//        }
+//
+//        Pet petToAdd = albumTrackDao.getAlbumTrack(asin, trackNumber);
+//
+//        LinkedList<Pet> pets = (LinkedList<Pet>) (playlist.getPetList());
+//        if (addSongToPlaylistRequest.isQueueNext()) {
+//            pets.addFirst(petToAdd);
+//        } else {
+//            pets.addLast(petToAdd);
+//        }
+//
+//        playlist.setPetList(pets);
+//        playlist.setEndDate(playlist.getPetList().size());
+//        playlist = playlistDao.savePlaylist(playlist);
+//
+//        List<PetModel> petModels = new ModelConverter().toPetModelList(playlist.getPetList());
+//        return AddSongToPlaylistResult.builder()
+//                .withSongList(petModels)
+//                .build();
+        return null;
     }
 }

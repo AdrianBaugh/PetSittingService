@@ -51,37 +51,38 @@ public class CreatePlaylistActivity {
      * @return createPlaylistResult result object containing the API defined {@link ReservationModel}
      */
     public CreatePlaylistResult handleRequest(final CreatePlaylistRequest createPlaylistRequest) {
-        log.info("Received CreatePlaylistRequest {}", createPlaylistRequest);
-
-        if (!MusicPlaylistServiceUtils.isValidString(createPlaylistRequest.getName())) {
-            throw new InvalidAttributeValueException("Reservation name [" + createPlaylistRequest.getName() +
-                    "] contains illegal characters");
-        }
-
-        if (!MusicPlaylistServiceUtils.isValidString(createPlaylistRequest.getCustomerId())) {
-            throw new InvalidAttributeValueException("Reservation customer ID [" + createPlaylistRequest.getCustomerId() +
-                    "] contains illegal characters");
-        }
-
-        Set<String> playlistTags = null;
-        if (createPlaylistRequest.getTags() != null) {
-            playlistTags = new HashSet<>(createPlaylistRequest.getTags());
-        }
-
-        Reservation newPlaylist = new Reservation();
-        newPlaylist.setReservationId(MusicPlaylistServiceUtils.generatePlaylistId());
-        newPlaylist.setPetOwnerId(createPlaylistRequest.getName());
-        newPlaylist.setSitterId(createPlaylistRequest.getCustomerId());
-        newPlaylist.setStartDate(createPlaylistRequest.getCustomerName());
-        newPlaylist.setEndDate(0);
-        newPlaylist.setTags(playlistTags);
-        newPlaylist.setPetList(new ArrayList<>());
-
-        playlistDao.savePlaylist(newPlaylist);
-
-        ReservationModel playlistModel = new ModelConverter().toReservationModel(newPlaylist);
-        return CreatePlaylistResult.builder()
-                .withPlaylist(playlistModel)
-                .build();
+//        log.info("Received CreatePlaylistRequest {}", createPlaylistRequest);
+//
+//        if (!MusicPlaylistServiceUtils.isValidString(createPlaylistRequest.getName())) {
+//            throw new InvalidAttributeValueException("Reservation name [" + createPlaylistRequest.getName() +
+//                    "] contains illegal characters");
+//        }
+//
+//        if (!MusicPlaylistServiceUtils.isValidString(createPlaylistRequest.getCustomerId())) {
+//            throw new InvalidAttributeValueException("Reservation customer ID [" + createPlaylistRequest.getCustomerId() +
+//                    "] contains illegal characters");
+//        }
+//
+//        Set<String> playlistTags = null;
+//        if (createPlaylistRequest.getTags() != null) {
+//            playlistTags = new HashSet<>(createPlaylistRequest.getTags());
+//        }
+//
+//        Reservation newPlaylist = new Reservation();
+//        newPlaylist.setReservationId(MusicPlaylistServiceUtils.generatePlaylistId());
+//        newPlaylist.setPetOwnerId(createPlaylistRequest.getName());
+//        newPlaylist.setSitterId(createPlaylistRequest.getCustomerId());
+//        newPlaylist.setStartDate(createPlaylistRequest.getCustomerName());
+//        newPlaylist.setEndDate(0);
+//        newPlaylist.setTags(playlistTags);
+//        newPlaylist.setPetList(new ArrayList<>());
+//
+//        playlistDao.savePlaylist(newPlaylist);
+//
+//        ReservationModel playlistModel = new ModelConverter().toReservationModel(newPlaylist);
+//        return CreatePlaylistResult.builder()
+//                .withPlaylist(playlistModel)
+//                .build();
+        return null;
     }
 }

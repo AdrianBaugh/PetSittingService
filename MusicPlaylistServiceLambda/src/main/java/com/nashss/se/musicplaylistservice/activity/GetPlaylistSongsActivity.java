@@ -47,22 +47,23 @@ public class GetPlaylistSongsActivity {
      * @return getPlaylistSongsResult result object containing the playlist's list of API defined {@link PetModel}s
      */
     public GetPlaylistSongsResult handleRequest(final GetPlaylistSongsRequest getPlaylistSongsRequest) {
-        log.info("Received GetPlaylistSongsRequest {}", getPlaylistSongsRequest);
-
-        String songOrder = computeSongOrder(getPlaylistSongsRequest.getOrder());
-
-        Reservation playlist = playlistDao.getPlaylist(getPlaylistSongsRequest.getId());
-        List<PetModel> petModels = new ModelConverter().toPetModelList(playlist.getPetList());
-
-        if (songOrder.equals(SongOrder.REVERSED)) {
-            Collections.reverse(petModels);
-        } else if (songOrder.equals(SongOrder.SHUFFLED)) {
-            Collections.shuffle(petModels);
-        }
-
-        return GetPlaylistSongsResult.builder()
-                .withSongList(petModels)
-                .build();
+//        log.info("Received GetPlaylistSongsRequest {}", getPlaylistSongsRequest);
+//
+//        String songOrder = computeSongOrder(getPlaylistSongsRequest.getOrder());
+//
+//        Reservation playlist = playlistDao.getPlaylist(getPlaylistSongsRequest.getId());
+//        List<PetModel> petModels = new ModelConverter().toPetModelList(playlist.getPetList());
+//
+//        if (songOrder.equals(SongOrder.REVERSED)) {
+//            Collections.reverse(petModels);
+//        } else if (songOrder.equals(SongOrder.SHUFFLED)) {
+//            Collections.shuffle(petModels);
+//        }
+//
+//        return GetPlaylistSongsResult.builder()
+//                .withSongList(petModels)
+//                .build();
+        return null;
     }
 
     private String computeSongOrder(String songOrder) {
