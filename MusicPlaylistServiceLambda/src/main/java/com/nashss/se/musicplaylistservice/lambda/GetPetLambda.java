@@ -2,9 +2,10 @@ package com.nashss.se.musicplaylistservice.lambda;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
+import com.nashss.se.musicplaylistservice.activity.requests.GetPetRequest;
 
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class GetPetLambda
         extends LambdaActivityRunner<GetPetRequest, GetPetResult>
