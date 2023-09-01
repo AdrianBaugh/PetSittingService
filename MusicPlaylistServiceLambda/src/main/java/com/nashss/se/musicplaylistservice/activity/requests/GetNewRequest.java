@@ -1,9 +1,9 @@
 package com.nashss.se.musicplaylistservice.activity.requests;
 
-    public class GetPetRequest {
+    public class GetNewPetRequest {
         private final String petId;
 
-        public GetPetRequest(String petId) {
+        public GetNewPetRequest(String petId) {
             this.petId = petId;
         }
 
@@ -30,8 +30,8 @@ package com.nashss.se.musicplaylistservice.activity.requests;
                 return this;
             }
 
-            public GetPetRequest build() {
-                return new GetPetRequest(petId);
+            public GetNewPetRequest build() {
+                return new GetNewPetRequest(petId);
             }
         }
     }
