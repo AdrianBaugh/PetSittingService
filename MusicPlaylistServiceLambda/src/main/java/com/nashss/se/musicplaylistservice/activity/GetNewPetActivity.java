@@ -6,7 +6,6 @@ import com.nashss.se.musicplaylistservice.dynamodb.models.Pet;
 
 import com.nashss.se.musicplaylistservice.exceptions.PetIdNotFoundException;
 import com.nashss.se.musicplaylistservice.models.PetModel;
-import com.nashss.se.musicplaylistservice.models.ReservationModel;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,7 +17,7 @@ import javax.inject.Inject;
      *
      * This API allows the customer to get one of their saved pets.
      */
-    public class GetPetActivity {
+    public class GetNewPetActivity {
         private final Logger log = LogManager.getLogger();
         private final PetDao petDao;
 
@@ -28,7 +27,7 @@ import javax.inject.Inject;
          * @param petDao PetDao to access the pet table.
          */
         @Inject
-        public GetPetActivity(PetDao petDao) {
+        public GetNewPetActivity(PetDao petDao) {
             this.petDao = petDao;
         }
 
@@ -43,9 +42,9 @@ import javax.inject.Inject;
          * @return getPetResult result object containing the API defined {@link PetModel}
          */
 
-        public GetPetResult handleRequest(final GetPetRequest getPetRequest) throws PetIdNotFoundException {
-            log.info("Received GetPetRequest {}", getPetRequest);
-            String requestedPetId = getPetRequest.getPetId();
+        public GetNewPetResult handleRequest(final GetNewPetRequest getNewPetRequest) throws PetIdNotFoundException {
+            log.info("Received GetNewPetRequest {}", getNewPetRequest);
+            String requestedPetId = getNewPetRequest.getPetId();
 
             // Retrieve the pet from the database using the petDao
             Pet pet = petDao.getPetById(requestedPetId);
@@ -57,7 +56,7 @@ import javax.inject.Inject;
             // Convert the retrieved Pet object into a PetModel
             PetModel petModel = new ModelConverter().toPetModel(pet);
 
-            return GetPetResult.builder()
+            return GetNewPetResult.builder()
                     .withPet(petModel)
                     .build();
         }
