@@ -17,7 +17,7 @@ import javax.inject.Inject;
      *
      * This API allows the customer to get one of their saved pets.
      */
-    public class GetNewPetActivity {
+    public class GetPetActivity {
         private final Logger log = LogManager.getLogger();
         private final PetDao petDao;
 
@@ -27,7 +27,7 @@ import javax.inject.Inject;
          * @param petDao PetDao to access the pet table.
          */
         @Inject
-        public GetNewPetActivity(PetDao petDao) {
+        public GetPetActivity(PetDao petDao) {
             this.petDao = petDao;
         }
 
@@ -42,9 +42,9 @@ import javax.inject.Inject;
          * @return getPetResult result object containing the API defined {@link PetModel}
          */
 
-        public GetNewPetResult handleRequest(final GetNewPetRequest getNewPetRequest) throws PetIdNotFoundException {
-            log.info("Received GetNewPetRequest {}", getNewPetRequest);
-            String requestedPetId = getNewPetRequest.getPetId();
+        public GetPetResult handleRequest(final GetPetRequest getPetRequest) throws PetIdNotFoundException {
+            log.info("Received GetPetRequest {}", getPetRequest);
+            String requestedPetId = getPetRequest.getPetId();
 
             // Retrieve the pet from the database using the petDao
             Pet pet = petDao.getPetById(requestedPetId);
@@ -56,7 +56,7 @@ import javax.inject.Inject;
             // Convert the retrieved Pet object into a PetModel
             PetModel petModel = new ModelConverter().toPetModel(pet);
 
-            return GetNewPetResult.builder()
+            return GetPetResult.builder()
                     .withPet(petModel)
                     .build();
         }
