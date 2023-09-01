@@ -37,7 +37,7 @@ class CreatePet extends BindingClass {
 
         const petName = document.getElementById('pet-name').value;
         
-        const pet = await this.client.CreatePet(petName, (error) => {
+        const pet = await this.client.createPet(petName, (error) => {
             createButton.innerText = origButtonText;
             errorMessageDisplay.innerText = `Error: ${error.message}`;
             errorMessageDisplay.classList.remove('hidden');
@@ -54,7 +54,7 @@ class CreatePet extends BindingClass {
 }
     const main = async () => {
         const createPet = new CreatePet();
-        createPet.mount;
+        createPet.mount();
     };
 
     window.addEventListener('DOMContentLoaded', main);
