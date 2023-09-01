@@ -9,11 +9,11 @@ import com.nashss.se.musicplaylistservice.models.PetModel;
 import com.nashss.se.musicplaylistservice.utils.IdUtils;
 
 import javax.inject.Inject;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class CreatePetActivity {
-    private final Logger log = LogManager.getLogManager();
+    private final Logger log = LogManager.getLogger();
     private final PetDao petDao;
     /**
      * Instantiates a new CreatePetActivity object.
