@@ -1,6 +1,7 @@
 package com.nashss.se.musicplaylistservice.activity;
 
 import com.nashss.se.musicplaylistservice.activity.requests.CreatePetRequest;
+import com.nashss.se.musicplaylistservice.activity.results.CreatePetResult;
 import com.nashss.se.musicplaylistservice.converters.ModelConverter;
 import com.nashss.se.musicplaylistservice.dynamodb.PetDao;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Pet;
