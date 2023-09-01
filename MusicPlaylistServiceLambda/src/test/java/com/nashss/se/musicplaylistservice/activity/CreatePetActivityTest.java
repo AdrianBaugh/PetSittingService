@@ -1,6 +1,7 @@
 package com.nashss.se.musicplaylistservice.activity;
 
 import com.nashss.se.musicplaylistservice.activity.requests.CreatePetRequest;
+import com.nashss.se.musicplaylistservice.activity.results.CreatePetResult;
 import com.nashss.se.musicplaylistservice.dynamodb.PetDao;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Pet;
 import org.junit.jupiter.api.BeforeEach;
@@ -42,7 +43,7 @@ class CreatePetActivityTest {
         // THEN
         verify(petDao).savePet(any(Pet.class));
 
-        assertNotNull(result.getPet().getId());
+        assertNotNull(result.getPet().getPetId());
         assertEquals(expectedName, result.getPet().getPetName());
 
     }
