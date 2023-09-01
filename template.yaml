@@ -220,6 +220,26 @@ Resources:
   # Lambda Functions Configuration
   #-----------------------------------------------------
 
+  CreatePetLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt AccessRole.Arn
+      CodeUri: MusicPlaylistServiceLambda
+      Handler: com.nashss.se.musicplaylistservice.lambda.CreatePetLambda::handleRequest
+      Runtime: java11
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment:
+        Variables:
+          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+      Events:
+        MusicPlaylistService:
+          Type: Api
+          Properties:
+            Path: /pets
+            Method: post
+
   GetPlaylistLambda:
     Type: AWS::Serverless::Function
     Properties:

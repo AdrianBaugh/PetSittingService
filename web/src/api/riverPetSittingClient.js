@@ -15,7 +15,7 @@ export default class RiverPetSittingClient extends BindingClass {
     constructor(props = {}) {
         super();
             //Add Methods after 'logout' when we implement them.
-        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout'];
+        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'createPet'];
         this.bindClassMethods(methodsToBind, this);
 
         this.authenticator = new Authenticator();;
@@ -108,22 +108,21 @@ export default class RiverPetSittingClient extends BindingClass {
     //  * @param errorCallback (Optional) A function to execute if the call fails.
     //  * @returns The playlist that has been created.
     //  */
-    // async createPlaylist(name, tags, errorCallback) {
-    //     try {
-    //         const token = await this.getTokenOrThrow("Only authenticated users can create playlists.");
-    //         const response = await this.axiosClient.post(`playlists`, {
-    //             name: name,
-    //             tags: tags
-    //         }, {
-    //             headers: {
-    //                 Authorization: `Bearer ${token}`
-    //             }
-    //         });
-    //         return response.data.playlist;
-    //     } catch (error) {
-    //         this.handleError(error, errorCallback)
-    //     }
-    // }
+    async createPet(name, errorCallback) {
+        try {
+            const token = await this.getTokenOrThrow("Only authenticated users can add new pets.");
+            const response = await this.axiosClient.post(`pets`, {
+                name: name,
+            }, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data.pet;
+        } catch (error) {
+            this.handleError(error, errorCallback)
+        }
+    }
 
     // /**
     //  * Add a song to a playlist.
