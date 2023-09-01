@@ -20,7 +20,7 @@ public class GetPetLambda
         return super.runActivity(
                 () -> input.fromPath(path ->
                         GetPetRequest.builder()
-                                .withPetId(path.get("id"))
+                                .withPetId(path.get("petId"))
                                 .build()),
                 (request, serviceComponent) ->
                         serviceComponent.provideGetPetActivity().handleRequest(request)
