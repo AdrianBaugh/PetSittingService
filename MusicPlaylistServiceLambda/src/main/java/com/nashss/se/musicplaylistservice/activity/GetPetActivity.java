@@ -1,5 +1,7 @@
 package com.nashss.se.musicplaylistservice.activity;
 
+import com.nashss.se.musicplaylistservice.activity.requests.GetPetRequest;
+import com.nashss.se.musicplaylistservice.activity.results.GetPetResult;
 import com.nashss.se.musicplaylistservice.converters.ModelConverter;
 import com.nashss.se.musicplaylistservice.dynamodb.PetDao;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Pet;
@@ -60,6 +62,7 @@ import javax.inject.Inject;
                     .withPet(petModel)
                     .build();
         }
+
     }
 
 
