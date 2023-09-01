@@ -30,6 +30,10 @@ package com.nashss.se.musicplaylistservice.activity.requests;
                 this.petId = petId;
                 return this;
             }
+
+            public GetPetRequest build() {
+                return new GetPetRequest(petId);
+            }
             }
         }
     
