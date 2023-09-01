@@ -35,10 +35,10 @@ public class PetDao {
         Pet pet = this.dynamoDbMapper.load(Pet.class, id);
 
         if (pet == null) {
-            metricsPublisher.addCount(MetricsConstants.GETRESERVATION_RESERVATIONNOTFOUND_COUNT, 1);
+            metricsPublisher.addCount(MetricsConstants.GETPET_PETNOTFOUND_COUNT, 1);
             throw new PetIdNotFoundException("Could not find pet with id " + id);
         }
-        metricsPublisher.addCount(MetricsConstants.GETRESERVATION_RESERVATIONNOTFOUND_COUNT, 0);
+        metricsPublisher.addCount(MetricsConstants.GETPET_PETNOTFOUND_COUNT, 0);
         return pet;
     }
     public Pet savePet(Pet newPet) {
