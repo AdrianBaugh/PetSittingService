@@ -9,7 +9,7 @@ public class LocalDateConverter implements DynamoDBTypeConverter<String, LocalDa
 
     @Override
     public String convert(LocalDate date) {
-        return date.format(DateTimeFormatter.ISO_INSTANT);
+        return date.format(DateTimeFormatter.ISO_DATE);
     }
 
     @Override
