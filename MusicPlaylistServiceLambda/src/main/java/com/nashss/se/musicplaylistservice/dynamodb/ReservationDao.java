@@ -1,6 +1,8 @@
 package com.nashss.se.musicplaylistservice.dynamodb;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.nashss.se.musicplaylistservice.dynamodb.models.Pet;
+import com.nashss.se.musicplaylistservice.dynamodb.models.Reservation;
 import com.nashss.se.musicplaylistservice.metrics.MetricsPublisher;
 
 import javax.inject.Inject;
@@ -21,5 +23,10 @@ public class ReservationDao {
     public ReservationDao(DynamoDBMapper dynamoDbMapper, MetricsPublisher metricsPublisher) {
         this.dynamoDbMapper = dynamoDbMapper;
         this.metricsPublisher = metricsPublisher;
+    }
+
+    public Reservation saveReservation(Reservation newReservation) {
+        this.dynamoDbMapper.save(newReservation);
+        return newReservation;
     }
 }
