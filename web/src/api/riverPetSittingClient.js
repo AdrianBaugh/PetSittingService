@@ -105,9 +105,9 @@ export default class RiverPetSittingClient extends BindingClass {
         try {
             const token = await this.getTokenOrThrow("Only authenticated users can make a reservation.");
             const response = await this.axiosClient.post(`reservations`, {
-                startDate = startDate,
-                endDate = endDate,
-                pets = pets
+                startDate: startDate,
+                endDate: endDate,
+                pets: pets
             }, {
                 header: {
                     Authorization: `Bearer ${token}`
