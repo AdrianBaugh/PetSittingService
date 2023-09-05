@@ -8,6 +8,7 @@ import com.nashss.se.musicplaylistservice.dynamodb.models.Reservation;
 import com.nashss.se.musicplaylistservice.exceptions.InvalidAttributeValueException;
 import com.nashss.se.musicplaylistservice.models.ReservationModel;
 import com.nashss.se.musicplaylistservice.utils.IdUtils;
+import com.nashss.se.musicplaylistservice.utils.SitterEnum;
 import com.nashss.se.musicplaylistservice.utils.StatusEnum;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -40,7 +41,7 @@ public class CreateReservationActivity {
         newReservation.setEndDate(createReservationRequest.getEndDate());
         newReservation.setStatus(String.valueOf(StatusEnum.UPCOMING));
         newReservation.setPetList(createReservationRequest.getPetList());
-        newReservation.setSitterId(createReservationRequest.getSitterId());
+        newReservation.setSitterId(String.valueOf(SitterEnum.SITTER_1));
         newReservation.setPetOwnerId(createReservationRequest.getPetOwnerId());
 
         reservationDao.saveReservation(newReservation);
