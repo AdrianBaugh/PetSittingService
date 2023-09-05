@@ -5,7 +5,7 @@ import com.nashss.se.musicplaylistservice.activity.results.CreateReservationResu
 import com.nashss.se.musicplaylistservice.converters.ModelConverter;
 import com.nashss.se.musicplaylistservice.dynamodb.ReservationDao;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Reservation;
-import com.nashss.se.musicplaylistservice.exceptions.InvalidAttributeValueException;
+
 import com.nashss.se.musicplaylistservice.models.ReservationModel;
 import com.nashss.se.musicplaylistservice.utils.IdUtils;
 import com.nashss.se.musicplaylistservice.utils.SitterEnum;

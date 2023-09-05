@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script type = "text/javascript" src = "assets/createReservation.js"></script>
+    <link rel = "stylesheet" type = "text/css" href = "css/stye.css">
+</head>
+
+<body class = "background">
+    <header class = "header" id = "header"></header>
+    <div class = "card">
+        <h2>Create Reservation!</h2>
+        <form class = "card-content" id = "create-reservation-form">
+            <p class = "hidden error" id = "error-message"> </p>
+            <p class = "form-field">
+                <label>Enter start date:</label>
+                <input type = "text" required class = "validated-field" id = "start-date" placeholder= "(Year, Month, Day)" autofocus>
+
+                <label>Enter end date: </label>
+                <input type = "text" required class = "validated-field" id = "end-date" placeholder= "(Year, Month, Day)" autofocus>
+            </p>
+            <p>
+                <a href = "#" class = "button" id = "create">Submit</a>
+            </p>
+        </form>
+    </div>
+</body>
+
+</html>
