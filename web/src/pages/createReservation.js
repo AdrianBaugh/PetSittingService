@@ -68,7 +68,7 @@ class CreateReservation extends BindingClass {
     redirectToViewReservation() {
         const reservation = this.dataStore.get('reservation');
         if (reservation != null) {
-            window.location.href = `/reservations.html`;
+            window.location.href = `/reservation.html?id=${reservation.id}`;
         }
     }
 }
