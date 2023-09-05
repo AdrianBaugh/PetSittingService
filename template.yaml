@@ -326,7 +326,7 @@ Resources:
             Path: /playlists
             Method: post
 
-  CreatePlaylistLambda:
+  CreateReservationLambda:
     Type: AWS::Serverless::Function
     Properties:
       Role: !GetAtt AccessRole.Arn
