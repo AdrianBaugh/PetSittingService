@@ -283,8 +283,8 @@ paths:
     post:
       tags:
         - Pets
-      summary: Add a pet to a profle (AddPetLambda)
-      operationId: addPet
+      summary: Add a pet to a profile (createPetLambda)
+      operationId: createPet
       requestBody:
         content:
           application/json:
