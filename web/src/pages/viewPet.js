@@ -6,7 +6,7 @@ import DataStore from "../util/DataStore";
 /**
  * Logic needed for the get pet page of the website.
  */
-class GetPet extends BindingClass {
+class ViewPet extends BindingClass {
     constructor() {
         super();
         this.bindClassMethods(['clientLoaded', 'mount', 'addPetToPage'], this);
@@ -14,7 +14,7 @@ class GetPet extends BindingClass {
         this.dataStore.addChangeListener(this.addPetToPage);
 
         this.header = new Header(this.dataStore);
-        console.log("GetPet constructor");
+        console.log("ViewPet constructor");
     }
 
     /**
@@ -26,7 +26,7 @@ class GetPet extends BindingClass {
         document.getElementById('pet-name').innerText = "Loading Pet ...";
 
 
-        const pet = await this.client.getPet(petId);
+        const pet = await this.client.viewPet(petId);
         this.dataStore.set('pet', pet);
     }
 
@@ -48,9 +48,10 @@ class GetPet extends BindingClass {
         if (pet == null) {
             return;
         }
-
-        document.getElementById('pet-name').innerText = pet.name;
-        document.getElementById('owner-name').innerText = pet.customerName;
+        
+        //double check the element names below: petName, owner name etc
+        document.getElementById('pet-name').innerText = pet.petName;
+        document.getElementById('owner-name').innerText = pet.ownerName;
 
     }
     }
@@ -61,8 +62,8 @@ class GetPet extends BindingClass {
  * Main method to run when the page contents have loaded.
  */
 const main = async () => {
-    const getPet = new GetPet();
-    getPet.mount();
+    const viewPet = new ViewPet();
+    viewPet.mount();
 };
 
 window.addEventListener('DOMContentLoaded', main);

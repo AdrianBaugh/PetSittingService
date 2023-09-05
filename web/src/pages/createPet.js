@@ -48,7 +48,7 @@ class CreatePet extends BindingClass {
     redirectToViewPet() {
         const pet = this.dataStore.get('pet');
         if (pet != null) {
-            window.location.href = `/pet.html?id=${pet.id}`;
+            window.location.href = `/viewPet.html?id=${pet.id}`;
         }
     }
 }
