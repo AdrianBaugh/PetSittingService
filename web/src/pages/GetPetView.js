@@ -1,4 +1,4 @@
-import PetClient from '../api/PetClient';
+import RiverPetSittingClient from '../api/riverPetSittingClient';
 import Header from '../components/header';
 import BindingClass from "../util/bindingClass";
 import DataStore from "../util/DataStore";
@@ -36,7 +36,7 @@ class GetPet extends BindingClass {
     mount() {
 
         this.header.addHeaderToPage();
-        this.client = new PetClient();
+        this.client = new RiverPetSittingClient();
         this.clientLoaded();
     }
 
