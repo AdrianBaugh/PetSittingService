@@ -19,7 +19,6 @@ public class CreateReservationLambda
                                     .withStartDate(unauthenticatedRequest.getStartDate())
                                     .withEndDate(unauthenticatedRequest.getEndDate())
                                     .withPetList(unauthenticatedRequest.getPetList())
-                                    .withSitterId(unauthenticatedRequest.getSitterId())
                                     .withPetOwnerId(claims.get("email"))
                                     .build());
                 },
