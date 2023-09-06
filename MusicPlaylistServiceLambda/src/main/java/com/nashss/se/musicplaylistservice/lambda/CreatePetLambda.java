@@ -19,6 +19,7 @@ public class CreatePetLambda
                             CreatePetRequest.builder()
                                     .withPetName(unauthenticatedRequest.getPetName())
                                     .withOwnerId(claims.get("email"))
+                                    .withOwnerName(claims.get("name"))
                                     .build());
                 },
                 (request, serviceComponent) ->

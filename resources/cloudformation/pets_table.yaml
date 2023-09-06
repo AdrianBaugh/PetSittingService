@@ -18,6 +18,4 @@ Resources:
             - AttributeName: "ownerId"
               KeyType: "HASH"
           Projection:
-            ProjectionType: "INCLUDE"
-            NonKeyAttributes:
-              - "petName"
+            ProjectionType: "ALL"

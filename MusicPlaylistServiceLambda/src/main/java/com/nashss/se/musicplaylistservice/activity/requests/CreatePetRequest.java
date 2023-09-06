@@ -8,10 +8,12 @@ public class CreatePetRequest {
 
     private final String petName;
     private final String ownerId;
+    private final String ownerName;
 
-    public CreatePetRequest(String petName, String ownerId) {
+    public CreatePetRequest(String petName, String ownerId, String ownerName) {
         this.petName = petName;
         this.ownerId = ownerId;
+        this.ownerName = ownerName;
     }
 
     public String getPetName() {
@@ -22,11 +24,16 @@ public class CreatePetRequest {
         return ownerId;
     }
 
+    public String getOwnerName() {
+        return ownerName;
+    }
+
     @Override
     public String toString() {
         return "CreatePetRequest{" +
                 "petName='" + petName + '\'' +
-                ", ownerId='" + ownerId + '\'';}
+                ", ownerId='" + ownerId + '\'' +
+                ", ownerName='" + ownerName + '\'';}
 
     public static Builder builder() {
         return new Builder();
@@ -36,6 +43,7 @@ public class CreatePetRequest {
     public static class Builder {
         private String petName;
         private String ownerId;
+        private String ownerName;
 
         public Builder withPetName(String petName) {
             this.petName = petName;
@@ -47,8 +55,13 @@ public class CreatePetRequest {
             return this;
         }
 
-        public CreatePetRequest build() {
-            return new CreatePetRequest(petName, ownerId);
+        public Builder withOwnerName(String ownerName) {
+            this.ownerName = ownerName;
+            return this;
         }
+        public CreatePetRequest build() {
+            return new CreatePetRequest(petName, ownerId, ownerName);
+        }
+
     }
 }

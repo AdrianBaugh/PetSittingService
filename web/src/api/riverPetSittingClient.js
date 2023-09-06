@@ -15,7 +15,7 @@ export default class RiverPetSittingClient extends BindingClass {
     constructor(props = {}) {
         super();
             //Add Methods after 'logout' when we implement them.
-        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'createPet'];
+        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'createPet', 'viewPet'];
         this.bindClassMethods(methodsToBind, this);
 
         this.authenticator = new Authenticator();;
@@ -94,6 +94,7 @@ export default class RiverPetSittingClient extends BindingClass {
     }
 
     /**
+<<<<<<< HEAD
     * Create a new reservation by the current user.
     * @param startDate The start date of the reservation to create.
     * @param endDate The end date of the reservation to be created.
@@ -114,6 +115,21 @@ export default class RiverPetSittingClient extends BindingClass {
                 }
             });
             return response.data.reservation;
+        } catch (error) {
+            this.handleError(error, errorCallback)
+        }
+    }
+
+    /*
+     * Gets the pet for the given ID.
+     * @param id Unique identifier for a pet
+     * @param errorCallback (Optional) A function to execute if the call fails.
+     * @returns The pet's metadata.
+     */
+    async viewPet(id, errorCallback) {
+        try {
+            const response = await this.axiosClient.get(`pets/${id}`);
+            return response.data.pet;
         } catch (error) {
             this.handleError(error, errorCallback)
         }

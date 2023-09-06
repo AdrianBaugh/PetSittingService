@@ -28,7 +28,10 @@ module.exports = {
 //    searchPlaylists: path.resolve(__dirname, 'src', 'pages', 'searchPlaylists.js'),
 
     createReservation: path.resolve(__dirname, 'src', 'pages', 'createReservation.js'),
+    viewPet: path.resolve(__dirname, 'src', 'pages', 'viewPet.js'),
+    createNewPet: path.resolve(__dirname, 'src', 'pages', 'createPet.js'),
     createNewPet: path.resolve(__dirname, 'src', 'pages', 'createNewPet.js'),
+
     test: path.resolve(__dirname, 'src', 'pages', 'test.js'),
   },
   output: {
