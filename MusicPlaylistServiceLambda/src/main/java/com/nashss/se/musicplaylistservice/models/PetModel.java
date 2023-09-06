@@ -6,12 +6,14 @@ public class PetModel {
     private final String petId;
     private final String petName;
     private final String ownerId;
+    private final String ownerName;
 
-    private PetModel(String petId, String petName, String ownerId) {
+    private PetModel(String petId, String petName, String ownerId, String ownerName) {
         this.petId = petId;
         this.petName = petName;
         this.ownerId = ownerId;
-            }
+        this.ownerName = ownerName;
+    }
 
     public String getPetId() {
         return petId;
@@ -25,23 +27,24 @@ public class PetModel {
         return ownerId;
     }
 
+    public String getOwnerName() {
+        return ownerName;
+    }
+
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        PetModel petModel = (PetModel) o;
-        return  petId.equals(petModel.petId) &&
-                petName.equals(petModel.petName) &&
-                ownerId.equals(petModel.ownerId);
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
+        PetModel petModel = (PetModel) other;
+        return Objects.equals(petId, petModel.petId) &&
+                Objects.equals(petName, petModel.petName) &&
+                Objects.equals(ownerId, petModel.ownerId) &&
+                Objects.equals(ownerName, petModel.ownerName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(petId, petName, ownerId);
+        return Objects.hash(petId, petName, ownerId, ownerName);
     }
 
     //CHECKSTYLE:OFF:Builder
@@ -53,6 +56,7 @@ public class PetModel {
         private String petId;
         private String petName;
         private String ownerId;
+        private String ownerName;
 
         public Builder withPetId(String petId) {
             this.petId = petId;
@@ -68,8 +72,13 @@ public class PetModel {
             this.ownerId = ownerId;
             return this;
         }
+
+        public Builder withOwnerName(String ownerName) {
+            this.ownerName = ownerName;
+            return this;
+        }
         public PetModel build() {
-            return new PetModel(petId, petName, ownerId);
+            return new PetModel(petId, petName, ownerId, ownerName);
         }
     }
 }

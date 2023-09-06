@@ -242,6 +242,9 @@ paths:
                     type: string
                   petName:
                     type: string
+                  ownerName:
+                    type: string
+
     put:
       tags:
         - Pets
@@ -276,6 +279,8 @@ paths:
                     type: string
                   petName:
                     type: string
+                  ownerName:
+                    type: string
         "500":
           description: "Invalid input parameters"
 
@@ -295,6 +300,8 @@ paths:
                   type: string
                 petName:
                   type: string
+                ownerName:
+                  type: string
 
       responses:
         "200":
@@ -309,6 +316,8 @@ paths:
                   ownerId:
                     type: string
                   petName:
+                    type: string
+                  ownerName:
                     type: string
 
     get:
@@ -340,4 +349,5 @@ paths:
                           type: string
                         petName:
                           type: string
-
+                        ownerName:
+                          type: string
