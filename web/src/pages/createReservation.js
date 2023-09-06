@@ -49,9 +49,9 @@ class CreateReservation extends BindingClass {
 
         let pets;
         if (petsText.length < 1) {
-            tags = null;
+            pets = null;
         } else {
-            tags = petsText.split(/\s*,\s*/);
+            pets = petsText.split(/\s*,\s*/);
         }
 
         const reservation = await this.client.createReservation(startDate, endDate, pets, (error) => {

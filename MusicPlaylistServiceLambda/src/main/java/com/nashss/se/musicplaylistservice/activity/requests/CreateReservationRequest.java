@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import java.time.LocalDate;
 import java.util.List;
 
-@JsonDeserialize(builder = CreatePlaylistRequest.Builder.class)
+@JsonDeserialize(builder = CreateReservationRequest.Builder.class)
 public class CreateReservationRequest {
 
     private final String petOwnerId;
