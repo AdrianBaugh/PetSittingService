@@ -23,8 +23,6 @@ class ViewPet extends BindingClass {
     async clientLoaded() {
         const urlParams = new URLSearchParams(window.location.search);
         const petId = urlParams.get('id');
-        document.getElementById('pet-name').innerText = "Loading Pet ...";
-
 
         const pet = await this.client.viewPet(petId);
         this.dataStore.set('pet', pet);
@@ -48,15 +46,14 @@ class ViewPet extends BindingClass {
         if (pet == null) {
             return;
         }
-        
-        //double check the element names below: petName, owner name etc
-        document.getElementById('pet-name').innerText = pet.petName;
+
         document.getElementById('owner-name').innerText = pet.ownerName;
-
+        document.getElementById('pet-id').innerText = pet.petId
+        document.getElementById('pet-name').innerText = pet.petName;
+        document.getElementById('owner-id').innerText = pet.ownerId;
+        
     }
-    }
-
-
+}
 
 /**
  * Main method to run when the page contents have loaded.

@@ -257,7 +257,7 @@ Resources:
         MusicPlaylistService:
           Type: Api
           Properties:
-            Path: /pets/{id}
+            Path: /pets/{petId}
             Method: get
             Auth:
               Authorizer: 'NONE'
