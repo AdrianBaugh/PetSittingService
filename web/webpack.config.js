@@ -30,7 +30,6 @@ module.exports = {
     createReservation: path.resolve(__dirname, 'src', 'pages', 'createReservation.js'),
     viewPet: path.resolve(__dirname, 'src', 'pages', 'viewPet.js'),
     createPet: path.resolve(__dirname, 'src', 'pages', 'createPet.js'),
-
     test: path.resolve(__dirname, 'src', 'pages', 'test.js'),
   },
   output: {
