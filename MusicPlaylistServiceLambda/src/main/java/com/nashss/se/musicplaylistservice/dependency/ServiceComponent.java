@@ -55,4 +55,6 @@ public interface ServiceComponent {
     CreatePetActivity provideCreatePetActivity();
 
     GetPetActivity provideGetPetActivity();
+
+    GetReservationActivity provideGetReservationActivity();
 }
