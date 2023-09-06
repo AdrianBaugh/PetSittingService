@@ -51,6 +51,7 @@ public class CreatePetActivity {
         newPet.setPetId(IdUtils.generatePetId());
         newPet.setPetName(createPetRequest.getPetName());
         newPet.setOwnerId(createPetRequest.getOwnerId());
+        newPet.setOwnerName(createPetRequest.getOwnerName());
 
         petDao.savePet(newPet);
 

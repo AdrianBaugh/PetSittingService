@@ -44,6 +44,7 @@ public class ModelConverter {
                 .withPetId(pet.getPetId())
                 .withPetName(pet.getPetName())
                 .withOwnerId(pet.getOwnerId())
+                .withOwnerName(pet.getOwnerName())
                 .build();
     }
 

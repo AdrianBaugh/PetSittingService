@@ -12,7 +12,6 @@ class CreatePet extends BindingClass {
         this.dataStore = new DataStore();
         this.dataStore.addChangeListener(this.redirectToViewPet);
         this.header = new Header(this.dataStore);
-
     }
 
     mount() {
@@ -48,7 +47,7 @@ class CreatePet extends BindingClass {
     redirectToViewPet() {
         const pet = this.dataStore.get('pet');
         if (pet != null) {
-            window.location.href = `/pet.html?id=${pet.id}`;
+            window.location.href = `/viewPet.html?id=${pet.petId}`;
         }
     }
 }
