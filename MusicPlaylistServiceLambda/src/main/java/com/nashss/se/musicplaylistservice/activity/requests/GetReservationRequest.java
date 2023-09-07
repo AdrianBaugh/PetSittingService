@@ -3,27 +3,20 @@ package com.nashss.se.musicplaylistservice.activity.requests;
 
 public class GetReservationRequest {
      private final String reservationId;
-     private final String ownerId;
+     private final String petOwnerId;
 
-    public GetReservationRequest(String reservationId, String ownerId) {
+    public GetReservationRequest(String reservationId, String petOwnerId) {
         this.reservationId = reservationId;
-        this.ownerId = ownerId;
+        this.petOwnerId = petOwnerId;
     }
     public String getReservationId(){
         return reservationId;
     }
 
-    public String getOwnerId() {
-        return ownerId;
+    public String getPetOwnerId() {
+        return petOwnerId;
     }
 
-    @Override
-    public String toString() {
-        return "GetReservationRequest{" +
-                "reservationId='" + reservationId + '\'' +
-                ", ownerId='" + ownerId + '\'' +
-                '}';
-    }
 
     public static Builder builder(){
         return new Builder();
@@ -31,7 +24,7 @@ public class GetReservationRequest {
 
     public static class Builder{
         private String reservationId;
-        private String ownerId;
+        private String petOwnerId;
 
         public Builder withReservationId(String reservationId){
             this.reservationId = reservationId;
@@ -39,11 +32,11 @@ public class GetReservationRequest {
         }
 
         public Builder withOwnerId(String ownerId){
-            this.ownerId = ownerId;
+            this.petOwnerId = ownerId;
             return this;
         }
         public GetReservationRequest build() {
-            return new GetReservationRequest(reservationId, ownerId);
+            return new GetReservationRequest(reservationId, petOwnerId);
         }
     }
 }

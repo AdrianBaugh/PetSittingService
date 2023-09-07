@@ -42,7 +42,7 @@ public class GetReservationActivity{
     public GetReservationResult handleRequest(final GetReservationRequest getReservationRequest){
     log.info("Received GetReservationRequest {}", getReservationRequest.getReservationId());
     String requestReservationId  = getReservationRequest.getReservationId();
-    String requestOwnerId = getReservationRequest.getOwnerId();
+    String requestOwnerId = getReservationRequest.getPetOwnerId();
     Reservation reservation = reservationDao.getReservationById(requestOwnerId, requestReservationId);
 
         if(reservation == null){
