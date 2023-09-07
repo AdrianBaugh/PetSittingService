@@ -22,9 +22,10 @@ class ViewReservation extends BindingClass {
      */
     async clientLoaded() {
         const urlParams = new URLSearchParams(window.location.search);
-        const reservationId = urlParams.get('id');
+        const reservationId = urlParams.get('id1');
+        const ownerId = urlParams.get('id2');
 
-        const reservation = await this.client.viewReservation(reservationId);
+        const reservation = await this.client.viewReservation(reservationId, ownerId);
         this.dataStore.set('reservation', reservation);
     }
 

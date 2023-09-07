@@ -33,9 +33,10 @@ public class ReservationDao {
      * @param reservationId The ID of the reservation to retrieve.
      * @return The reservation object if found, or null if not found.
      */
-    public Reservation getReservationById(String reservationId) {
+    public Reservation getReservationById(String ownerId, String reservationId) {
         Reservation reservation = new Reservation();
         reservation.setReservationId(reservationId);
+        reservation.setPetOwnerId(ownerId);
 
         DynamoDBQueryExpression<Reservation> queryExpression = new DynamoDBQueryExpression<Reservation>()
                 .withHashKeyValues(reservation);

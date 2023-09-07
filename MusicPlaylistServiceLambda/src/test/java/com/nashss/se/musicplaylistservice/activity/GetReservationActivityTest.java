@@ -27,15 +27,18 @@ public class GetReservationActivityTest {
     @Test
     public void handleRequest_withValidFields_getReservationSuccess() {
         // GIVEN
+        String ownerId = "ownerID";
         String reservationId = "666666";
         Reservation reservation = new Reservation();
+        reservation.setPetOwnerId(ownerId);
         reservation.setReservationId(reservationId);
 
         //WHEN
-        when(reservationDao.getReservationById(reservationId)).thenReturn(reservation);
+        when(reservationDao.getReservationById(ownerId, reservationId)).thenReturn(reservation);
 
         GetReservationRequest reservationRequest = GetReservationRequest.builder()
                 .withReservationId(reservationId)
+                .withOwnerId(ownerId)
                 .build();
         GetReservationResult reservationResponse = getReservationActivity.handleRequest(reservationRequest);
 
