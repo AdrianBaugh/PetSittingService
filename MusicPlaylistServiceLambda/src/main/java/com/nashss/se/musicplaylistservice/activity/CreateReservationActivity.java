@@ -2,6 +2,7 @@ package com.nashss.se.musicplaylistservice.activity;
 
 import com.nashss.se.musicplaylistservice.activity.requests.CreateReservationRequest;
 import com.nashss.se.musicplaylistservice.activity.results.CreateReservationResult;
+import com.nashss.se.musicplaylistservice.converters.LocalDateConverter;
 import com.nashss.se.musicplaylistservice.converters.ModelConverter;
 import com.nashss.se.musicplaylistservice.dynamodb.ReservationDao;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Reservation;
@@ -34,11 +35,12 @@ public class CreateReservationActivity {
     public CreateReservationResult handleRequest(final CreateReservationRequest createReservationRequest) {
         log.info("received CreateReservationRequest {}", createReservationRequest);
 
+        LocalDateConverter converter = new LocalDateConverter();
 
         Reservation newReservation = new Reservation();
         newReservation.setReservationId(IdUtils.generateReservationId());
-        newReservation.setStartDate(createReservationRequest.getStartDate());
-        newReservation.setEndDate(createReservationRequest.getEndDate());
+        newReservation.setStartDate(converter.unconvert(createReservationRequest.getStartDate()));
+        newReservation.setEndDate(converter.unconvert(createReservationRequest.getEndDate()));
         newReservation.setStatus(String.valueOf(StatusEnum.UPCOMING));
         newReservation.setPetList(createReservationRequest.getPetList());
         newReservation.setSitterId(String.valueOf(SitterEnum.SITTER_1));
