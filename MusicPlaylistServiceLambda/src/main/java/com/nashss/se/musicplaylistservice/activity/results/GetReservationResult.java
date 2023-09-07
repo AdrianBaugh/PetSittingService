@@ -2,12 +2,12 @@ package com.nashss.se.musicplaylistservice.activity.results;
 
 import com.nashss.se.musicplaylistservice.models.ReservationModel;
 
-public class GetReservationResponse {
+public class GetReservationResult {
 
     private final ReservationModel reservation;
 
 
-    public GetReservationResponse(ReservationModel reservation) {
+    public GetReservationResult(ReservationModel reservation) {
         this.reservation = reservation;
     }
 
@@ -17,7 +17,7 @@ public class GetReservationResponse {
 
     @Override
     public String toString() {
-        return "GetReservationResponse{" +
+        return "GetReservationResult{" +
                 "reservation=" + reservation +
                 '}';
     }
@@ -31,8 +31,8 @@ public class GetReservationResponse {
             this.reservation = reservation;
             return this;
         }
-        public GetReservationResponse build(){
-            return new GetReservationResponse(reservation);
+        public GetReservationResult build(){
+            return new GetReservationResult(reservation);
         }
     }
 }

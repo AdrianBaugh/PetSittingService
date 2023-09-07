@@ -49,11 +49,9 @@ public interface ServiceComponent {
      */
     UpdatePlaylistActivity provideUpdatePlaylistActivity();
 
-
     CreatePetActivity provideCreatePetActivity();
 
     GetPetActivity provideGetPetActivity();
-
 
     GetReservationActivity provideGetReservationActivity();
 

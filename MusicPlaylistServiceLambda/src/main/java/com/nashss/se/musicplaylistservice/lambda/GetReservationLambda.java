@@ -5,12 +5,12 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 
 import com.nashss.se.musicplaylistservice.activity.requests.GetReservationRequest;
 
-import com.nashss.se.musicplaylistservice.activity.results.GetReservationResponse;
+import com.nashss.se.musicplaylistservice.activity.results.GetReservationResult;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class GetReservationLambda
-        extends LambdaActivityRunner<GetReservationRequest, GetReservationResponse>
+        extends LambdaActivityRunner<GetReservationRequest, GetReservationResult>
         implements RequestHandler<LambdaRequest<GetReservationRequest>, LambdaResponse> {
 
     private final Logger log = LogManager.getLogger();

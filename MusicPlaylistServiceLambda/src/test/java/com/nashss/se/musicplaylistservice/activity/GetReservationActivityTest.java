@@ -1,7 +1,7 @@
 package com.nashss.se.musicplaylistservice.activity;
 
 import com.nashss.se.musicplaylistservice.activity.requests.GetReservationRequest;
-import com.nashss.se.musicplaylistservice.activity.results.GetReservationResponse;
+import com.nashss.se.musicplaylistservice.activity.results.GetReservationResult;
 import com.nashss.se.musicplaylistservice.dynamodb.ReservationDao;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Reservation;
 
@@ -37,7 +37,7 @@ public class GetReservationActivityTest {
         GetReservationRequest reservationRequest = GetReservationRequest.builder()
                 .withReservationId(reservationId)
                 .build();
-        GetReservationResponse reservationResponse = getReservationActivity.handleRequest(reservationRequest);
+        GetReservationResult reservationResponse = getReservationActivity.handleRequest(reservationRequest);
 
         //THEN
         assertEquals(reservationId,reservationResponse.getReservation().getReservationId());

@@ -1,7 +1,7 @@
 package com.nashss.se.musicplaylistservice.activity;
 
 import com.nashss.se.musicplaylistservice.activity.requests.GetReservationRequest;
-import com.nashss.se.musicplaylistservice.activity.results.GetReservationResponse;
+import com.nashss.se.musicplaylistservice.activity.results.GetReservationResult;
 import com.nashss.se.musicplaylistservice.converters.ModelConverter;
 import com.nashss.se.musicplaylistservice.dynamodb.ReservationDao;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Reservation;
@@ -39,7 +39,7 @@ public class GetReservationActivity{
      * @param getReservationRequest request object containing the reservation ID
      * @return getReservationResponse result object containing the API defined {@link ReservationModel}
      */
-    public GetReservationResponse handleRequest(final GetReservationRequest getReservationRequest){
+    public GetReservationResult handleRequest(final GetReservationRequest getReservationRequest){
     log.info("Received GetReservationRequest {}", getReservationRequest.getReservationId());
     String requestReservationId  = getReservationRequest.getReservationId();
     Reservation reservation = reservationDao.getReservationById(requestReservationId);
@@ -50,7 +50,7 @@ public class GetReservationActivity{
 
         ReservationModel reservationModel = new ModelConverter().toReservationModel(reservation);
 
-        return GetReservationResponse.builder()
+        return GetReservationResult.builder()
                 .withReservation(reservationModel)
                 .build();
     }
