@@ -10,14 +10,12 @@ import java.util.List;
 public class CreateReservationRequest {
 
     private final String petOwnerId;
-    private final String sitterId;
-    private final LocalDate startDate;
-    private final LocalDate endDate;
+    private final String startDate;
+    private final String endDate;
     private final List<String> petList;
 
-    private CreateReservationRequest(String petOwnerId, String sitterId, LocalDate startDate, LocalDate endDate, List<String> petList) {
+    private CreateReservationRequest(String petOwnerId, String startDate, String endDate, List<String> petList) {
         this.petOwnerId = petOwnerId;
-        this.sitterId = sitterId;
         this.startDate = startDate;
         this.endDate = endDate;
         this.petList = petList;
@@ -27,15 +25,12 @@ public class CreateReservationRequest {
         return petOwnerId;
     }
 
-    public String getSitterId() {
-        return sitterId;
-    }
 
-    public LocalDate getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public LocalDate getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
@@ -47,7 +42,6 @@ public class CreateReservationRequest {
     public String toString() {
         return "CreateReservationRequest{" +
                 "petOwnerId='" + petOwnerId + '\'' +
-                ", sitterId='" + sitterId + '\'' +
                 ", startDate='" + startDate + '\'' +
                 ", endDate='" + endDate + '\'' +
                 ", petList='" + petList +
@@ -61,9 +55,8 @@ public class CreateReservationRequest {
     @JsonPOJOBuilder
     public static class Builder {
         private String petOwnerId;
-        private String sitterId;
-        private LocalDate startDate;
-        private LocalDate endDate;
+        private String startDate;
+        private String endDate;
         private List<String> petList;
 
         public Builder withPetOwnerId(String petOwnerId) {
@@ -71,17 +64,13 @@ public class CreateReservationRequest {
             return this;
         }
 
-        public Builder withSitterId(String sitterId) {
-            this.sitterId = sitterId;
-            return this;
-        }
 
-        public Builder withStartDate(LocalDate startDate) {
+        public Builder withStartDate(String startDate) {
             this.startDate = startDate;
             return this;
         }
 
-        public Builder withEndDate(LocalDate endDate) {
+        public Builder withEndDate(String endDate) {
             this.endDate = endDate;
             return this;
         }
@@ -92,7 +81,7 @@ public class CreateReservationRequest {
         }
 
         public CreateReservationRequest build() {
-            return new CreateReservationRequest(petOwnerId, sitterId, startDate, endDate, petList);
+            return new CreateReservationRequest(petOwnerId, startDate, endDate, petList);
         }
     }
 }

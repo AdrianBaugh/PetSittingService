@@ -3,6 +3,7 @@ package com.nashss.se.musicplaylistservice.activity;
 import com.nashss.se.musicplaylistservice.activity.requests.CreateReservationRequest;
 import com.nashss.se.musicplaylistservice.activity.results.CreateReservationResult;
 
+import com.nashss.se.musicplaylistservice.converters.LocalDateConverter;
 import com.nashss.se.musicplaylistservice.dynamodb.ReservationDao;
 
 
@@ -38,6 +39,7 @@ class CreateReservationActivityTest {
 
     @Test
     public void handleRequest_withValidFields_createsAndSavesReservation() {
+        LocalDateConverter converter = new LocalDateConverter();
 
        LocalDate expectedStartDate = LocalDate.of(2023, 9, 6);
 
@@ -46,15 +48,13 @@ class CreateReservationActivityTest {
        List<String> petList = new ArrayList<>();
        petList.add("Fluffers");
 
-       String expectedSitterId = "12345";
 
        String petOwnerId = "test@gmail.com";
 
         CreateReservationRequest request = CreateReservationRequest.builder()
-                .withStartDate(expectedStartDate)
-                .withEndDate(expectedEndDate)
+                .withStartDate(converter.convert(expectedStartDate))
+                .withEndDate(converter.convert(expectedEndDate))
                 .withPetList(petList)
-                .withSitterId(expectedSitterId)
                 .withPetOwnerId(petOwnerId)
                 .build();
 

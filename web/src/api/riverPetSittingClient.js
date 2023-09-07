@@ -94,7 +94,6 @@ export default class RiverPetSittingClient extends BindingClass {
     }
 
     /**
-<<<<<<< HEAD
     * Create a new reservation by the current user.
     * @param startDate The start date of the reservation to create.
     * @param endDate The end date of the reservation to be created.
@@ -110,7 +109,7 @@ export default class RiverPetSittingClient extends BindingClass {
                 endDate: endDate,
                 petList: petList
             }, {
-                header: {
+                headers: {
                     Authorization: `Bearer ${token}`
                 }
             });
