@@ -1,9 +1,7 @@
 package com.nashss.se.musicplaylistservice.dependency;
 
-import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.nashss.se.musicplaylistservice.activity.*;
 
-import com.nashss.se.musicplaylistservice.activity.requests.GetPetRequest;
 import dagger.Component;
 
 import javax.inject.Singleton;
@@ -56,5 +54,8 @@ public interface ServiceComponent {
 
     GetPetActivity provideGetPetActivity();
 
+
     GetReservationActivity provideGetReservationActivity();
+
+    CreateReservationActivity provideCreateReservationActivity();
 }

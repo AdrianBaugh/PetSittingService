@@ -2,6 +2,7 @@ package com.nashss.se.musicplaylistservice.dynamodb;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
+
 import com.nashss.se.musicplaylistservice.dynamodb.models.Reservation;
 import com.nashss.se.musicplaylistservice.metrics.MetricsPublisher;
 
@@ -25,6 +26,7 @@ public class ReservationDao {
         this.dynamoDbMapper = dynamoDbMapper;
         this.metricsPublisher = metricsPublisher;
     }
+
     /**
      * Retrieves a reservation by its ID.
      *
@@ -45,5 +47,11 @@ public class ReservationDao {
         }
 
         return null; // Reservation not found
+    }
+
+    public Reservation saveReservation(Reservation newReservation) {
+        this.dynamoDbMapper.save(newReservation);
+        return newReservation;
+
     }
 }

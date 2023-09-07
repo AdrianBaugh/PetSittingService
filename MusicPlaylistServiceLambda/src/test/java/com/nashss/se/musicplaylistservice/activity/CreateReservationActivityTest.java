@@ -1,110 +1,73 @@
-//package com.nashss.se.musicplaylistservice.activity;
-//
-//import com.nashss.se.musicplaylistservice.activity.requests.CreatePlaylistRequest;
-//import com.nashss.se.musicplaylistservice.activity.results.CreatePlaylistResult;
-//import com.nashss.se.musicplaylistservice.dynamodb.PlaylistDao;
-//import com.nashss.se.musicplaylistservice.dynamodb.models.Reservation;
-//import com.nashss.se.musicplaylistservice.exceptions.InvalidAttributeValueException;
-//
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
-//import org.mockito.Mock;
-//
-//import java.util.List;
-//
-//import static org.junit.jupiter.api.Assertions.assertEquals;
-//import static org.junit.jupiter.api.Assertions.assertNotNull;
-//import static org.junit.jupiter.api.Assertions.assertNull;
-//import static org.junit.jupiter.api.Assertions.assertThrows;
-//import static org.mockito.ArgumentMatchers.any;
-//import static org.mockito.Mockito.verify;
-//import static org.mockito.MockitoAnnotations.openMocks;
-//
-//public class CreateReservationActivityTest {
-//    @Mock
-//    private PlaylistDao playlistDao;
-//
-//    private CreatePlaylistActivity createPlaylistActivity;
-//
-//    @BeforeEach
-//    void setUp() {
-//        openMocks(this);
-//        createPlaylistActivity = new CreatePlaylistActivity(playlistDao);
-//    }
-//
-//    @Test
-//    public void handleRequest_withTags_createsAndSavesPlaylistWithTags() {
-//        // GIVEN
-//        String expectedName = "expectedName";
-//        String expectedCustomerId = "expectedCustomerId";
-//        int expectedSongCount = 0;
-//        List<String> expectedTags = List.of("tag");
-//
-//        CreatePlaylistRequest request = CreatePlaylistRequest.builder()
-//                                            .withName(expectedName)
-//                                            .withCustomerId(expectedCustomerId)
-//                                            .withTags(expectedTags)
-//                                            .build();
-//
-//        // WHEN
-//        CreatePlaylistResult result = createPlaylistActivity.handleRequest(request);
-//
-//        // THEN
-//        verify(playlistDao).savePlaylist(any(Reservation.class));
-//
-//        assertNotNull(result.getPlaylist().getId());
-//        assertEquals(expectedName, result.getPlaylist().getName());
-//        assertEquals(expectedCustomerId, result.getPlaylist().getCustomerId());
-//        assertEquals(expectedSongCount, result.getPlaylist().getSongCount());
-//        assertEquals(expectedTags, result.getPlaylist().getTags());
-//    }
-//
-//    @Test
-//    public void handleRequest_noTags_createsAndSavesPlaylistWithoutTags() {
-//        // GIVEN
-//        String expectedName = "expectedName";
-//        String expectedCustomerId = "expectedCustomerId";
-//        int expectedSongCount = 0;
-//
-//        CreatePlaylistRequest request = CreatePlaylistRequest.builder()
-//                                            .withName(expectedName)
-//                                            .withCustomerId(expectedCustomerId)
-//                                            .build();
-//
-//        // WHEN
-//        CreatePlaylistResult result = createPlaylistActivity.handleRequest(request);
-//
-//        // THEN
-//        verify(playlistDao).savePlaylist(any(Reservation.class));
-//
-//        assertNotNull(result.getPlaylist().getId());
-//        assertEquals(expectedName, result.getPlaylist().getName());
-//        assertEquals(expectedCustomerId, result.getPlaylist().getCustomerId());
-//        assertEquals(expectedSongCount, result.getPlaylist().getSongCount());
-//        assertNull(result.getPlaylist().getTags());
-//    }
-//
-//    @Test
-//    public void handleRequest_invalidName_throwsInvalidAttributeValueException() {
-//        // GIVEN
-//        CreatePlaylistRequest request = CreatePlaylistRequest.builder()
-//                                            .withName("I'm illegal")
-//                                            .withCustomerId("customerId")
-//                                            .build();
-//
-//        // WHEN + THEN
-//        assertThrows(InvalidAttributeValueException.class, () -> createPlaylistActivity.handleRequest(request));
-//    }
-//
-//    @Test
-//    public void handleRequest_invalidCustomerId_throwsInvalidAttributeValueException() {
-//        // GIVEN
-//        CreatePlaylistRequest request = CreatePlaylistRequest.builder()
-//                                            .withName("AllOK")
-//                                            .withCustomerId("Jemma's \"illegal\" customer ID")
-//                                            .build();
-//
-//        // WHEN + THEN
-//        assertThrows(InvalidAttributeValueException.class, () -> createPlaylistActivity.handleRequest(request));
-//    }
-//}
+package com.nashss.se.musicplaylistservice.activity;
+
+import com.nashss.se.musicplaylistservice.activity.requests.CreateReservationRequest;
+import com.nashss.se.musicplaylistservice.activity.results.CreateReservationResult;
+
+import com.nashss.se.musicplaylistservice.dynamodb.ReservationDao;
+
+
+import com.nashss.se.musicplaylistservice.dynamodb.models.Reservation;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.MockitoAnnotations.openMocks;
+
+class CreateReservationActivityTest {
+    @Mock
+    private ReservationDao reservationDao;
+
+    private CreateReservationActivity createReservationActivity;
+
+
+    @BeforeEach
+    void setUp() {
+        openMocks(this);
+        createReservationActivity = new CreateReservationActivity(reservationDao);
+
+    }
+
+    @Test
+    public void handleRequest_withValidFields_createsAndSavesReservation() {
+
+       LocalDate expectedStartDate = LocalDate.of(2023, 9, 6);
+
+       LocalDate expectedEndDate = LocalDate.of(2023,9,10);
+
+       List<String> petList = new ArrayList<>();
+       petList.add("Fluffers");
+
+       String expectedSitterId = "12345";
+
+       String petOwnerId = "test@gmail.com";
+
+        CreateReservationRequest request = CreateReservationRequest.builder()
+                .withStartDate(expectedStartDate)
+                .withEndDate(expectedEndDate)
+                .withPetList(petList)
+                .withSitterId(expectedSitterId)
+                .withPetOwnerId(petOwnerId)
+                .build();
+
+        CreateReservationResult result = createReservationActivity.handleRequest(request);
+
+        verify(reservationDao).saveReservation(any(Reservation.class));
+
+        assertNotNull(result.getReservation().getReservationId());
+        assertNotNull(result.getReservation().getStatus());
+
+        assertEquals(expectedEndDate, result.getReservation().getEndDate());
+
+
+    }
+}
+

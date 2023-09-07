@@ -15,6 +15,7 @@ public class Pet {
     private String petId;
     private String petName;
     private String ownerId;
+    private String ownerName;
 
     private static final String GSI_INDEX_NAME = "PetsByOwnerIndex";
     @DynamoDBHashKey(attributeName = "petId")
@@ -45,32 +46,38 @@ public class Pet {
         this.ownerId = ownerId;
     }
 
+    @DynamoDBAttribute(attributeName = "ownerName")
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
+    }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Pet that = (Pet) o;
-        return petId.equals(that.petId) &&
-               petName.equals(that.petName) &&
-               Objects.equals(ownerId, that.ownerId);
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
+        Pet pet = (Pet) other;
+        return Objects.equals(petId, pet.petId) &&
+                Objects.equals(petName, pet.petName) &&
+                Objects.equals(ownerId, pet.ownerId) &&
+                Objects.equals(ownerName, pet.ownerName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(petId, petName, ownerId);
+        return Objects.hash(petId, petName, ownerId, ownerName);
     }
 
     @Override
     public String toString() {
         return "Pet{" +
-               "petId='" + petId + '\'' +
-               ", petName=" + petName +
-               ", ownerId='" + ownerId + '\'' +
-               '}';
+                "petId='" + petId + '\'' +
+                ", petName='" + petName + '\'' +
+                ", ownerId='" + ownerId + '\'' +
+                ", ownerName='" + ownerName + '\'' +
+                '}';
     }
 }
