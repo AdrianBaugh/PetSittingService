@@ -26,8 +26,9 @@ module.exports = {
 //    createPlaylist: path.resolve(__dirname, 'src', 'pages', 'createPlaylist.js'),
 //    viewPlaylist: path.resolve(__dirname, 'src', 'pages', 'viewPlaylist.js'),
 //    searchPlaylists: path.resolve(__dirname, 'src', 'pages', 'searchPlaylists.js'),
+    viewReservation: path.resolve(__dirname, 'src', 'pages', 'viewReservation.js'),
     viewPet: path.resolve(__dirname, 'src', 'pages', 'viewPet.js'),
-    createNewPet: path.resolve(__dirname, 'src', 'pages', 'createPet.js'),
+    createPet: path.resolve(__dirname, 'src', 'pages', 'createPet.js'),
     test: path.resolve(__dirname, 'src', 'pages', 'test.js'),
   },
   output: {
