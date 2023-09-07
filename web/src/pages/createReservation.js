@@ -47,14 +47,14 @@ class CreateReservation extends BindingClass {
 
 
 
-        let pets;
+        let petList;
         if (petsText.length < 1) {
-            pets = null;
+            petList = null;
         } else {
-            pets = petsText.split(/\s*,\s*/);
+            petList = petsText.split(/\s*,\s*/);
         }
 
-        const reservation = await this.client.createReservation(startDate, endDate, pets, (error) => {
+        const reservation = await this.client.createReservation(startDate, endDate, petList, (error) => {
             createButton.innerText = origButtonText;
             errorMessageDisplay.innerText = `Error: ${error.message}`;
             errorMessageDisplay.classList.remove('hidden');

@@ -1,14 +1,14 @@
 package com.nashss.se.musicplaylistservice.dynamodb.models;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
-import com.nashss.se.musicplaylistservice.converters.AlbumTrackLinkedListConverter;
+
 import com.nashss.se.musicplaylistservice.converters.LocalDateConverter;
 
 import java.time.LocalDate;
-import java.util.HashSet;
+
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
+
 
 /**
  * Represents a record in the playlists table.

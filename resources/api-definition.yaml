@@ -31,14 +31,12 @@ paths:
                   type: string
                 endDate:
                   type: string
-                ownerId:
+                petOwnerId:
                   type: string
-                pets:
+                petList:
                   type: array
                   items:
                     type: string
-                sitterId:
-                  type: string
       responses:
         "200":
           description: A reservation object
