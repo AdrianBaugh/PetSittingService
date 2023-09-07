@@ -94,6 +94,33 @@ export default class RiverPetSittingClient extends BindingClass {
     }
 
     /**
+<<<<<<< HEAD
+    * Create a new reservation by the current user.
+    * @param startDate The start date of the reservation to create.
+    * @param endDate The end date of the reservation to be created.
+    * @param pets Metadata pets to associate with a reservation.
+    * @param errorCallback (Optional) A function to execute if the call fails.
+    * @returns The playlist that has been created.
+    */
+    async createReservation(startDate, endDate, pets, errorCallback) {
+        try {
+            const token = await this.getTokenOrThrow("Only authenticated users can make a reservation.");
+            const response = await this.axiosClient.post(`reservations`, {
+                startDate: startDate,
+                endDate: endDate,
+                pets: pets
+            }, {
+                header: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data.reservation;
+        } catch (error) {
+            this.handleError(error, errorCallback)
+        }
+    }
+
+    /*
      * Gets the pet for the given ID.
      * @param id Unique identifier for a pet
      * @param errorCallback (Optional) A function to execute if the call fails.
@@ -107,7 +134,6 @@ export default class RiverPetSittingClient extends BindingClass {
             this.handleError(error, errorCallback)
         }
     }
-        
 
     /**
      * Helper method to log the error and run any error functions.

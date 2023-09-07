@@ -24,4 +24,8 @@ public class IdUtils {
     public static String generatePetId() {
         return "PET" + RandomStringUtils.randomAlphanumeric(MAX_ID_LENGTH);
     }
+
+    public static String generateReservationId() {
+        return "RESERVATION" + RandomStringUtils.randomAlphanumeric(MAX_ID_LENGTH);
+    }
 }
