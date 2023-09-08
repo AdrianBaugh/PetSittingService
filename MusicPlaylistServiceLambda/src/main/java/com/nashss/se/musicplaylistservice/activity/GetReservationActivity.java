@@ -42,7 +42,8 @@ public class GetReservationActivity{
     public GetReservationResult handleRequest(final GetReservationRequest getReservationRequest){
     log.info("Received GetReservationRequest {}", getReservationRequest.getReservationId());
     String requestReservationId  = getReservationRequest.getReservationId();
-    Reservation reservation = reservationDao.getReservationById(requestReservationId);
+    String requestOwnerId = getReservationRequest.getPetOwnerId();
+    Reservation reservation = reservationDao.getReservationById(requestOwnerId, requestReservationId);
 
         if(reservation == null){
             throw new ReservationNotFoundException("Reservation with id "+requestReservationId + " not found");

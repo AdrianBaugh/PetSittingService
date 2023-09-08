@@ -4,8 +4,8 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 
 import com.nashss.se.musicplaylistservice.activity.requests.GetReservationRequest;
-
 import com.nashss.se.musicplaylistservice.activity.results.GetReservationResult;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -20,9 +20,10 @@ public class GetReservationLambda
         log.info("handleRequest from Get Reservation LAMBDA");
         return super.runActivity(
                 () -> input.fromPath(path ->
-                        GetReservationRequest.builder()
-                                .withReservationId(path.get("reservationId"))
-                                .build()),
+                            GetReservationRequest.builder()
+                                    .withReservationId(path.get("reservationId"))
+                                    .withOwnerId(path.get("ownerId"))
+                                    .build()),
                 (request, serviceComponent) ->
                         serviceComponent.provideGetReservationActivity().handleRequest(request)
         );

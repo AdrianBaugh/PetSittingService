@@ -33,20 +33,22 @@ public class ReservationDao {
      * @param reservationId The ID of the reservation to retrieve.
      * @return The reservation object if found, or null if not found.
      */
-    public Reservation getReservationById(String reservationId) {
-        Reservation reservation = new Reservation();
-        reservation.setReservationId(reservationId);
+    public Reservation getReservationById(String ownerId, String reservationId) {
+//        Reservation reservation = new Reservation();
+//        reservation.setReservationId(reservationId);
+//        reservation.setPetOwnerId(ownerId);
 
-        DynamoDBQueryExpression<Reservation> queryExpression = new DynamoDBQueryExpression<Reservation>()
-                .withHashKeyValues(reservation);
-
-        List<Reservation> reservations = dynamoDbMapper.query(Reservation.class, queryExpression);
-
-        if (reservations != null && !reservations.isEmpty()) {
-            return reservations.get(0); // Assuming reservation IDs are unique
-        }
-
-        return null; // Reservation not found
+        return dynamoDbMapper.load(Reservation.class, ownerId, reservationId);
+//        DynamoDBQueryExpression<Reservation> queryExpression = new DynamoDBQueryExpression<Reservation>()
+//                .withHashKeyValues(reservation);
+//
+//        List<Reservation> reservations = dynamoDbMapper.query(Reservation.class, queryExpression);
+//
+//        if (reservations != null && !reservations.isEmpty()) {
+//            return reservations.get(0); // Assuming reservation IDs are unique
+//        }
+//
+//        return null; // Reservation not found
     }
 
     public Reservation saveReservation(Reservation newReservation) {
