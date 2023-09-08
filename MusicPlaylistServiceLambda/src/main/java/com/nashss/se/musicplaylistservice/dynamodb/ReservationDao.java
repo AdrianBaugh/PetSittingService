@@ -4,6 +4,8 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 
 import com.nashss.se.musicplaylistservice.dynamodb.models.Reservation;
+import com.nashss.se.musicplaylistservice.exceptions.ReservationNotFoundException;
+import com.nashss.se.musicplaylistservice.metrics.MetricsConstants;
 import com.nashss.se.musicplaylistservice.metrics.MetricsPublisher;
 
 import javax.inject.Inject;
@@ -34,21 +36,13 @@ public class ReservationDao {
      * @return The reservation object if found, or null if not found.
      */
     public Reservation getReservationById(String ownerId, String reservationId) {
-//        Reservation reservation = new Reservation();
-//        reservation.setReservationId(reservationId);
-//        reservation.setPetOwnerId(ownerId);
-
-        return dynamoDbMapper.load(Reservation.class, ownerId, reservationId);
-//        DynamoDBQueryExpression<Reservation> queryExpression = new DynamoDBQueryExpression<Reservation>()
-//                .withHashKeyValues(reservation);
-//
-//        List<Reservation> reservations = dynamoDbMapper.query(Reservation.class, queryExpression);
-//
-//        if (reservations != null && !reservations.isEmpty()) {
-//            return reservations.get(0); // Assuming reservation IDs are unique
-//        }
-//
-//        return null; // Reservation not found
+        Reservation reservation = dynamoDbMapper.load(Reservation.class, ownerId, reservationId);
+        if (reservation == null) {
+            metricsPublisher.addCount(MetricsConstants.GETRESERVATION_RESERVATIONNOTFOUND_COUNT, 1);
+            throw new ReservationNotFoundException("Reservation not found");
+        }
+        metricsPublisher.addCount(MetricsConstants.GETRESERVATION_RESERVATIONNOTFOUND_COUNT, 0);
+        return reservation;
     }
 
     public List<Reservation> getAllReservationsByOwnerId(String ownerId) {
@@ -59,7 +53,15 @@ public class ReservationDao {
         DynamoDBQueryExpression<Reservation> queryExpression = new DynamoDBQueryExpression<Reservation>()
                 .withHashKeyValues(reservation);
 
-        return dynamoDbMapper.query(Reservation.class, queryExpression);
+        List<Reservation> reservationList = dynamoDbMapper.query(Reservation.class, queryExpression);
+        
+        if (reservationList == null || reservationList.isEmpty()) {
+            metricsPublisher.addCount(MetricsConstants.GETRESERVATION_RESERVATIONNOTFOUND_COUNT, 1);
+            throw new ReservationNotFoundException("Nothing inside of Reservation list");
+        }
+
+        metricsPublisher.addCount(MetricsConstants.GETRESERVATION_RESERVATIONNOTFOUND_COUNT, 0);
+        return reservationList;
     }
 
     public Reservation saveReservation(Reservation newReservation) {
