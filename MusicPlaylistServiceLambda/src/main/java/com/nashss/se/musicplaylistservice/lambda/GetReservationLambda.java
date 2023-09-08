@@ -21,8 +21,8 @@ public class GetReservationLambda
         return super.runActivity(
                 () -> input.fromPath(path ->
                             GetReservationRequest.builder()
-                                    .withOwnerId(path.get("ownerId"))
                                     .withReservationId(path.get("reservationId"))
+                                    .withOwnerId(path.get("ownerId"))
                                     .build()),
                 (request, serviceComponent) ->
                         serviceComponent.provideGetReservationActivity().handleRequest(request)

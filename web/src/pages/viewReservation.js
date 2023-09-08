@@ -11,7 +11,7 @@ class ViewReservation extends BindingClass {
         super();
         this.bindClassMethods(['clientLoaded', 'mount', 'addReservationToPage'], this);
         this.dataStore = new DataStore();
-        this.dataStore.addChangeListener(this.addPetToPage);
+        this.dataStore.addChangeListener(this.addReservationToPage);
 
         this.header = new Header(this.dataStore);
         console.log("ViewReservation constructor");
@@ -22,10 +22,10 @@ class ViewReservation extends BindingClass {
      */
     async clientLoaded() {
         const urlParams = new URLSearchParams(window.location.search);
-        const reservationId = urlParams.get('id1');
-        const petOwnerId = urlParams.get('id2');
+        const reservationId = urlParams.get('id2');
+        const petOwnerId = urlParams.get('id1');
 
-        const reservation = await this.client.viewReservation(reservationId, petOwnerId);
+        const reservation = await this.client.viewReservation(petOwnerId, reservationId);
         this.dataStore.set('reservation', reservation);
     }
 
@@ -49,7 +49,9 @@ class ViewReservation extends BindingClass {
         }
 
         document.getElementById('reservation-id').innerText = reservation.reservationId;
-        document.getElementById('owner-id').innerText = reservation.petOwnerId
+        console.log("Reservation id : " + reservation.reservationId);
+        document.getElementById('owner-id').innerText = reservation.petOwnerId;
+        console.log("Owner id : " + reservation.petOwnerId);
         document.getElementById('sitter-id').innerText = reservation.sitterId;
         document.getElementById('start-date').innerText = reservation.startDate;
         document.getElementById('end-date').innerText = reservation.endDate;
