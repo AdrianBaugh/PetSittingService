@@ -1,6 +1,9 @@
 package com.nashss.se.musicplaylistservice.activity.requests;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
+@JsonDeserialize(builder = GetReservationRequest.Builder.class)
 public class GetReservationRequest {
      private final String reservationId;
      private final String petOwnerId;
@@ -21,7 +24,7 @@ public class GetReservationRequest {
     public static Builder builder(){
         return new Builder();
     }
-
+    @JsonPOJOBuilder
     public static class Builder{
         private String reservationId;
         private String petOwnerId;

@@ -140,9 +140,9 @@ export default class RiverPetSittingClient extends BindingClass {
      * @param errorCallback (Optional) A function to execute if the call fails.
      * @returns The reservation's metadata.
      */
-        async viewReservation(id, errorCallback) {
+        async viewReservation(id1, id2, errorCallback) {
             try {
-                const response = await this.axiosClient.get(`reservations/${id}`);
+                const response = await this.axiosClient.get(`reservations/${id1}/${id2}`);
                 return response.data.reservation;
             } catch (error) {
                 this.handleError(error, errorCallback)
