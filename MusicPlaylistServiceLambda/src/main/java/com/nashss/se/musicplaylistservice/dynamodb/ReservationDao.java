@@ -54,7 +54,7 @@ public class ReservationDao {
                 .withHashKeyValues(reservation);
 
         List<Reservation> reservationList = dynamoDbMapper.query(Reservation.class, queryExpression);
-        
+
         if (reservationList == null || reservationList.isEmpty()) {
             metricsPublisher.addCount(MetricsConstants.GETRESERVATION_RESERVATIONNOTFOUND_COUNT, 1);
             throw new ReservationNotFoundException("Nothing inside of Reservation list");
