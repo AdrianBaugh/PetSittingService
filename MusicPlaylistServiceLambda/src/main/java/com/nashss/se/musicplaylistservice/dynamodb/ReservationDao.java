@@ -51,6 +51,17 @@ public class ReservationDao {
 //        return null; // Reservation not found
     }
 
+    public List<Reservation> getAllReservationsByOwnerId(String ownerId) {
+
+        Reservation reservation = new Reservation();
+        reservation.setPetOwnerId(ownerId);
+
+        DynamoDBQueryExpression<Reservation> queryExpression = new DynamoDBQueryExpression<Reservation>()
+                .withHashKeyValues(reservation);
+
+        return dynamoDbMapper.query(Reservation.class, queryExpression);
+    }
+
     public Reservation saveReservation(Reservation newReservation) {
         this.dynamoDbMapper.save(newReservation);
         return newReservation;
