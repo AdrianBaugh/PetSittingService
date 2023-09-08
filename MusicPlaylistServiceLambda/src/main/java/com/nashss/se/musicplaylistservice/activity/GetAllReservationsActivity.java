@@ -1,10 +1,16 @@
 package com.nashss.se.musicplaylistservice.activity;
 
+import com.nashss.se.musicplaylistservice.activity.requests.GetAllReservationsRequest;
+import com.nashss.se.musicplaylistservice.activity.results.GetAllReservationsResult;
+import com.nashss.se.musicplaylistservice.converters.ModelConverter;
 import com.nashss.se.musicplaylistservice.dynamodb.ReservationDao;
+import com.nashss.se.musicplaylistservice.dynamodb.models.Reservation;
+import com.nashss.se.musicplaylistservice.models.ReservationModel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.inject.Inject;
+import java.util.List;
 
 /**
  * Implementation of the GetAllReservationsActivity for the PetSittingService's GetAllReservations API.
@@ -24,5 +30,26 @@ public class GetAllReservationsActivity {
     @Inject
     public GetAllReservationsActivity(ReservationDao reservationDao) {
         this.reservationDao = reservationDao;
+    }
+
+    /**
+     * This method handles the incoming request by retrieving all the reservations for a user from the database.
+     * <p>
+     * It then returns the reservation list.
+     * <p>
+     * If no reservation does not exist, this should throw a ReservationNotFoundException.
+     *
+     * @param getAllReservationsRequest request object containing the petOwner ID to look up reservations for
+     * @return GetAllReservationsResult result object containing the reservation's list of API defined ReservationModel
+     */
+    public GetAllReservationsResult handleRequest(final GetAllReservationsRequest getAllReservationsRequest) {
+        log.info("Received GetAllReservationsRequest {}", getAllReservationsRequest);
+
+        List<Reservation> reservations = reservationDao.getAllReservationsByOwnerId(getAllReservationsRequest.getPetOwnerId());
+        List<ReservationModel> reservationModels = new ModelConverter().toReservationModelList(reservations);
+
+        return GetAllReservationsResult.builder()
+                .withReservationList(reservationModels)
+                .build();
     }
 }
