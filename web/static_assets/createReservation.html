@@ -13,15 +13,15 @@
         <form class="card-content" id="create-reservation-form">
             <p class="hidden error" id="error-message"> </p>
             <p class="form-field">
-                <label>Enter start date:</label>
-                <input type="text" required class="validated-field" id="startDate" placeholder="YYYY-MM-DD" autofocus>
+                <label for="startDate"> Select Start date:</label>
+                <input type="date" required class="validated-field" id="startDate" name="startDate" >
             </p>
             <p class="form-field">
-                <label>Enter end date: </label>
-                <input type="text" required class="validated-field" id="endDate" placeholder="YYYY-MM-DD" autofocus>
+                <label for="endDate">Select End date: </label>
+                <input type="date" required class="validated-field" id="endDate" name="endDate">
             </p>
             <p class="form-field">
-                <label>Enter pet Name's:</label>
+                <label>Enter pet Name's on this reservation:</label>
                 <input type="text" required class="validated-field" id="pets" placeholder="Enter multiple Pet Name's seperated by commas" autofocus>
             </p>
             <p>

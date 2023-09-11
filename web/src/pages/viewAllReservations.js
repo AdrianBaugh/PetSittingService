@@ -19,7 +19,7 @@ class ViewAllReservations extends BindingClass {
 
     async clientLoaded() {
         document.getElementById('reservations').innerText = "(loading reservations. . .)";
-        const reservations = await this.client.viewAllReservations(petOwnerId);
+        const reservations = await this.client.viewAllReservations();
         this.dataStore.set('reservations', reservations);
     }
 

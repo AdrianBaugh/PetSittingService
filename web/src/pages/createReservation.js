@@ -33,6 +33,24 @@ class CreateReservation extends BindingClass {
     async submit(evt) {
         evt.preventDefault();
 
+        // option 1
+        // Get the current date
+        const currentDate = new Date();
+
+        // Format the current date as YYYY-MM-DD (the required format for input type="date")
+        const year = currentDate.getFullYear();
+        const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Adding 1 because months are 0-indexed
+        const day = String(currentDate.getDate()).padStart(2, '0');
+
+        const formattedDate = `${year}-${month}-${day}`;
+
+        // Set the minimum attribute of the date input
+        document.getElementById('startDate').min = formattedDate;
+        document.getElementById('endDate').min = formattedDate;
+
+        // //option 2
+        // document.getElementById("startDate").min = new Date().toISOString().split("T")[0];
+
         const errorMessageDisplay = document.getElementById('error-message');
         errorMessageDisplay.innerText = ``;
         errorMessageDisplay.classList.add('hidden');
