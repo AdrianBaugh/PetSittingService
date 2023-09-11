@@ -411,13 +411,12 @@ Resources:
         Variables:
           JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
       Events:
-        GetReservationHashKey:
+        MusicPlaylistService:
           Type: Api
           Properties:
             Path: /reservations
             Method: get
-            Auth:
-              Authorizer: 'NONE'
+
   UpdatePlaylistLambda:
     Type: AWS::Serverless::Function
     Properties:
@@ -462,33 +461,42 @@ Resources:
   # DynamoDB Configuration
   #-----------------------------------------------------
   
-  PlaylistsTable:
+  PetsTable:
     Type: AWS::DynamoDB::Table
     Properties:
+      TableName: pets
       AttributeDefinitions:
-        - AttributeName: "id"
+        - AttributeName: "petId"
+          AttributeType: "S"
+        - AttributeName: "ownerId"
           AttributeType: "S"
       KeySchema:
-        - AttributeName: "id"
+        - AttributeName: "petId"
           KeyType: "HASH"
       BillingMode: "PAY_PER_REQUEST"
-      TableName: "playlists"
+      GlobalSecondaryIndexes:
+        - IndexName: "PetsByOwnerIndex"
+          KeySchema:
+            - AttributeName: "ownerId"
+              KeyType: "HASH"
+          Projection:
+            ProjectionType: "ALL"
 
-  AlbumTracksTable:
+  ReservationsTable:
     Type: AWS::DynamoDB::Table
     Properties:
+      TableName: reservations
       AttributeDefinitions:
-        - AttributeName: "asin"
+        - AttributeName: "ownerId"
           AttributeType: "S"
-        - AttributeName: "track_number"
-          AttributeType: "N"
+        - AttributeName: "reservationId"
+          AttributeType: "S"
       KeySchema:
-        - AttributeName: "asin"
+        - AttributeName: "ownerId"
           KeyType: "HASH"
-        - AttributeName: "track_number"
+        - AttributeName: "reservationId"
           KeyType: "RANGE"
-      BillingMode: "PAY_PER_REQUEST"
-      TableName: "album_tracks"
+      BillingMode: PAY_PER_REQUEST
 
 #-----------------------------------------------------
 # The outputs defined below will be printed

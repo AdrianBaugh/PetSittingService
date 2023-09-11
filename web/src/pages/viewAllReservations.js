@@ -33,7 +33,7 @@ class ViewAllReservations extends BindingClass {
 
 
     addReservationsToPage() {
-        const reservations = this.datastore.get('reservations')
+        const reservations = this.dataStore.get('reservations')
 
         if (reservations == null) {
             return;

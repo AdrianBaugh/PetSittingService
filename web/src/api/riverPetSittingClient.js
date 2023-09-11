@@ -156,9 +156,14 @@ export default class RiverPetSittingClient extends BindingClass {
      */
     async viewAllReservations(errorCallback) {
         try {
-            const response = await this.axiosClient.get(`reservations`);
-            // is it reservation or reservations or reservationsList?
-            return response.data.reservations;
+            const token = await this.getTokenOrThrow("Only authenticated users can make a reservation.");
+            const response = await this.axiosClient.get(`reservations`, 
+             {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data.reservationList;
         } catch (error) {
             this.handleError(error, errorCallback)
         }

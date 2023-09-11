@@ -12,12 +12,10 @@ public class GetAllReservationsLambda
     @Override
     public LambdaResponse handleRequest(AuthenticatedLambdaRequest<GetAllReservationsRequest> input, Context context) {
         return super.runActivity(
-                () -> {
-                    return input.fromUserClaims(claims ->
-                            GetAllReservationsRequest.builder()
-                                    .withPetOwnerId(claims.get("email"))
-                                    .build());
-                },
+                () -> input.fromUserClaims(claims ->
+                        GetAllReservationsRequest.builder()
+                                .withPetOwnerId(claims.get("email"))
+                                .build()),
                 (request, serviceComponent) ->
                         serviceComponent.provideGetAllReservationsActivity().handleRequest(request)
         );
