@@ -1,4 +1,3 @@
-import MusicPlaylistClient from '../api/musicPlaylistClient';
 import RiverPetSittingClient from '../api/riverPetSittingClient';
 import Header from '../components/header';
 import BindingClass from "../util/bindingClass";
@@ -19,8 +18,6 @@ class ViewAllReservations extends BindingClass {
     }
 
     async clientLoaded() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const petOwnerId = urlParams.get('id');
         document.getElementById('reservations').innerText = "(loading reservations. . .)";
         const reservations = await this.client.viewAllReservations(petOwnerId);
         this.dataStore.set('reservations', reservations);
