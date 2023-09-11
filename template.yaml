@@ -200,21 +200,21 @@ Resources:
                 - logs:PutLogEvents
                 - cloudwatch:PutMetricData
               Resource: '*'
-        - PolicyName: 'AccessPlaylistsTable'
+        - PolicyName: 'AccessPetsTable'
           PolicyDocument:
             Version: '2012-10-17'
             Statement:
             - Effect: Allow
               Action: dynamodb:*
-              Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/playlists"
+              Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/pets"
                 
-        - PolicyName: 'AccessAlbumTracksTable'
+        - PolicyName: 'AccessReservationsTable'
           PolicyDocument:
             Version: '2012-10-17'
             Statement:
             - Effect: Allow
               Action: dynamodb:*
-              Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/album_tracks"
+              Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/reservations"
 
   #-----------------------------------------------------
   # Lambda Functions Configuration
@@ -441,33 +441,42 @@ Resources:
   # DynamoDB Configuration
   #-----------------------------------------------------
   
-  PlaylistsTable:
+  PetsTable:
     Type: AWS::DynamoDB::Table
     Properties:
+      TableName: pets
       AttributeDefinitions:
-        - AttributeName: "id"
+        - AttributeName: "petId"
+          AttributeType: "S"
+        - AttributeName: "ownerId"
           AttributeType: "S"
       KeySchema:
-        - AttributeName: "id"
+        - AttributeName: "petId"
           KeyType: "HASH"
       BillingMode: "PAY_PER_REQUEST"
-      TableName: "playlists"
+      GlobalSecondaryIndexes:
+        - IndexName: "PetsByOwnerIndex"
+          KeySchema:
+            - AttributeName: "ownerId"
+              KeyType: "HASH"
+          Projection:
+            ProjectionType: "ALL"
 
-  AlbumTracksTable:
+  ReservationsTable:
     Type: AWS::DynamoDB::Table
     Properties:
+      TableName: reservations
       AttributeDefinitions:
-        - AttributeName: "asin"
+        - AttributeName: "ownerId"
           AttributeType: "S"
-        - AttributeName: "track_number"
-          AttributeType: "N"
+        - AttributeName: "reservationId"
+          AttributeType: "S"
       KeySchema:
-        - AttributeName: "asin"
+        - AttributeName: "ownerId"
           KeyType: "HASH"
-        - AttributeName: "track_number"
+        - AttributeName: "reservationId"
           KeyType: "RANGE"
-      BillingMode: "PAY_PER_REQUEST"
-      TableName: "album_tracks"
+      BillingMode: PAY_PER_REQUEST
 
 #-----------------------------------------------------
 # The outputs defined below will be printed
