@@ -18,13 +18,12 @@ class ViewAllReservations extends BindingClass {
     }
 
     async clientLoaded() {
-        document.getElementById('reservations').innerText = "(loading reservations. . .)";
+        //loadin icon?
         const reservations = await this.client.viewAllReservations();
         this.dataStore.set('reservations', reservations);
     }
 
     mount() {
-        
         this.header.addHeaderToPage();
 
         this.client = new RiverPetSittingClient();
@@ -34,21 +33,24 @@ class ViewAllReservations extends BindingClass {
 
     addReservationsToPage() {
         const reservations = this.dataStore.get('reservations')
-
+       
         if (reservations == null) {
             return;
         }
-        
-        let reservationHtml;
-        let reservation;
-        for (reservation of reservations) {
+        let reservationHtml = '<table><tr><th>Reservation ID</th><th>Start Date</th><th>End Date</th></tr>';
+
+        for (const reservation of reservations) {
             reservationHtml += `
-                <li class="reservation">
-                    <span class="reservationId">${reservation.reservationId}</span>
-                </li>
+            <tr>
+                <td>
+                    <a href="/viewReservation.html?id1=${reservation.petOwnerId}&id2=${reservation.reservationId}">${reservation.reservationId}</a>
+                </td>    
+                    <td>${reservation.startDate}</td>
+                    <td>${reservation.endDate}</td>
+                </tr>
             `;
         }
-        document.getElementById('reservations').innerHTML = reservationHtml;
+        document.getElementById('reservationList').innerHTML = reservationHtml;
     }
 }
 
