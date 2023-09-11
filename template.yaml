@@ -200,7 +200,7 @@ Resources:
                 - logs:PutLogEvents
                 - cloudwatch:PutMetricData
               Resource: '*'
-        - PolicyName: 'AccessPlaylistsTable'
+        - PolicyName: 'AccessPetsTable'
           PolicyDocument:
             Version: '2012-10-17'
             Statement:
@@ -208,7 +208,7 @@ Resources:
               Action: dynamodb:*
               Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/pets"
                 
-        - PolicyName: 'AccessAlbumTracksTable'
+        - PolicyName: 'AccessReservationsTable'
           PolicyDocument:
             Version: '2012-10-17'
             Statement:
