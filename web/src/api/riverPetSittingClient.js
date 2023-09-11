@@ -15,7 +15,7 @@ export default class RiverPetSittingClient extends BindingClass {
     constructor(props = {}) {
         super();
             //Add Methods after 'logout' when we implement them.
-        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'createPet', 'viewPet', 'viewReservation'];
+        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'createPet', 'viewPet', 'viewAllPets', 'viewReservation'];
         this.bindClassMethods(methodsToBind, this);
 
         this.authenticator = new Authenticator();;
@@ -129,6 +129,20 @@ export default class RiverPetSittingClient extends BindingClass {
         try {
             const response = await this.axiosClient.get(`pets/${id}`);
             return response.data.pet;
+        } catch (error) {
+            this.handleError(error, errorCallback)
+        }
+    }
+
+    async viewAllPets(errorCallback) {
+        try {
+            const token = await this.getTokenOrThrow("Only authenticated users can make a reservation.");
+            const response = await this.axiosClient.get(`pets`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data.pets;
         } catch (error) {
             this.handleError(error, errorCallback)
         }

@@ -56,4 +56,6 @@ public interface ServiceComponent {
     GetReservationActivity provideGetReservationActivity();
 
     CreateReservationActivity provideCreateReservationActivity();
+
+    GetAllPetsActivity provideGetAllPetsActivity();
 }

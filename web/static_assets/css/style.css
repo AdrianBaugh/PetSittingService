@@ -13,6 +13,19 @@
     font-family: "Helvetica Neue",Helvetica,sans-serif;
 }
 
+.loader {
+  border: 16px dashed #f3f3f3; /* Light grey */
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 .header {
     /* Flexbox: https://css-tricks.com/snippets/css/a-guide-to-flexbox/ */
     display: flex;
@@ -124,12 +137,23 @@
     flex: 80%;
 }
 
+.pet .name {
+    flex: 20%;
+}
+
 /*
 Flexbox on a lists removes the numbers. We use a counter here to add them back.
 https://stackoverflow.com/a/34316093
 https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Lists_and_Counters/Using_CSS_counters
 */
 .song:before {
+    counter-increment: section;
+    content: counter(section) ".";
+    position: absolute;
+    margin-left: -40px;
+}
+
+.pet:before {
     counter-increment: section;
     content: counter(section) ".";
     position: absolute;

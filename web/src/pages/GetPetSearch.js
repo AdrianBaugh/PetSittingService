@@ -1,4 +1,4 @@
-import PetClient from '../api/petClient';
+import RiverPetSittingClient from '../api/riverPetSittingClient';
 import Header from '../components/header';
 import BindingClass from "../util/bindingClass";
 import DataStore from "../util/DataStore";
@@ -43,10 +43,11 @@ class GetPet extends BindingClass {
      */
     mount() {
         // Wire up the form's 'submit' event and the button's 'click' event to the search method.
+        this.header.addHeaderToPage();
         document.getElementById('search-pet-form').addEventListener('submit', this.search);
         document.getElementById('search-btn').addEventListener('click', this.search);
 
-        this.header.addHeaderToPage();
+
         this.client = new PetClient();
     }
 
