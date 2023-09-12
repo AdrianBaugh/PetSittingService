@@ -23,7 +23,7 @@ public class CancelReservationLambda
                                 .withOwnerId(path.get("ownerId"))
                                 .build()),
                 (request, serviceComponent) ->
-                        serviceComponent.provideCancelReservationRequest().handleRequest(request)
+                        serviceComponent.provideCancelReservationActivity().handleRequest(request)
         );
     }
 }

@@ -62,6 +62,6 @@ public interface ServiceComponent {
 
     GetAllReservationsActivity provideGetAllReservationsActivity();
 
-    CancelReservationRequest provideCancelReservationRequest();
+    CancelReservationActivity provideCancelReservationActivity();
 
 }
