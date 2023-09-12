@@ -3,6 +3,7 @@ package com.nashss.se.musicplaylistservice.dependency;
 import com.nashss.se.musicplaylistservice.activity.*;
 
 import dagger.Component;
+import dagger.Provides;
 
 import javax.inject.Singleton;
 
@@ -60,5 +61,6 @@ public interface ServiceComponent {
     GetAllPetsActivity provideGetAllPetsActivity();
 
     GetAllReservationsActivity provideGetAllReservationsActivity();
+    UpdateReservationActivity provideUpdateReservationActivity();
 
 }

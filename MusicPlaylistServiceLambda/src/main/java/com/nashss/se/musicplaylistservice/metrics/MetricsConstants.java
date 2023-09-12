@@ -10,6 +10,8 @@ public class MetricsConstants {
         "UpdateReservation.InvalidAttributeValueException.Count";
     public static final String UPDATERESERVATION_INVALIDATTRIBUTECHANGE_COUNT =
         "UpdateReservation.InvalidAttributeChangeException.Count";
+    public static final String UPDATERESERVATION_UNAUTHORIZED_COUNT =
+            "UpdateReservation.UnauthorizedOwnerException.Count";
     public static final String CANCELRESERVATION_RESERVATIONNOTFOUND_COUNT =
             "CancelReservation.ReservationNotFoundException.Count";
     public static final String GETPET_PETNOTFOUND_COUNT =
