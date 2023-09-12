@@ -20,7 +20,7 @@ public class ReservationDao {
     private final MetricsPublisher metricsPublisher;
 
     /**
-     * Instantiates a PlaylistDao object.
+     * Instantiates a ReservationDao object.
      *
      * @param dynamoDbMapper   the {@link DynamoDBMapper} used to interact with the playlists table
      * @param metricsPublisher the {@link MetricsPublisher} used to record metrics.
@@ -32,7 +32,7 @@ public class ReservationDao {
     }
 
     /**
-     * Retrieves a reservation by its ID.
+     * Retrieves a reservation by its IDs.
      *
      * @param reservationId The ID of the reservation to retrieve.
      * @return The reservation object if found, or null if not found.
