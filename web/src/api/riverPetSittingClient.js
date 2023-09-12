@@ -15,7 +15,7 @@ export default class RiverPetSittingClient extends BindingClass {
     constructor(props = {}) {
         super();
             //Add Methods after 'logout' when we implement them.
-        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'createPet', 'viewPet', 'viewReservation', 'viewAllReservations'];
+        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'createPet', 'viewPet', 'viewAllPets', 'viewReservation', 'viewAllReservations'];
         this.bindClassMethods(methodsToBind, this);
 
         this.authenticator = new Authenticator();;
@@ -135,6 +135,25 @@ export default class RiverPetSittingClient extends BindingClass {
     }
 
     /*
+    Gets all pets for logged in user.
+    @returns all pet metadata.
+    */
+    async viewAllPets(errorCallback) {
+        try {
+            const token = await this.getTokenOrThrow("Only authenticated users can make a reservation.");
+            const response = await this.axiosClient.get(`pets`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data.pets;
+        } catch (error) {
+            this.handleError(error, errorCallback)
+        }
+    }
+
+
+    /*
      * Gets the reservation for the given ID.
      * @param id Unique identifier for a reservation
      * @param errorCallback (Optional) A function to execute if the call fails.
@@ -168,6 +187,7 @@ export default class RiverPetSittingClient extends BindingClass {
             this.handleError(error, errorCallback)
         }
     }
+
     /**
      * Helper method to log the error and run any error functions.
      * @param error The error received from the server.

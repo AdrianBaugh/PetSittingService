@@ -1,6 +1,9 @@
 package com.nashss.se.musicplaylistservice.dynamodb;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
+import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedQueryList;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Pet;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Reservation;
 import com.nashss.se.musicplaylistservice.exceptions.PetIdNotFoundException;
@@ -9,6 +12,9 @@ import com.nashss.se.musicplaylistservice.metrics.MetricsConstants;
 import com.nashss.se.musicplaylistservice.metrics.MetricsPublisher;
 
 import javax.inject.Inject;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class PetDao {
     private final DynamoDBMapper dynamoDbMapper;
@@ -44,5 +50,18 @@ public class PetDao {
     public Pet savePet(Pet newPet) {
         this.dynamoDbMapper.save(newPet);
         return newPet;
+    }
+
+    public List<Pet> getAllPets(String ownerId) {
+        Map<String, AttributeValue> valueMap = new HashMap<>();
+        valueMap.put(":ownerId", new AttributeValue().withS(ownerId));
+        DynamoDBQueryExpression<Pet> queryExpression = new DynamoDBQueryExpression<Pet>()
+                .withIndexName("PetsByOwnerIndex")
+                .withConsistentRead(false)
+                .withKeyConditionExpression("ownerId = :ownerId")
+                .withExpressionAttributeValues(valueMap);
+
+        PaginatedQueryList<Pet> petList = dynamoDbMapper.query(Pet.class, queryExpression);
+        return petList;
     }
 }

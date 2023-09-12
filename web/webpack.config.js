@@ -32,6 +32,7 @@ module.exports = {
     viewPet: path.resolve(__dirname, 'src', 'pages', 'viewPet.js'),
     createPet: path.resolve(__dirname, 'src', 'pages', 'createPet.js'),
     test: path.resolve(__dirname, 'src', 'pages', 'test.js'),
+    viewAllPets: path.resolve(__dirname, 'src', 'pages', 'viewAllPets.js'),
   },
   output: {
     path: path.resolve(__dirname, 'build', 'assets'),
