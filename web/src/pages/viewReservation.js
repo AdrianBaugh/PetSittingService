@@ -9,7 +9,7 @@ import DataStore from "../util/DataStore";
 class ViewReservation extends BindingClass {
     constructor() {
         super();
-        this.bindClassMethods(['clientLoaded', 'mount', 'addReservationToPage'], this);
+        this.bindClassMethods(['clientLoaded', 'mount', 'addReservationToPage', 'redirectToCancelation'], this);
         this.dataStore = new DataStore();
         this.dataStore.addChangeListener(this.addReservationToPage);
 
@@ -37,6 +37,8 @@ class ViewReservation extends BindingClass {
         this.header.addHeaderToPage();
         this.client = new RiverPetSittingClient();
         this.clientLoaded();
+        document.getElementById('cancelReservationButton').addEventListener('click', this.redirectToCancelation);
+
     }
 
     /**
@@ -64,8 +66,17 @@ class ViewReservation extends BindingClass {
         for (petList of reservation.petList) {
             petListHtml += '<div class="pet">' + petList + '</div>';
         }
-        document.getElementById('pet-list').innerHTML = petListHtml;       
+        document.getElementById('pet-list').innerHTML = petListHtml;
     }
+
+    redirectToCancelation() {
+        const reservation = this.dataStore.get('reservation')
+
+        this.client.cancelReservation(reservation.petOwnerId, reservation.reservationId);
+
+        // window.location.href = `/cancelReservation.html`;
+    }
+
 }
 
 /**

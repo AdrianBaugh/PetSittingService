@@ -446,6 +446,7 @@ Resources:
             Path: /reservations
             Method: get
 
+
   UpdatePlaylistLambda:
     Type: AWS::Serverless::Function
     Properties:
@@ -505,7 +506,7 @@ Resources:
           Properties:
             Path: /reservations/{ownerId}
             Method: delete
-        GetReservationRangeKey:
+        CancelReservationRangeKey:
           Type: Api
           Properties:
             Path: /reservations/{ownerId}/{reservationId}

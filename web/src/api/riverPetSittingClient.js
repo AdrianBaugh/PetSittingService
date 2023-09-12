@@ -15,7 +15,7 @@ export default class RiverPetSittingClient extends BindingClass {
     constructor(props = {}) {
         super();
             //Add Methods after 'logout' when we implement them.
-        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'createPet', 'viewPet', 'viewAllPets', 'viewReservation', 'viewAllReservations'];
+        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'createPet', 'viewPet', 'viewAllPets', 'viewReservation', 'viewAllReservations', 'cancelReservation'];
         this.bindClassMethods(methodsToBind, this);
 
         this.authenticator = new Authenticator();;
@@ -166,6 +166,7 @@ export default class RiverPetSittingClient extends BindingClass {
         } catch (error) {
             this.handleError(error, errorCallback)
         }
+
     }
 
     /*
@@ -183,6 +184,24 @@ export default class RiverPetSittingClient extends BindingClass {
                 }
             });
             return response.data.reservationList;
+        } catch (error) {
+            this.handleError(error, errorCallback)
+        }
+    }
+
+    /*
+    * Deletes single reservation for reservation Id
+    */
+    async cancelReservation(id1, id2, errorCallback) {
+        try {
+            const token = await this.getTokenOrThrow("Only authenticated users can make a reservation.");
+            const response = await this.axiosClient.delete(`reservations/${id1}/${id2}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data.cancelReservation;
         } catch (error) {
             this.handleError(error, errorCallback)
         }
