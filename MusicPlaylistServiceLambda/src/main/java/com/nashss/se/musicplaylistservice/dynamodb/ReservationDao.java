@@ -14,7 +14,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.List;
 
-@Singletongi
+@Singleton
 public class ReservationDao {
     private final DynamoDBMapper dynamoDbMapper;
     private final MetricsPublisher metricsPublisher;
