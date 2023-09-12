@@ -19,10 +19,10 @@ public class CancelReservationActivity {
     }
 
     public CancelReservationResult handleRequest(final CancelReservationRequest cancelReservationRequest) {
-            String ownerId = cancelReservationRequest.getPetOwnerId();
-            String reservationId = cancelReservationRequest.getReservationId();
+        String ownerId = cancelReservationRequest.getPetOwnerId();
+        String reservationId = cancelReservationRequest.getReservationId();
 
-            Boolean result = reservationDao.deleteReservation(ownerId, reservationId);
+        String result = reservationDao.deleteReservation(ownerId, reservationId);
 
         return new CancelReservationResult.Builder()
                 .withDeleteResult(result)

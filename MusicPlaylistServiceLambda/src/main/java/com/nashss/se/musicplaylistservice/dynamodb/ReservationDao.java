@@ -72,18 +72,16 @@ public class ReservationDao {
 
     }
 
-    public Boolean deleteReservation(String ownerId, String reservationId) {
-        try {
-            Reservation reservationToDelete = new Reservation();
+    public String deleteReservation(String ownerId, String reservationId) {
 
-            reservationToDelete.setPetOwnerId(ownerId);
-            reservationToDelete.setReservationId(reservationId);
+        Reservation reservationToDelete = new Reservation();
 
-            dynamoDbMapper.delete(reservationToDelete);
-        } catch (ConditionalCheckFailedException e) {
-            e.getCause();
-            return false;
-        }
-        return true;
+        reservationToDelete.setPetOwnerId(ownerId);
+        reservationToDelete.setReservationId(reservationId);
+
+        dynamoDbMapper.delete(reservationToDelete);
+
+        metricsPublisher.addCount(MetricsConstants.CANCELRESERVATION_RESERVATIONNOTFOUND_COUNT, 0);
+        return String.format("Reservation, %s, successfully canceled.", reservationId);
     }
 }

@@ -3,14 +3,14 @@ package com.nashss.se.musicplaylistservice.activity.results;
 import com.nashss.se.musicplaylistservice.models.ReservationModel;
 
 public class CancelReservationResult {
-    private final Boolean deleteResult;
+    private final String deleteResult;
 
 
-    public CancelReservationResult(Boolean deleteResult) {
+    public CancelReservationResult(String deleteResult) {
         this.deleteResult = deleteResult;
     }
 
-    public Boolean getDeleteResult() {
+    public String getDeleteResult() {
         return deleteResult;
     }
 
@@ -25,8 +25,8 @@ public class CancelReservationResult {
         return new Builder();
     }
     public static class Builder {
-        private Boolean deleteResult;
-        public Builder withDeleteResult(Boolean deleteResult){
+        private String deleteResult;
+        public Builder withDeleteResult(String deleteResult){
             this.deleteResult = deleteResult;
             return this;
         }
