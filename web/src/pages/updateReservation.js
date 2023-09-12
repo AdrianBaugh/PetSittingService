@@ -4,32 +4,41 @@ import BindingClass from '../util/bindingClass';
 import DataStore from '../util/DataStore';
 
 /**
- * Logic needed for the create playlist page of the website.
+ * Logic needed for the update reservation page of the website.
  */
 class UpdateReservation extends BindingClass {
     constructor() {
         super();
-        this.bindClassMethods(['mount', 'submit', 'redirectToUpdateReservation'], this);
+        this.bindClassMethods(['clientLoaded', 'mount', 'submit', 'redirectToUpdateReservation'], this);
         this.dataStore = new DataStore();
         this.dataStore.addChangeListener(this.redirectToUpdateReservation);
         this.header = new Header(this.dataStore);
     }
 
+    async clientLoaded() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const reservationId = urlParams.get('id2');
+        const petOwnerId = urlParams.get('id1');
+
+        const reservation = await this.client.updateReservation(petOwnerId, reservationId);
+        this.dataStore.set('reservation', reservation);
+    }
     /**
      * Add the header to the page and load the MusicPlaylistClient.
      */
     mount() {
-        document.getElementById('update').addEventListener('click', this.submit);
+        document.getElementById('updating').addEventListener('click', this.submit);
 
         this.header.addHeaderToPage();
 
         this.client = new RiverPetSittingClient();
+        this.clientLoaded();
 
-        const reservation = this.dataStore.get("reservation");
-        if(reservation){
-        document.getElementById('startDate').value = reservation.startDate;
-        document.getElementById("endDate").value = reservation.endDate;
-        }
+        // const reservation = this.dataStore.get("reservation");
+        // if(reservation){
+        // document.getElementById('startDate').value = reservation.startDate;
+        // document.getElementById("endDate").value = reservation.endDate;
+        // }
     }
 
     /**
@@ -66,27 +75,27 @@ class UpdateReservation extends BindingClass {
 
         const startDate = document.getElementById('startDate').value;
         const endDate = document.getElementById('endDate').value;
-        const petsText = document.getElementById('pets').value;
+        // const petsText = document.getElementById('pets').value;
 
-        let petList;
-        if (petsText.length < 1) {
-            petList = null;
-        } else {
-            petList = petsText.split(/\s*,\s*/);
-        }
+        // let petList;
+        // if (petsText.length < 1) {
+        //     petList = null;
+        // } else {
+        //     petList = petsText.split(/\s*,\s*/);
+        // }
 
        try{
         //Make a updateReservationRequest
         const reservation = await this.client.updateReservation(
           startDate,
           endDate,
-          petList,
+        //   petList,
           (error) => {
             createButton.innerText = origButtonText;
             errorMessageDisplay.innerText = `Error: ${error.message}`;
             errorMessageDisplay.classList.remove('hidden');
         });
-        this.dataStore.set('reservation', updateReservation);
+        this.dataStore.set('reservation', reservation);
           }catch(error) {
         console.error(error);
           }
@@ -98,7 +107,7 @@ class UpdateReservation extends BindingClass {
     redirectToUpdateReservation() {
         const reservation = this.dataStore.get('reservation');
         if (reservation != null) {
-            window.location.href = `/updateReservation.html?id1=${reservation.petOwnerId}&id2=${reservation.reservationId}`;
+            window.location.href = `/viewReservation.html?id1=${reservation.petOwnerId}&id2=${reservation.reservationId}`;
         }
     }
 }

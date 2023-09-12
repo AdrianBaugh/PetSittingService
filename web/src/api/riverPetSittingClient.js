@@ -188,6 +188,21 @@ export default class RiverPetSittingClient extends BindingClass {
         }
     }
 
+    async updateReservation(id1, id2, errorCallback) {
+        try {
+            const token = await this.getTokenOrThrow("Only authenticated users can make a reservation.");
+            const response = await this.axiosClient.get(`reservations/${id1}/${id2}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data.updateReservation;
+        } catch (error) {
+            this.handleError(error, errorCallback)
+        }
+    }
+
     /**
      * Helper method to log the error and run any error functions.
      * @param error The error received from the server.

@@ -26,6 +26,7 @@ module.exports = {
 //    createPlaylist: path.resolve(__dirname, 'src', 'pages', 'createPlaylist.js'),
 //    viewPlaylist: path.resolve(__dirname, 'src', 'pages', 'viewPlaylist.js'),
 //    searchPlaylists: path.resolve(__dirname, 'src', 'pages', 'searchPlaylists.js'),
+    updateReservation: path.resolve(__dirname, 'src', 'pages', 'updateReservation.js'),
     viewAllReservations: path.resolve(__dirname, 'src', 'pages', 'viewAllReservations.js'),
     viewReservation: path.resolve(__dirname, 'src', 'pages', 'viewReservation.js'),
     createReservation: path.resolve(__dirname, 'src', 'pages', 'createReservation.js'),
