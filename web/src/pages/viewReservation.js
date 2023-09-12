@@ -59,8 +59,6 @@ class ViewReservation extends BindingClass {
         document.getElementById('end-date').innerText = reservation.endDate;
         document.getElementById('status').innerText = reservation.status;
        
-
-        //check below if errors with pet list
         let petListHtml = '';
         let petList;
         for (petList of reservation.petList) {
@@ -74,7 +72,7 @@ class ViewReservation extends BindingClass {
 
         this.client.cancelReservation(reservation.petOwnerId, reservation.reservationId);
 
-        // window.location.href = `/cancelReservation.html`;
+        window.location.href = `/CancelReservation.html`;
     }
 
 }
