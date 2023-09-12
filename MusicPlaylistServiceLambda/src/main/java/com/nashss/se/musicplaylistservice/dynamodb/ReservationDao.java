@@ -1,8 +1,10 @@
 package com.nashss.se.musicplaylistservice.dynamodb;
 
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBDeleteExpression;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 
+import com.amazonaws.services.dynamodbv2.model.ConditionalCheckFailedException;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Reservation;
 import com.nashss.se.musicplaylistservice.exceptions.ReservationNotFoundException;
 import com.nashss.se.musicplaylistservice.metrics.MetricsConstants;
@@ -68,5 +70,20 @@ public class ReservationDao {
         this.dynamoDbMapper.save(newReservation);
         return newReservation;
 
+    }
+
+    public Boolean deleteReservation(String ownerId, String reservationId) {
+        try {
+            Reservation reservationToDelete = new Reservation();
+
+            reservationToDelete.setPetOwnerId(ownerId);
+            reservationToDelete.setReservationId(reservationId);
+
+            dynamoDbMapper.delete(reservationToDelete);
+        } catch (ConditionalCheckFailedException e) {
+            e.getCause();
+            return false;
+        }
+        return true;
     }
 }

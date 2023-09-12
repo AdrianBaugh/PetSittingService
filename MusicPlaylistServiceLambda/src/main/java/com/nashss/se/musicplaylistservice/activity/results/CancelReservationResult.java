@@ -3,21 +3,21 @@ package com.nashss.se.musicplaylistservice.activity.results;
 import com.nashss.se.musicplaylistservice.models.ReservationModel;
 
 public class CancelReservationResult {
-    private final ReservationModel reservation;
+    private final Boolean deleteResult;
 
 
-    public CancelReservationResult(ReservationModel reservation) {
-        this.reservation = reservation;
+    public CancelReservationResult(Boolean deleteResult) {
+        this.deleteResult = deleteResult;
     }
 
-    public ReservationModel getReservation() {
-        return reservation;
+    public Boolean getDeleteResult() {
+        return deleteResult;
     }
 
     @Override
     public String toString() {
         return "CancelReservationResult{" +
-                "reservation=" + reservation +
+                "result=" + deleteResult +
                 '}';
     }
 
@@ -25,13 +25,13 @@ public class CancelReservationResult {
         return new Builder();
     }
     public static class Builder {
-        private ReservationModel reservation;
-        public Builder withReservation(ReservationModel reservation){
-            this.reservation = reservation;
+        private Boolean deleteResult;
+        public Builder withDeleteResult(Boolean deleteResult){
+            this.deleteResult = deleteResult;
             return this;
         }
         public CancelReservationResult build(){
-            return new CancelReservationResult(reservation);
+            return new CancelReservationResult(deleteResult);
         }
     }
 }
