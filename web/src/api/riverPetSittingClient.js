@@ -15,11 +15,7 @@ export default class RiverPetSittingClient extends BindingClass {
     constructor(props = {}) {
         super();
             //Add Methods after 'logout' when we implement them.
-<<<<<<< HEAD
-        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'createPet', 'viewPet', 'viewAllPets', 'viewReservation'];
-=======
-        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'createPet', 'viewPet', 'viewReservation', 'viewAllReservations'];
->>>>>>> river_main
+        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'createPet', 'viewPet', 'viewAllPets', 'viewReservation', 'viewAllReservations'];
         this.bindClassMethods(methodsToBind, this);
 
         this.authenticator = new Authenticator();;
