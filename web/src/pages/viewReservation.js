@@ -9,7 +9,7 @@ import DataStore from "../util/DataStore";
 class ViewReservation extends BindingClass {
     constructor() {
         super();
-        this.bindClassMethods(['clientLoaded', 'mount', 'addReservationToPage', 'redirectToCancelation'], this);
+        this.bindClassMethods(['clientLoaded', 'mount', 'addReservationToPage', 'redirectToCancellation'], this);
         this.dataStore = new DataStore();
         this.dataStore.addChangeListener(this.addReservationToPage);
 
@@ -22,10 +22,10 @@ class ViewReservation extends BindingClass {
      */
     async clientLoaded() {
         const urlParams = new URLSearchParams(window.location.search);
-        const reservationId = urlParams.get('id2');
-        const petOwnerId = urlParams.get('id1');
+        const reservationId = urlParams.get('id');
+//        const petOwnerId = urlParams.get('id1');
 
-        const reservation = await this.client.viewReservation(petOwnerId, reservationId);
+        const reservation = await this.client.viewReservation(reservationId);
         this.dataStore.set('reservation', reservation);
     }
 
@@ -37,7 +37,7 @@ class ViewReservation extends BindingClass {
         this.header.addHeaderToPage();
         this.client = new RiverPetSittingClient();
         this.clientLoaded();
-        document.getElementById('cancelReservationButton').addEventListener('click', this.redirectToCancelation);
+        document.getElementById('cancelReservationButton').addEventListener('click', this.redirectToCancellation);
 
     }
 
@@ -69,10 +69,10 @@ class ViewReservation extends BindingClass {
         document.getElementById('pet-list').innerHTML = petListHtml;
     }
 
-    redirectToCancelation() {
+    redirectToCancellation() {
         const reservation = this.dataStore.get('reservation')
 
-        this.client.cancelReservation(reservation.petOwnerId, reservation.reservationId);
+        this.client.cancelReservation(reservation.reservationId);
 
         // window.location.href = `/cancelReservation.html`;
     }
