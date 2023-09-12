@@ -9,10 +9,10 @@ on:
 env:
 
   # STUDENTS: Set these environment variables 
-  API_BASE_URL:    https://ctuzu48dve.execute-api.us-east-2.amazonaws.com/Prod/ 
+  API_BASE_URL: https://famj5styx3.execute-api.us-east-2.amazonaws.com/Prod/
   COGNITO_DOMAIN: project-river-team-chocolate
-  COGNITO_REDIRECT_SIGNIN: https://dchrw5iyinvt6.cloudfront.net 
-  COGNITO_REDIRECT_SIGNOUT: https://dchrw5iyinvt6.cloudfront.net 
+  COGNITO_REDIRECT_SIGNIN: https://dw8pu3rmybtct.cloudfront.net
+  COGNITO_REDIRECT_SIGNOUT: https://dw8pu3rmybtct.cloudfront.net
 
   COGNITO_USER_POOL_ID: ${{ secrets.COGNITO_USER_POOL_ID }}
   COGNITO_USER_POOL_CLIENT_ID: ${{ secrets.COGNITO_USER_POOL_CLIENT_ID }}
@@ -24,7 +24,7 @@ env:
   PIPELINE_USER_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   SAM_TEMPLATE: template.yaml
 
-  STACK_NAME: pet-sitting-service
+  STACK_NAME: river-pet-sitting-service
   PIPELINE_EXECUTION_ROLE: arn:aws:iam::797228321432:role/aws-sam-cli-managed-ServiceS-PipelineExecutionRole-LYFWIM99BYV7
   CLOUDFORMATION_EXECUTION_ROLE: arn:aws:iam::797228321432:role/aws-sam-cli-managed-Servi-CloudFormationExecutionR-1BZ91V0FMGSF0
   ARTIFACTS_BUCKET: aws-sam-cli-managed-servicestage-artifactsbucket-1bp8adaqjpema
