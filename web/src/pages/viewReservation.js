@@ -2,6 +2,7 @@ import RiverPetSittingClient from '../api/riverPetSittingClient';
 import Header from '../components/header';
 import BindingClass from "../util/bindingClass";
 import DataStore from "../util/DataStore";
+import { formatDateToMMDDYYYY } from '../util/dateUtils';
 
 /**
  * Logic needed for the get reservation page of the website.
@@ -9,7 +10,7 @@ import DataStore from "../util/DataStore";
 class ViewReservation extends BindingClass {
     constructor() {
         super();
-        this.bindClassMethods(['clientLoaded', 'mount', 'addReservationToPage'], this);
+        this.bindClassMethods(['clientLoaded', 'mount', 'addReservationToPage', 'redirectToCancellation'], this);
         this.dataStore = new DataStore();
         this.dataStore.addChangeListener(this.addReservationToPage);
 
@@ -22,10 +23,9 @@ class ViewReservation extends BindingClass {
      */
     async clientLoaded() {
         const urlParams = new URLSearchParams(window.location.search);
-        const reservationId = urlParams.get('id2');
-        const petOwnerId = urlParams.get('id1');
+        const reservationId = urlParams.get('id');
 
-        const reservation = await this.client.viewReservation(petOwnerId, reservationId);
+        const reservation = await this.client.viewReservation(reservationId);
         this.dataStore.set('reservation', reservation);
     }
 
@@ -37,6 +37,7 @@ class ViewReservation extends BindingClass {
         this.header.addHeaderToPage();
         this.client = new RiverPetSittingClient();
         this.clientLoaded();
+        document.getElementById('cancelReservationButton').addEventListener('click', this.redirectToCancellation);
     }
 
     /**
@@ -53,19 +54,36 @@ class ViewReservation extends BindingClass {
         document.getElementById('owner-id').innerText = reservation.petOwnerId;
         console.log("Owner id : " + reservation.petOwnerId);
         document.getElementById('sitter-id').innerText = reservation.sitterId;
-        document.getElementById('start-date').innerText = reservation.startDate;
-        document.getElementById('end-date').innerText = reservation.endDate;
+        document.getElementById('start-date').innerText = formatDateToMMDDYYYY(reservation.startDate);
+        document.getElementById('end-date').innerText = formatDateToMMDDYYYY(reservation.endDate);
         document.getElementById('status').innerText = reservation.status;
        
-
-        //check below if errors with pet list
         let petListHtml = '';
         let petList;
         for (petList of reservation.petList) {
             petListHtml += '<div class="pet">' + petList + '</div>';
         }
-        document.getElementById('pet-list').innerHTML = petListHtml;       
+        document.getElementById('pet-list').innerHTML = petListHtml;
     }
+
+    redirectToCancellation() {
+        const reservation = this.dataStore.get('reservation');
+        const cancelButton = document.getElementById('cancelReservationButton');
+        const messageContainer = document.getElementById('messageContainer');
+        const cancelMessage = document.getElementById('message');
+
+        this.client.cancelReservation(reservation.reservationId);
+        
+        cancelButton.style.display = 'none';
+        messageContainer.style.display = 'block';
+  
+        cancelMessage.textContent = 'This reservation has been canceled!';
+
+        setTimeout(() => {
+            window.location.href = `/reservationOptions.html`;
+          }, 3000); //3000 milli = 3 sec
+    }
+
 }
 
 /**

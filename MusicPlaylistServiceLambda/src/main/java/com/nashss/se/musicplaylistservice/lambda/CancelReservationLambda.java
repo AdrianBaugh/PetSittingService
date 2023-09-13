@@ -2,39 +2,37 @@ package com.nashss.se.musicplaylistservice.lambda;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
-
-import com.nashss.se.musicplaylistservice.activity.requests.GetPlaylistRequest;
+import com.nashss.se.musicplaylistservice.activity.requests.CancelReservationRequest;
 import com.nashss.se.musicplaylistservice.activity.requests.GetReservationRequest;
-import com.nashss.se.musicplaylistservice.activity.results.GetReservationResult;
-
+import com.nashss.se.musicplaylistservice.activity.results.CancelReservationResult;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class GetReservationLambda
-        extends LambdaActivityRunner<GetReservationRequest, GetReservationResult>
-        implements RequestHandler<AuthenticatedLambdaRequest<GetReservationRequest>, LambdaResponse> {
+public class CancelReservationLambda
+        extends LambdaActivityRunner<CancelReservationRequest, CancelReservationResult>
+        implements RequestHandler<AuthenticatedLambdaRequest<CancelReservationRequest>, LambdaResponse> {
 
     private final Logger log = LogManager.getLogger();
 
     @Override
-    public LambdaResponse handleRequest(AuthenticatedLambdaRequest<GetReservationRequest> input, Context context) {
-        log.info("handleRequest from Get Reservation LAMBDA");
+    public LambdaResponse handleRequest(AuthenticatedLambdaRequest<CancelReservationRequest> input, Context context) {
+        log.info("handleRequest from Cancel Reservation LAMBDA");
         return super.runActivity(
                 () -> {
-                    GetReservationRequest unauthenticatedRequest = input.fromPath(path ->
-                            GetReservationRequest.builder()
+                    CancelReservationRequest unauthenticatedRequest = input.fromPath(path ->
+                            CancelReservationRequest.builder()
                                     .withReservationId(path.get("reservationId"))
                                     .build());
 
                     return input.fromUserClaims(claims ->
-                            GetReservationRequest.builder()
+                            CancelReservationRequest.builder()
                                     .withReservationId(unauthenticatedRequest.getReservationId())
                                     .withOwnerId(claims.get("email"))
                                     .build());
                 },
-
                 (request, serviceComponent) ->
-                        serviceComponent.provideGetReservationActivity().handleRequest(request)
+                        serviceComponent.provideCancelReservationActivity().handleRequest(request)
         );
     }
 }
+
