@@ -9,20 +9,12 @@ import DataStore from '../util/DataStore';
 class UpdateReservation extends BindingClass {
     constructor() {
         super();
-        this.bindClassMethods(['clientLoaded', 'mount', 'submit', 'redirectToViewReservation'], this);
+        this.bindClassMethods(['mount', 'submit', 'redirectToViewReservation'], this);
         this.dataStore = new DataStore();
         this.dataStore.addChangeListener(this.redirectToViewReservation);
         this.header = new Header(this.dataStore);
     }
 
-    // async clientLoaded() {
-    //     const urlParams = new URLSearchParams(window.location.search);
-    //     const reservationId = urlParams.get('id');
-    //     document.getElementById('startDate').value = reservation.startDate;
-    //     document.getElementById("endDate").value = reservation.endDate;
-    //     const reservation = await this.client.updateReservation(reservationId);
-    //     this.dataStore.set('reservation', reservation);
-    // }
     /**
      * Add the header to the page and load the MusicPlaylistClient.
      */
@@ -30,14 +22,7 @@ class UpdateReservation extends BindingClass {
 
         this.header.addHeaderToPage();
         this.client = new RiverPetSittingClient();
-        document.getElementById('updating').addEventListener('click', this.submit);
-        // this.clientLoaded();
-
-        // const reservation = this.dataStore.get("reservation");
-        // if(reservation){
-        // document.getElementById('startDate').value = reservation.startDate;
-        // document.getElementById("endDate").value = reservation.endDate;
-        // }
+        document.getElementById('submit-btn').addEventListener('click', this.submit);
     }
 
     /**
@@ -50,7 +35,7 @@ class UpdateReservation extends BindingClass {
         errorMessageDisplay.innerText = ``;
         errorMessageDisplay.classList.add('hidden');
 
-        const createButton = document.getElementById('updating');
+        const createButton = document.getElementById('submit-btn');
         const origButtonText = createButton.innerText;
         createButton.innerText = 'updating...';
 

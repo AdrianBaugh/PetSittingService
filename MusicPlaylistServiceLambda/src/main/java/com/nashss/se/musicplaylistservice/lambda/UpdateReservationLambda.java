@@ -22,11 +22,13 @@ public class UpdateReservationLambda
                             UpdateReservationRequest.builder()
                                     .withReservationId(path.get("reservationId"))
                                     .build());
-
+                    UpdateReservationRequest bodyRequest = input.fromBody(UpdateReservationRequest.class);
                     return input.fromUserClaims(claims ->
                             UpdateReservationRequest.builder()
                                     .withReservationId(unauthenticatedRequest.getReservationId())
                                     .withPetOwnerId(claims.get("email"))
+                                    .withStartDate(bodyRequest.getStartDate())
+                                    .withEndDate(bodyRequest.getEndDate())
                                     .build());
                 },
 
