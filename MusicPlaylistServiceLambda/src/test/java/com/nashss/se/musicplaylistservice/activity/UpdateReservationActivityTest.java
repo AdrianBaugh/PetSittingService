@@ -1,128 +1,71 @@
-//package com.nashss.se.musicplaylistservice.activity;
+package com.nashss.se.musicplaylistservice.activity;
 
-//import com.nashss.se.musicplaylistservice.activity.requests.UpdatePlaylistRequest;
-//import com.nashss.se.musicplaylistservice.activity.results.UpdatePlaylistResult;
-//import com.nashss.se.musicplaylistservice.dynamodb.PlaylistDao;
-//import com.nashss.se.musicplaylistservice.dynamodb.models.Reservation;
-//import com.nashss.se.musicplaylistservice.exceptions.InvalidAttributeValueException;
-//import com.nashss.se.musicplaylistservice.exceptions.PlaylistNotFoundException;
-//import com.nashss.se.musicplaylistservice.metrics.MetricsConstants;
-//import com.nashss.se.musicplaylistservice.metrics.MetricsPublisher;
-//
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
-//import org.mockito.Mock;
-//
-//import static org.junit.jupiter.api.Assertions.assertEquals;
-//import static org.junit.jupiter.api.Assertions.assertThrows;
-//import static org.junit.jupiter.api.Assertions.fail;
-//import static org.mockito.Mockito.verify;
-//import static org.mockito.Mockito.when;
-//import static org.mockito.MockitoAnnotations.openMocks;
-//
-//public class UpdateReservationActivityTest {
-//    @Mock
-//    private PlaylistDao playlistDao;
-//
-//    @Mock
-//    private MetricsPublisher metricsPublisher;
-//
-//    private UpdatePlaylistActivity updatePlaylistActivity;
-//
-//    @BeforeEach
-//    public void setUp() {
-//        openMocks(this);
-//        updatePlaylistActivity = new UpdatePlaylistActivity(playlistDao, metricsPublisher);
-//    }
-//
-//    @Test
-//    public void handleRequest_goodRequest_updatesPlaylistName() {
-//        // GIVEN
-//        String id = "id";
-//        String expectedCustomerId = "expectedCustomerId";
-//        String expectedName = "new name";
-//        int expectedSongCount = 10;
-//
-//        UpdatePlaylistRequest request = UpdatePlaylistRequest.builder()
-//                                            .withId(id)
-//                                            .withCustomerId(expectedCustomerId)
-//                                            .withName(expectedName)
-//                                            .build();
-//
-//        Reservation startingPlaylist = new Reservation();
-//        startingPlaylist.setSitterId(expectedCustomerId);
-//        startingPlaylist.setPetOwnerId("old name");
-//        startingPlaylist.setEndDate(expectedSongCount);
-//
-//        when(playlistDao.getPlaylist(id)).thenReturn(startingPlaylist);
-//        when(playlistDao.savePlaylist(startingPlaylist)).thenReturn(startingPlaylist);
-//
-//        // WHEN
-//        UpdatePlaylistResult result = updatePlaylistActivity.handleRequest(request);
-//
-//        // THEN
-//        assertEquals(expectedName, result.getPlaylist().getName());
-//        assertEquals(expectedCustomerId, result.getPlaylist().getCustomerId());
-//        assertEquals(expectedSongCount, result.getPlaylist().getSongCount());
-//    }
-//
-//    @Test
-//    public void handleRequest_invalidName_throwsInvalidAttributeValueException() {
-//        // GIVEN
-//        UpdatePlaylistRequest request = UpdatePlaylistRequest.builder()
-//                                            .withId("id")
-//                                            .withName("I'm illegal")
-//                                            .withCustomerId("customerId")
-//                                            .build();
-//
-//        // WHEN + THEN
-//        try {
-//            updatePlaylistActivity.handleRequest(request);
-//            fail("Expected InvalidAttributeValueException to be thrown");
-//        } catch (InvalidAttributeValueException e) {
-//            verify(metricsPublisher).addCount(MetricsConstants.UPDATERESERVATION_INVALIDATTRIBUTEVALUE_COUNT, 1);
-//            verify(metricsPublisher).addCount(MetricsConstants.UPDATERESERVATION_INVALIDATTRIBUTECHANGE_COUNT, 0);
-//        }
-//    }
-//
-//    @Test
-//    public void handleRequest_playlistDoesNotExist_throwsPlaylistNotFoundException() {
-//        // GIVEN
-//        String id = "id";
-//        UpdatePlaylistRequest request = UpdatePlaylistRequest.builder()
-//                                            .withId(id)
-//                                            .withName("name")
-//                                            .withCustomerId("customerId")
-//                                            .build();
-//
-//        when(playlistDao.getPlaylist(id)).thenThrow(new PlaylistNotFoundException());
-//
-//        // THEN
-//        assertThrows(PlaylistNotFoundException.class, () -> updatePlaylistActivity.handleRequest(request));
-//    }
-//
-//    @Test
-//    public void handleRequest_customerIdNotMatch_throwsSecurityException() {
-//        // GIVEN
-//        String id = "id";
-//        UpdatePlaylistRequest request = UpdatePlaylistRequest.builder()
-//                                            .withId(id)
-//                                            .withName("name")
-//                                            .withCustomerId("customerId")
-//                                            .build();
-//
-//        Reservation differentCustomerIdPlaylist = new Reservation();
-//        differentCustomerIdPlaylist.setSitterId("different");
-//
-//        when(playlistDao.getPlaylist(id)).thenReturn(differentCustomerIdPlaylist);
-//
-//        // WHEN + THEN
-//        try {
-//            updatePlaylistActivity.handleRequest(request);
-//            fail("Expected InvalidAttributeChangeException to be thrown");
-//        } catch (SecurityException e) {
-//            verify(metricsPublisher).addCount(MetricsConstants.UPDATERESERVATION_INVALIDATTRIBUTEVALUE_COUNT, 0);
-//            verify(metricsPublisher).addCount(MetricsConstants.UPDATERESERVATION_INVALIDATTRIBUTECHANGE_COUNT, 1);
-//        }
-//    }
-//}
+import com.nashss.se.musicplaylistservice.activity.requests.UpdateReservationRequest;
+
+
+import com.nashss.se.musicplaylistservice.activity.results.UpdateReservationResult;
+
+import com.nashss.se.musicplaylistservice.dynamodb.ReservationDao;
+import com.nashss.se.musicplaylistservice.dynamodb.models.Reservation;
+
+import com.nashss.se.musicplaylistservice.metrics.MetricsPublisher;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+
+
+import java.time.LocalDate;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
+import static org.mockito.MockitoAnnotations.openMocks;
+
+public class UpdateReservationActivityTest {
+    @Mock
+    private ReservationDao reservationDao;
+    @Mock
+    private MetricsPublisher metricsPublisher;
+
+    private UpdateReservationActivity updateReservationActivity;
+
+    @BeforeEach
+    public void setUp() {
+        openMocks(this);
+        updateReservationActivity = new UpdateReservationActivity(reservationDao, metricsPublisher);
+    }
+
+    @Test
+    public void handleRequest_goodRequest_updatesReservationDates() {
+
+        // GIVEN
+        String petOwnerId = "Bob";
+        String reservationId = "expectedReservationId";
+        LocalDate expectedStartDate = LocalDate.parse("2023-09-12");
+        LocalDate expectedEndDate = LocalDate.parse("2023-09-15");
+
+        UpdateReservationRequest request = UpdateReservationRequest.builder()
+                                            .withReservationId(reservationId)
+                                            .withPetOwnerId(petOwnerId)
+                                            .withEndDate(String.valueOf(expectedEndDate))
+                                            .withStartDate(String.valueOf(expectedStartDate))
+                                            .build();
+
+        Reservation startingReservation = new Reservation();
+        startingReservation.setReservationId(reservationId);
+        startingReservation.setPetOwnerId(petOwnerId);
+        startingReservation.setEndDate(LocalDate.parse("2023-09-20"));
+        startingReservation.setStartDate(LocalDate.parse("2023-09-10"));
+
+        when(reservationDao.getReservationById(petOwnerId, reservationId)).thenReturn(startingReservation);
+        when(reservationDao.saveReservation(startingReservation)).thenReturn(startingReservation);
+
+        // WHEN
+        UpdateReservationResult result = updateReservationActivity.handleRequest(request);
+
+        // THEN
+        assertEquals(expectedStartDate, result.getReservation().getStartDate());
+        assertEquals(expectedEndDate, result.getReservation().getEndDate());
+    }
+
+}

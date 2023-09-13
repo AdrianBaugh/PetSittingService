@@ -4,6 +4,7 @@ import com.nashss.se.musicplaylistservice.activity.*;
 
 import com.nashss.se.musicplaylistservice.activity.requests.CancelReservationRequest;
 import dagger.Component;
+import dagger.Provides;
 
 import javax.inject.Singleton;
 
@@ -61,6 +62,7 @@ public interface ServiceComponent {
     GetAllPetsActivity provideGetAllPetsActivity();
 
     GetAllReservationsActivity provideGetAllReservationsActivity();
+    UpdateReservationActivity provideUpdateReservationActivity();
 
     CancelReservationActivity provideCancelReservationActivity();
 

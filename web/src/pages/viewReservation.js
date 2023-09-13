@@ -10,7 +10,7 @@ import { formatDateToMMDDYYYY } from '../util/dateUtils';
 class ViewReservation extends BindingClass {
     constructor() {
         super();
-        this.bindClassMethods(['clientLoaded', 'mount', 'addReservationToPage', 'redirectToCancellation'], this);
+        this.bindClassMethods(['clientLoaded', 'mount', 'addReservationToPage', 'redirectToUpdateReservation', 'redirectToCancellation'], this);
         this.dataStore = new DataStore();
         this.dataStore.addChangeListener(this.addReservationToPage);
 
@@ -38,6 +38,8 @@ class ViewReservation extends BindingClass {
         this.client = new RiverPetSittingClient();
         this.clientLoaded();
         document.getElementById('cancelReservationButton').addEventListener('click', this.redirectToCancellation);
+        document.getElementById('updateReservationButton').addEventListener('click', this.redirectToUpdateReservation);
+
     }
 
     /**
@@ -84,6 +86,13 @@ class ViewReservation extends BindingClass {
           }, 3000); //3000 milli = 3 sec
     }
 
+    redirectToUpdateReservation() {
+        const reservation = this.dataStore.get('reservation');
+        if (reservation != null) {
+            window.location.href = `/updateReservation.html?id=${reservation.reservationId}`;
+        }
+
+    }
 }
 
 /**

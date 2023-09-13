@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script type="text/javascript" src="assets/updateReservation.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+
+<body class="background">
+    <header class="header" id="header"></header>
+    <div class="card">
+    <h2>Update Reservation!</h2>
+    <form class="card-content" id="update-reservation-form">
+        <p class="hidden error" id="error-message"> </p>
+        <p class="form-field">
+            <label for="startDate">Update Start date:</label>
+            <input type="date" required class="validated-field" id="startDate" name="startDate" >
+        </p>
+        <p class="form-field">
+            <label for="endDate">Update End date: </label>
+            <input type="date" required class="validated-field" id="endDate" name="endDate">
+        </p>
+        <p>
+            <a href="#" class="button" id="submit-btn">Submit</a>
+        </p>
+    </form>
+</div>
+
+</html>
