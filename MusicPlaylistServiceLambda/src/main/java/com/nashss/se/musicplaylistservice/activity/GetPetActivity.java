@@ -16,7 +16,6 @@ import javax.inject.Inject;
 
     /**
      * Implementation of the GetPetActivity for the MusicPetService's GetPet API.
-     *
      * This API allows the customer to get one of their saved pets.
      */
     public class GetPetActivity {

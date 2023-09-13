@@ -3,7 +3,6 @@ package com.nashss.se.musicplaylistservice.dynamodb;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedQueryList;
-import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Pet;
 import com.nashss.se.musicplaylistservice.metrics.MetricsPublisher;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,17 +12,13 @@ import org.mockito.Captor;
 import org.mockito.Mock;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
-import static org.mockito.MockitoAnnotations.openMocks;
 
 class PetDaoTest {
     @Mock

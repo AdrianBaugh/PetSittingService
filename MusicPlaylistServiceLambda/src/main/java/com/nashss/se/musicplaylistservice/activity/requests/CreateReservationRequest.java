@@ -1,9 +1,6 @@
 package com.nashss.se.musicplaylistservice.activity.requests;
-
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
-
-import java.time.LocalDate;
 import java.util.List;
 
 @JsonDeserialize(builder = CreateReservationRequest.Builder.class)

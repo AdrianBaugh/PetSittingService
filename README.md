@@ -15,18 +15,24 @@ These are the required deliverables/reviews that you and your team will need to 
 
 * **Design Document: Problem Statement** Your team’s technical design specification. Complete [this template](resources/design-document.md). This should explain the product you'll be creating and what problem it solves.
 * **Design Document: Peer Team Review** Another team will review your technical design to help improve it. Each team will review at least one other teams design.
-* **Design Document: Instructor Review** One of the instructors will review your technical design after you've create it and reviewed it with another team.
+* **Design Document: Instructor Review** One of the instructors will review your technical design after you've created it and reviewed it with another team.
 * **Team Charter:** Statements of how your team will work to ensure constructive collaboration, fairness, that everyone is learning and contributing. Complete [this template](resources/team-charter.md).
 * **Working Product:** Your project, as a working website deployed to AWS.
 * **Team Reflection:** A final retrospective with a few questions to answer as a team to reflect on what you have accomplished and learned throughout the project. Complete [this template](resources/team-reflection.md).
 
 ### Individual Deliverables
 
-* **Accomplishment Tracking:** You'll be keeping a log of your individual accomplishments and lessons learned throughout this project week-by-week. Keeping a high level record of your accomplishments throughout your career is useful for your career growth and promotion. Use [this template](resources/individual-accomplishments-template.md) as a starting point, but you can keep this log in whatever tool/location you'd like.
+* **Accomplishment Tracking:** You'll be keeping a log of your individual accomplishments and lessons learned throughout this project week-by-week. Keeping a high-level record of your accomplishments throughout your career is useful for your career growth and promotion. Use [this template](resources/individual-accomplishments-template.md) as a starting point, but you can keep this log in whatever tool/location you'd like.
 
 ## Technical Learning Objectives
 
-This project is very open-ended and you/your team will be doing a lot of creative thinking to decide what you want to build. That said, there are several technical learning objectives that each team must meet. You should review the [Technical Learning Objectives](./resources/technical-objectives.md) as you familiarize yourself with the project. As part of the team reflection/retrospective you'll fill out this document with your team to document how you met the different objectives.
+This project is very open-ended,and you/your team will be doing a lot of creative thinking
+to decide what you want to build.
+That said,there are several technical learning objectives that each team must meet.
+You should review the [Technical Learning Objectives](./resources/technical-objectives.md)
+as you familiarize yourself with the project.
+As part of the team reflection/ retrospective, you'll fill out this document with your team
+to document how you met the different objectives.
 
 ## Project Starter Infrastructure
 
@@ -48,7 +54,8 @@ The [second code base](./web) will contain code for your website:
 * CSS: The styling and formatting of your web pages
 * JavaScript: The code that runs when a user interacts with the web pages, some of which triggers the browser to send requests to the service
 
-Often times these are separated into different repositories, but for simplicity’s sake we've kept them in the same repository for this project.
+Frequent times these are separated into different repositories, 
+but for simplicity’s sake we've kept them in the same repository for this project.
 
 Delve into the website code with a comprehensive breakdown by referring to the [website blueprint](./web/docs/blueprint.md). This document provides a detailed exploration of the project's structure, architecture, and key components, helping you better understand the codebase and its organization.
 
@@ -56,13 +63,24 @@ _Both of these should be considered starting points/example code. You will end u
 
 ### User Authentication With Cognito
 
-We're using [AWS Cognito](https://aws.amazon.com/cognito/) to manage our user authentication. You won't have to do a lot with it, but you should know it's there. As you move through the different [setup](README-SETUP.md) steps you'll choose a name for your "Cognito Domain" based on your project, and the SAM/CloudFormation template should handle the rest.
+We're using [AWS Cognito](https://aws.amazon.com/cognito/) to manage our user authentication.
+You won't have to do a lot with it, but you should know it's there.
+As you move through the different [setup](README-SETUP.md) steps,
+you'll choose a name for your "Cognito Domain" based on your project,
+and the SAM/CloudFormation template should handle the rest.
 
-The first time that you login to your application (or if you ever have to delete and redeploy the whole CloudFormation stack) you'll need to click the "Sign up" link in the login prompt. It's likely that you'll end up needing to create multiple test users along the way, we recommend using a [plus alias](https://gmail.googleblog.com/2008/03/2-hidden-ways-to-get-more-from-your.html). If your email address is `myname@example.com` you can create a Cognito account using the email `myname+test1@example.com`, and then later create another account using the email `myname+test2@example.com`.
+The first time that you log in to your application
+(or if you ever have to delete and redeploy the whole CloudFormation stack), you'll need to click the "Sign up"
+link in the login prompt.
+It's likely that you'll end up needing to create multiple test users along the way;
+we recommend using a [plus alias](https://gmail.googleblog.com/2008/03/2-hidden-ways-to-get-more-from-your.html).
+If your email address is `myname@example.com` you can create a Cognito account
+using the email `myname+test1@example.com`,
+and then later create another account using the email `myname+test2@example.com`.
 
 ### Deploying
 
-We'll be using GitHub Actions to deploy the code to AWS. One of the first tasks that you'll do as a team is to configure the repository for this. Once that's completed your code should build and deploy as described in the [next README](./README-SETUP.md).
+We'll be using GitHub Actions to deploy the code to AWS. One of the first tasks that you'll do as a team is to configure the repository for this. Once that's completed, your code should build and deploy as described in the [next README](./README-SETUP.md).
 
 ### AWS Resources
 
@@ -74,7 +92,7 @@ To access your website, you'll need to build it first. The [next README](./READM
 
 ## How Your Website Works
 
-Creating each page of your website requires a surprising amount of interactions between different JavaScript files and between our frontend and our backend. Our view playlist page makes 3 separate calls to our MusicPlaylistService.
+Creating each page of your website requires a surprising number of interactions between different JavaScript files and between our frontend and our backend. Our view playlist page makes 3 separate calls to our MusicPlaylistService.
 
 Let’s look at one piece - adding the header to our page. This requires the full end to end flow of HTML to JS to backend service all the way back to updating our HTML.
 
@@ -83,9 +101,8 @@ Let’s look at one piece - adding the header to our page. This requires the ful
 *Image 2: The end to end flow of HTML to JS to the backend service, and the return to HTML*
 
 Two important things to call out:
-
-1. To call our backend we are always going through our `MusicPlaylistClient`.
-2. The `DataStore` uses a different pattern than we’ve seen previously. It has two member variables - the state, which is a JavaScript object that should hold all of the data being used across a webpage, and a list of listeners. The listeners are methods in other objects. Anytime `set` or `setState` is called it loops through all of those methods and executes each one. So in each of those listeners the first thing we do is check to see if the data that they rely on is null. Then, if it’s not null, we update the html to reflect the new data. You can take a look at the `addPlaylistToPage()` method in `viewPlaylist.js` for an example of this.
+1. To call our backend, we are always going through our `MusicPlaylistClient`.
+2. The `DataStore` uses a different pattern than we’ve seen previously. It has two member variables - the state, which is a JavaScript object that should hold all the data being used across a webpage, and a list of listeners. The listeners are methods in other objects. Anytime `set` or `setState` is called it loops through all of those methods and executes each one. So in each of those listeners, the first thing we do is check to see if the data that they rely on is null. Then, if it’s not null, we update the html to reflect the new data. You can take a look at the `addPlaylistToPage()` method in `viewPlaylist.js` for an example of this.
 
 > **TIP:** There's a lot to take in here. The [website blueprint](web/docs/blueprint.md) we linked to earlier is a good resource to refer back to as you work through everything here.
 

@@ -16,7 +16,7 @@ module.exports = {
 };
 ```
 
-2. Entry Points:
+1. Entry Points:
 ```javascript
 entry: {
   createPlaylist: path.resolve(__dirname, 'src', 'pages', 'createPlaylist.js'),
@@ -28,7 +28,7 @@ These are the entry points for the application. Each entry point represents a se
 this section shall be appended with info pointing to the new js file.
 
 
-3. Output Configuration:
+1. Output Configuration:
 ```javascript
 output: {
   path: path.resolve(__dirname, 'build', 'assets'),

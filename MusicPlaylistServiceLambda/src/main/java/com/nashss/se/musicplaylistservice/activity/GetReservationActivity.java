@@ -14,7 +14,6 @@ import org.apache.logging.log4j.Logger;
 import javax.inject.Inject;
 /**
  * Implementation of the GetReservationActivity for the PetService's GetReservation API.
- *
  * This API allows the customer to get one of their saved reservations.
  */
 public class GetReservationActivity{

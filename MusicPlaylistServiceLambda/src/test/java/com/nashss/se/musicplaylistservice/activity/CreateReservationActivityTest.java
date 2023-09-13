@@ -6,7 +6,6 @@ import com.nashss.se.musicplaylistservice.activity.results.CreateReservationResu
 import com.nashss.se.musicplaylistservice.converters.LocalDateConverter;
 import com.nashss.se.musicplaylistservice.dynamodb.ReservationDao;
 
-
 import com.nashss.se.musicplaylistservice.dynamodb.models.Reservation;
 
 import org.junit.jupiter.api.BeforeEach;

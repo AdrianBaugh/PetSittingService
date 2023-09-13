@@ -5,9 +5,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedQueryList;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Pet;
-import com.nashss.se.musicplaylistservice.dynamodb.models.Reservation;
 import com.nashss.se.musicplaylistservice.exceptions.PetIdNotFoundException;
-import com.nashss.se.musicplaylistservice.exceptions.ReservationNotFoundException;
 import com.nashss.se.musicplaylistservice.metrics.MetricsConstants;
 import com.nashss.se.musicplaylistservice.metrics.MetricsPublisher;
 

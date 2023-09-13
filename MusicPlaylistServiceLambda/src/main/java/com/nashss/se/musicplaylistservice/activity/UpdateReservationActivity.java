@@ -6,8 +6,6 @@ import com.nashss.se.musicplaylistservice.converters.LocalDateConverter;
 import com.nashss.se.musicplaylistservice.converters.ModelConverter;
 import com.nashss.se.musicplaylistservice.dynamodb.ReservationDao;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Reservation;
-import com.nashss.se.musicplaylistservice.exceptions.UnauthorizedOwnerException;
-import com.nashss.se.musicplaylistservice.metrics.MetricsConstants;
 import com.nashss.se.musicplaylistservice.metrics.MetricsPublisher;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

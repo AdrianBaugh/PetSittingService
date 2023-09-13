@@ -1,12 +1,8 @@
 package com.nashss.se.musicplaylistservice.converters;
-
 import com.nashss.se.musicplaylistservice.dynamodb.models.Pet;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Reservation;
-
 import com.nashss.se.musicplaylistservice.models.PetModel;
 import com.nashss.se.musicplaylistservice.models.ReservationModel;
-
-
 import java.util.ArrayList;
 import java.util.List;
 

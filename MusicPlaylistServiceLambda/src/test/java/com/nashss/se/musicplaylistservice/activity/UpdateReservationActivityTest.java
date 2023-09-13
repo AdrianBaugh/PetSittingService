@@ -2,7 +2,6 @@ package com.nashss.se.musicplaylistservice.activity;
 
 import com.nashss.se.musicplaylistservice.activity.requests.UpdateReservationRequest;
 
-
 import com.nashss.se.musicplaylistservice.activity.results.UpdateReservationResult;
 
 import com.nashss.se.musicplaylistservice.dynamodb.ReservationDao;

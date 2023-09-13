@@ -4,5 +4,5 @@ public enum SitterEnum {
 
     SITTER_1,
 
-    SITTER_2;
+    SITTER_2
 }

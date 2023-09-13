@@ -2,9 +2,7 @@ package com.nashss.se.musicplaylistservice.dependency;
 
 import com.nashss.se.musicplaylistservice.activity.*;
 
-import com.nashss.se.musicplaylistservice.activity.requests.CancelReservationRequest;
 import dagger.Component;
-import dagger.Provides;
 
 import javax.inject.Singleton;
 
