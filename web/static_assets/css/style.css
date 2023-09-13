@@ -1,13 +1,17 @@
 :root {
     /* css variables: https://developer.mozilla.org/en-US/docs/Web/CSS/var */
-    --primary-color: #575757;
+    /* --primary-color: #575757;
     --secondary-color: #ffffff;
     --tertiary-color: #F5881F;
+    --error-color: #EE3A23; */
+    --primary-color: #3d71a5;
+    --secondary-color: #ffffff;
+    --tertiary-color: #4bc27f;
     --error-color: #EE3A23;
 }
 
 .background {
-    background-color: #8A8C8F;
+    background-color: #3d71a5;
     margin: 0;
     counter-reset: section;
     font-family: "Helvetica Neue",Helvetica,sans-serif;
@@ -48,6 +52,18 @@
   opacity: 0.9;
 }
 
+.button1 {
+    background-color: var(--error-color);
+    border: none;
+    color: var(--secondary-color);
+    padding: 10px 12px 8px 12px;
+    text-align: center;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    opacity: 0.9;
+  }
+
 .button:hover {opacity:1}
 
 .button-group {
@@ -71,6 +87,7 @@
 .vertical-buttons {
     display: flex;
     flex-direction: column;
+    gap: 50px;
   }
 
 .header_home {
@@ -100,6 +117,11 @@
     border: 1px solid var(--error-color);
     padding: 8px;
 }
+
+img {
+    padding: 5px;
+    width: 150px;
+  }
 
 .validated-field:invalid {
     outline: 2px solid var(--error-color);
@@ -137,18 +159,6 @@
     border-radius: 16px;
 }
 
-.song {
-    padding: 2px;
-    display: flex;
-}
-
-.song .title {
-    flex: 20%;
-}
-
-.song .album {
-    flex: 80%;
-}
 
 .pet .name {
     flex: 20%;
@@ -159,12 +169,6 @@ Flexbox on a lists removes the numbers. We use a counter here to add them back.
 https://stackoverflow.com/a/34316093
 https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Lists_and_Counters/Using_CSS_counters
 */
-.song:before {
-    counter-increment: section;
-    content: counter(section) ".";
-    position: absolute;
-    margin-left: -40px;
-}
 
 .pet:before {
     counter-increment: section;

@@ -7,6 +7,7 @@ import com.nashss.se.riverpetsittingservice.converters.ModelConverter;
 import com.nashss.se.riverpetsittingservice.dynamodb.ReservationDao;
 import com.nashss.se.riverpetsittingservice.dynamodb.models.Reservation;
 import com.nashss.se.riverpetsittingservice.metrics.MetricsPublisher;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
