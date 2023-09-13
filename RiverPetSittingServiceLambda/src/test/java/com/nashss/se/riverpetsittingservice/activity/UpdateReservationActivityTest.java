@@ -33,7 +33,6 @@ public class UpdateReservationActivityTest {
         openMocks(this);
         updateReservationActivity = new UpdateReservationActivity(reservationDao, metricsPublisher);
     }
-
     @Test
     public void handleRequest_goodRequest_updatesReservationDates() {
 
@@ -66,5 +65,4 @@ public class UpdateReservationActivityTest {
         assertEquals(expectedStartDate, result.getReservation().getStartDate());
         assertEquals(expectedEndDate, result.getReservation().getEndDate());
     }
-
 }

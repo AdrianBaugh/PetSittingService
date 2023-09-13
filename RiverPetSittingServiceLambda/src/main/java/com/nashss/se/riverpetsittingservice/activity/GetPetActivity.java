@@ -15,7 +15,7 @@ import org.apache.logging.log4j.Logger;
 import javax.inject.Inject;
 
     /**
-     * Implementation of the GetPetActivity for the MusicPetService's GetPet API.
+     * Implementation of the GetPetActivity for the PetService's GetPet API.
      * This API allows the customer to get one of their saved pets.
      */
     public class GetPetActivity {

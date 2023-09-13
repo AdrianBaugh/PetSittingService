@@ -27,9 +27,8 @@ public class AlbumTrackDao {
     }
 
     /**
-     * Retrieves an Pet by ASIN and track number.
-     *
-     * If not found, throws AlbumTrackNotFoundException.
+     * Retrieves a Pet by ASIN and track number.
+     * If not found, throw AlbumTrackNotFoundException.
      *
      * @param asin The ASIN to look up
      * @param trackNumber The track number to look up

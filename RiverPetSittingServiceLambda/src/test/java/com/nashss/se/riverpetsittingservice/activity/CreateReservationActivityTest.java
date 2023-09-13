@@ -28,7 +28,6 @@ class CreateReservationActivityTest {
 
     private CreateReservationActivity createReservationActivity;
 
-
     @BeforeEach
     void setUp() {
         openMocks(this);
@@ -65,8 +64,6 @@ class CreateReservationActivityTest {
         assertNotNull(result.getReservation().getStatus());
 
         assertEquals(expectedEndDate, result.getReservation().getEndDate());
-
-
     }
 }
 

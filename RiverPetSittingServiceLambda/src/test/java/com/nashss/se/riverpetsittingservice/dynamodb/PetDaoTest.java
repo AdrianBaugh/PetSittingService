@@ -44,7 +44,6 @@ class PetDaoTest {
         when(paginatedQueryList.toArray()).thenReturn(new Object[0]);
     }
 
-
     @Test
     void getPetById_withValidIt_returnsPet() {
     }
@@ -82,7 +81,5 @@ class PetDaoTest {
         assertEquals(paginatedQueryList, results);
 
         verify(mapper, times(1)).query(eq(Pet.class), queryCaptor.capture());
-
-
     }
 }

@@ -20,7 +20,7 @@ public class ReservationDao {
     /**
      * Instantiates a ReservationDao object.
      *
-     * @param dynamoDbMapper   the {@link DynamoDBMapper} used to interact with the playlists table
+     * @param dynamoDbMapper   the {@link DynamoDBMapper} used to interact with the pets table
      * @param metricsPublisher the {@link MetricsPublisher} used to record metrics.
      */
     @Inject
