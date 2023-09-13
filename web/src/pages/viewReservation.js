@@ -10,7 +10,7 @@ import { formatDateToMMDDYYYY } from '../util/dateUtils';
 class ViewReservation extends BindingClass {
     constructor() {
         super();
-        this.bindClassMethods(['clientLoaded', 'mount', 'addReservationToPage', 'redirectToCancelation'], this);
+        this.bindClassMethods(['clientLoaded', 'mount', 'addReservationToPage', 'redirectToCancellation'], this);
         this.dataStore = new DataStore();
         this.dataStore.addChangeListener(this.addReservationToPage);
 
@@ -23,10 +23,10 @@ class ViewReservation extends BindingClass {
      */
     async clientLoaded() {
         const urlParams = new URLSearchParams(window.location.search);
-        const reservationId = urlParams.get('id2');
-        const petOwnerId = urlParams.get('id1');
+        const reservationId = urlParams.get('id');
+//        const petOwnerId = urlParams.get('id1');
 
-        const reservation = await this.client.viewReservation(petOwnerId, reservationId);
+        const reservation = await this.client.viewReservation(reservationId);
         this.dataStore.set('reservation', reservation);
     }
 
@@ -38,7 +38,7 @@ class ViewReservation extends BindingClass {
         this.header.addHeaderToPage();
         this.client = new RiverPetSittingClient();
         this.clientLoaded();
-        document.getElementById('cancelReservationButton').addEventListener('click', this.redirectToCancelation);
+        document.getElementById('cancelReservationButton').addEventListener('click', this.redirectToCancellation);
 
     }
 
@@ -69,12 +69,9 @@ class ViewReservation extends BindingClass {
     }
 
     redirectToCancelation() {
-        const reservation = this.dataStore.get('reservation');
-        const cancelButton = document.getElementById('cancelReservationButton');
-        const messageContainer = document.getElementById('messageContainer');
-        const cancelMessage = document.getElementById('message'); 
+        const reservation = this.dataStore.get('reservation')
 
-        this.client.cancelReservation(reservation.petOwnerId, reservation.reservationId);
+        this.client.cancelReservation(reservation.reservationId);
         
         cancelButton.style.display = 'none';
         messageContainer.style.display = 'block';

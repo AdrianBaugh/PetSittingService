@@ -44,7 +44,7 @@ class ViewAllReservations extends BindingClass {
             reservationHtml += `
             <tr>
                 <td>
-                    <a href="/viewReservation.html?id1=${reservation.petOwnerId}&id2=${reservation.reservationId}">${reservation.reservationId}</a>
+                    <a href="/viewReservation.html?id=${reservation.reservationId}">${reservation.reservationId}</a>
                 </td>    
                     <td>${formatDateToMMDDYYYY(reservation.startDate)}</td>
                     <td>${formatDateToMMDDYYYY(reservation.endDate)}</td>
