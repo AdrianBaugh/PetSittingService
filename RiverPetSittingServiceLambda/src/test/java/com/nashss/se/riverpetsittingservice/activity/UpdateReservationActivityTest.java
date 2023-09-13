@@ -2,12 +2,7 @@ package com.nashss.se.riverpetsittingservice.activity;
 
 import com.nashss.se.riverpetsittingservice.activity.requests.UpdateReservationRequest;
 
-<<<<<<< HEAD:MusicPlaylistServiceLambda/src/test/java/com/nashss/se/musicplaylistservice/activity/UpdateReservationActivityTest.java
-import com.nashss.se.musicplaylistservice.activity.results.UpdateReservationResult;
-=======
-
 import com.nashss.se.riverpetsittingservice.activity.results.UpdateReservationResult;
->>>>>>> main:RiverPetSittingServiceLambda/src/test/java/com/nashss/se/riverpetsittingservice/activity/UpdateReservationActivityTest.java
 
 import com.nashss.se.riverpetsittingservice.dynamodb.ReservationDao;
 import com.nashss.se.riverpetsittingservice.dynamodb.models.Reservation;

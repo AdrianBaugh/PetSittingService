@@ -1,5 +1,5 @@
 # index.html
-This HTML document represents a simple webpage with a search form and buttons for searching playlists and creating new playlists. The actual functionality for searching playlists and displaying the results is handled by the JavaScript file "searchPlaylists.js" linked in the head section. The CSS file "style.css" is used for styling the webpage elements.
+This HTML document represents a simple webpage with a search form and buttons for searching playlists and creating new playlists. The JavaScript file handles the actual functionality for searching playlists and displaying the results "searchPlaylists.js" linked in the head section. The CSS file "style.css" is used for styling the webpage elements.
 
 [index.html](index.html) is a default filename commonly used for the main entry point or default page of a website or web application. When a web server receives a request to serve a directory (e.g., http://example.com/), it looks for an index.html file in that directory and automatically serves it as the default page.
 
@@ -35,7 +35,7 @@ The `<head>` section contains metadata and external resource links used in the w
 ```html
 <script type="text/javascript" src="assets/searchPlaylists.js"></script>
 ```
-This line links an external JavaScript file named "searchPlaylists.js". Notice this file is not located in the "assets" folder. Instead it's under "src/pages". When using [Webpack](https://www.freecodecamp.org/news/an-intro-to-webpack-what-it-is-and-how-to-use-it-8304ecdc3c60/), the references to JavaScript (JS) files from an HTML file might not match the original source path. This discrepancy occurs because Webpack transforms and bundles multiple JavaScript files into a single output file during the build process. This searchPlaylists.js file is responsible for handling the functionality related to searching playlists.
+This line links an external JavaScript file named "searchPlaylists.js". Notice this file is not located in the "assets" folder. Instead, it's under "src/pages". When using [Webpack](https://www.freecodecamp.org/news/an-intro-to-webpack-what-it-is-and-how-to-use-it-8304ecdc3c60/), the references to JavaScript (JS) files from an HTML file might not match the original source path. This discrepancy occurs because Webpack transforms and bundles multiple JavaScript files into a single output file during the build process. This searchPlaylists.js file is responsible for handling the functionality related to searching playlists.
 
 
 - CSS Style:
@@ -44,7 +44,7 @@ This line links an external JavaScript file named "searchPlaylists.js". Notice t
 ```
 This line links an external CSS file named "style.css" located in the "css" folder. The CSS file is responsible for styling the visual elements of the webpage.
 
-4. Body Section:
+1. Body Section:
 The `<body>` section contains the visible content of the webpage.
 
 - Background Class:
@@ -57,7 +57,7 @@ The `<body>` element has a class attribute "background" applied to it. This clas
 ```html
 <header class="header" id="header"></header>
 ```
-This is the header section of the webpage. It has a class "header" applied to it and an "id" attribute set to "header". The header is dynamically by JavaScript.
+This is the header section of the webpage. It has a class "header" applied to it and an "id" attribute set to "header." The header is dynamically by JavaScript.
 
 - Search Form:
 ```html
@@ -69,7 +69,7 @@ This is the header section of the webpage. It has a class "header" applied to it
     <!-- Buttons -->
 </div>
 ```
-This is a search form contained within a card element with class "card". The form has an ID "search-playlists-form". It includes a heading "Search Playlists" and a text input field with a label "Search by name or tag". There is also a subtext that provides additional instructions for the search.
+This is a search form contained within a card element with class "card." The form has an ID "search-playlists-form." It includes a heading "Search Playlists" and a text input field with a label "Search by name or tag." There is also a subtext that provides additional instructions for the search.
 
 - Buttons:
 ```html
@@ -78,7 +78,7 @@ This is a search form contained within a card element with class "card". The for
     <a href="createPlaylist.html" class="button">New Playlist</a>
 </p>
 ```
-This section contains two buttons. The first button has an ID "search-btn" and is used to trigger the search functionality. The second button links to another page named "createPlaylist.html", where users can create a new playlist.
+This section contains two buttons. The first button has an ID "search-btn" and is used to trigger the search functionality. The second button links to another page named "createPlaylist.html," where users can create a new playlist.
 
 - Search Results Container:
 ```html

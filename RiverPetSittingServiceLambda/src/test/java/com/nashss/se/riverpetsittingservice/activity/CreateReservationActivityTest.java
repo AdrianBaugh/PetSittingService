@@ -6,12 +6,7 @@ import com.nashss.se.riverpetsittingservice.activity.results.CreateReservationRe
 import com.nashss.se.riverpetsittingservice.converters.LocalDateConverter;
 import com.nashss.se.riverpetsittingservice.dynamodb.ReservationDao;
 
-<<<<<<< HEAD:MusicPlaylistServiceLambda/src/test/java/com/nashss/se/musicplaylistservice/activity/CreateReservationActivityTest.java
-import com.nashss.se.musicplaylistservice.dynamodb.models.Reservation;
-=======
-
 import com.nashss.se.riverpetsittingservice.dynamodb.models.Reservation;
->>>>>>> main:RiverPetSittingServiceLambda/src/test/java/com/nashss/se/riverpetsittingservice/activity/CreateReservationActivityTest.java
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

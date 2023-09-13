@@ -3,13 +3,9 @@ package com.nashss.se.riverpetsittingservice.dynamodb;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedQueryList;
-<<<<<<< HEAD:MusicPlaylistServiceLambda/src/test/java/com/nashss/se/musicplaylistservice/dynamodb/PetDaoTest.java
-import com.nashss.se.musicplaylistservice.dynamodb.models.Pet;
-import com.nashss.se.musicplaylistservice.metrics.MetricsPublisher;
-=======
+
 import com.nashss.se.riverpetsittingservice.dynamodb.models.Pet;
 import com.nashss.se.riverpetsittingservice.metrics.MetricsPublisher;
->>>>>>> main:RiverPetSittingServiceLambda/src/test/java/com/nashss/se/riverpetsittingservice/dynamodb/PetDaoTest.java
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;

@@ -16,7 +16,7 @@ The code begins by [importing](https://developer.mozilla.org/en-US/docs/Web/Java
 - `MusicPlaylistClient`: It is an API client used to interact with the backend playlist API.
 - `Header`: Is a [component](https://dev.to/xavortm/what-are-components-in-the-front-end-and-why-do-we-need-them-2o2p) that adds a header to the webpage.
 - `BindingClass`: This class provides utility methods for binding class methods to the class instance. It helps in handling `this` context issues in JavaScript. (Binding of `this` is an advanced Javascript concept)
-- `DataStore`: This is a utility module that stores data from our API and serves as a intermediary between the API and what is rendered to the page.
+- `DataStore`: This is a utility module that stores data from our API and serves as an intermediary between the API and what is rendered to the page.
 
 ## 2. CreatePlaylist Class:
 ```javascript
@@ -106,4 +106,4 @@ const main = async () => {
 
 window.addEventListener('DOMContentLoaded', main);
 ```
-This code defines a main function  (think of this as the javascript equivalent of the [main function in java](https://www.geeksforgeeks.org/java-main-method-public-static-void-main-string-args/)) that creates an instance of the `CreatePlaylist` class and calls its `mount` method when the DOM content has loaded (i.e., the webpage has finished loading).
+This code defines a main function (think of this as the javascript equivalent of the [main function in java](https://www.geeksforgeeks.org/java-main-method-public-static-void-main-string-args/)) that creates an instance of the `CreatePlaylist` class and calls its `mount` method when the DOM content has loaded (i.e., the webpage has finished loading).

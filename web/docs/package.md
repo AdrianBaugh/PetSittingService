@@ -13,10 +13,10 @@
 }
 ```
 - `"name"`: The name of the project is "u5-project-template-static-website".
-- `"description"`: A brief description of the project, which is "Website for the NSS Unit 5 Project".
-- `"version"`: The version of the project is "1.0.0".
-- `"license"`: The license information for the project is specified as "UNLICENSED". This typically means that the project is not open-source or publicly available under a standard license.
-- `"main"`: The entry point of the project is set to "js/index.js". This is the main file that will be loaded when the project is used as a dependency in other projects.
+- `"description"`: A brief description of the project, which is "Website for the NSS Unit 5 Project."
+- `"version"`: The version of the project is "1.0.0."
+- `"license"`: The license information for the project is specified as "UNLICENSED." This typically means that the project is not open-source or publicly available under a standard license.
+- `"main"`: The entry point of the project is set to "js/index.js." This is the main file that will be loaded when the project is used as a dependency in other projects.
 
 2. Scripts:
 ```json
@@ -36,7 +36,7 @@ The "scripts" section defines various commands that can be executed using [npm](
 
 3. Dependencies:
 ```json
-"dependencies": {
+"dependencies":: {
   "aws-amplify": "^5.0.7",
   "axios": "^1.1.2",
   "webpack": "^5.74.0",

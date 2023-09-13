@@ -1,6 +1,6 @@
 package com.nashss.se.riverpetsittingservice.exceptions;
 /**
- * Exception to throw when a UnauthorizedOwner or user is not found in the database.
+ * Exception to throw when an UnauthorizedOwner or user is not found in the database.
  */
 public class UnauthorizedOwnerException extends RuntimeException{
     private static final long serialVersionUID = -5477697802062215741L;
@@ -29,7 +29,7 @@ public class UnauthorizedOwnerException extends RuntimeException{
     }
 
     /**
-     * Exception with message and cause.
+     * Exception with a message and cause.
      * @param message A descriptive message for this exception.
      * @param cause The original throwable resulting in this exception.
      */

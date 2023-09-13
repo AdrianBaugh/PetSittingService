@@ -40,7 +40,7 @@ public class GetAllReservationsActivity {
      * If no reservation does not exist, this should throw a ReservationNotFoundException.
      *
      * @param getAllReservationsRequest request object containing the petOwner ID to look up reservations for
-     * @return GetAllReservationsResult result object containing the reservation's list of API defined ReservationModel
+     * @return GetAllReservationsResult result object containing the reservation's list of API-defined ReservationModel
      */
     public GetAllReservationsResult handleRequest(final GetAllReservationsRequest getAllReservationsRequest) {
         log.info("Received GetAllReservationsRequest {}", getAllReservationsRequest);

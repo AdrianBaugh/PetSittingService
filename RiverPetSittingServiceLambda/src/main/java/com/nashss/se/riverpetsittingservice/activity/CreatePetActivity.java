@@ -2,6 +2,7 @@ package com.nashss.se.riverpetsittingservice.activity;
 
 import com.nashss.se.riverpetsittingservice.activity.requests.CreatePetRequest;
 import com.nashss.se.riverpetsittingservice.activity.results.CreatePetResult;
+import com.nashss.se.riverpetsittingservice.converters.ModelConverter;
 import com.nashss.se.riverpetsittingservice.dynamodb.PetDao;
 import com.nashss.se.riverpetsittingservice.dynamodb.models.Pet;
 import com.nashss.se.riverpetsittingservice.exceptions.InvalidAttributeValueException;
@@ -34,9 +35,9 @@ public class CreatePetActivity {
      * If the provided pet name or customer ID has invalid characters, throws an
      * InvalidAttributeValueException
      *
-     * @param createPetRequest request object containing the pet name and pet ownerID
+     * @param createPetRequest request an object containing the pet name and pet ownerID
      *                              associated with it
-     * @return createPetResult result object containing the API defined {@link PetModel}
+     * @return createPetResult a result object containing the API defined {@link PetModel}
      */
     public CreatePetResult handleRequest(final CreatePetRequest createPetRequest) {
         log.info("received CreatePetRequest {}", createPetRequest);

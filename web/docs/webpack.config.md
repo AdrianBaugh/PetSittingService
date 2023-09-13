@@ -24,7 +24,7 @@ entry: {
   searchPlaylists: path.resolve(__dirname, 'src', 'pages', 'searchPlaylists.js'),
 },
 ```
-These are the entry points for the application. Each entry point represents a separate JavaScript file that serves as the starting point for creating the bundles. When you want to link a new js file in html 
+These are the entry points for the application. Each entry point represents a separate JavaScript file that serves as the starting point for creating the bundles. When you want to link a new js file in html, 
 this section shall be appended with info pointing to the new js file.
 
 

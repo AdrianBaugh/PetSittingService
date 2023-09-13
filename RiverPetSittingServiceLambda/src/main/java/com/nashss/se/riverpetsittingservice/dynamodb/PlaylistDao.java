@@ -66,9 +66,8 @@ public class PlaylistDao {
 
     /**
      * Perform a search (via a "scan") of the playlist table for playlists matching the given criteria.
-     *
      * Both "playlistName" and "tags" attributes are searched.
-     * The criteria are an array of Strings. Each element of the array is search individually.
+     * The criteria are an array of Strings. Each element of the array is searched individually.
      * ALL elements of the criteria array must appear in the playlistName or the tags (or both).
      * Searches are CASE SENSITIVE.
      *

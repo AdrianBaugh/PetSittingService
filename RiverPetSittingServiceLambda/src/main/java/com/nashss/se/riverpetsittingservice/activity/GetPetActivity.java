@@ -39,7 +39,7 @@ import javax.inject.Inject;
          * <p>
          * If the pet does not exist, this should throw a PeNotFoundException.
          *
-         * @param getPetRequest request object containing the pet ID
+         * @param getPetRequest request an object containing the pet ID
          * @return getPetResult result object containing the API defined {@link PetModel}
          */
 

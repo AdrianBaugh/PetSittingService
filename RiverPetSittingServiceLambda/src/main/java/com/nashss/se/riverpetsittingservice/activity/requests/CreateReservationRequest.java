@@ -1,14 +1,8 @@
-<<<<<<< HEAD:MusicPlaylistServiceLambda/src/main/java/com/nashss/se/musicplaylistservice/activity/requests/CreateReservationRequest.java
-package com.nashss.se.musicplaylistservice.activity.requests;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
-=======
 package com.nashss.se.riverpetsittingservice.activity.requests;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
->>>>>>> main:RiverPetSittingServiceLambda/src/main/java/com/nashss/se/riverpetsittingservice/activity/requests/CreateReservationRequest.java
 import java.util.List;
 
 @JsonDeserialize(builder = CreateReservationRequest.Builder.class)
