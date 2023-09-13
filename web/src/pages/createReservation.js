@@ -9,22 +9,76 @@ import DataStore from '../util/DataStore';
 class CreateReservation extends BindingClass {
     constructor() {
         super();
-        this.bindClassMethods(['mount', 'submit', 'redirectToViewReservation'], this);
+        this.bindClassMethods(['clientLoaded', 'mount', 'submit', 'redirectToViewReservation', `addPetsToPage`], this);
         this.dataStore = new DataStore();
         this.dataStore.addChangeListener(this.redirectToViewReservation);
+        this.dataStore.addChangeListener(this.addPetsToPage);
         this.header = new Header(this.dataStore);
     }
 
+        /**
+     * Once the client is loaded, get the pet metadata.
+     */
+        async clientLoaded() {
+            const pets = await this.client.viewAllPets();
+            this.dataStore.set('pets', pets);
+        }
+
     /**
-     * Add the header to the page and load the MusicPlaylistClient.
+     * Add the header to the page and load the PetSittingClient.
      */
     mount() {
-        document.getElementById('create').addEventListener('click', this.submit);
-
+        document.getElementById('create').addEventListener('click', this.submit.bind(this));
         this.header.addHeaderToPage();
-
+        
         this.client = new RiverPetSittingClient();
+        this.clientLoaded();
     }
+
+    /**
+     * When the pet is updated in the datastore, update the pet metadata on the page.
+     */
+
+    addPetsToPage() {
+        console.log("add pets to page is starting");
+        const pets = this.dataStore.get('pets');
+        console.log("Pets", pets);
+        
+        if (pets == null) {
+            return;
+        }
+        
+        // Get the checkbox container element
+        const checkboxContainer = document.getElementById("checkbox-container");
+        checkboxContainer.innerHTML = ''; // Clear any existing content
+        
+        pets.forEach((item, index) => {
+            // Create a checkbox container
+            const checkboxDiv = document.createElement("div");
+            checkboxDiv.classList.add("custom-checkbox");
+        
+            // Create the checkbox input element
+            const checkboxInput = document.createElement("input");
+            checkboxInput.type = "checkbox";
+            checkboxInput.id = `checkbox-${index}`;
+            checkboxInput.value = item.petName; // Set the value attribute to the pet's name
+        
+            // Create the label for the checkbox
+            const label = document.createElement("label");
+            label.setAttribute("for", `checkbox-${index}`);
+            label.textContent = item.petName;
+        
+            // Append the checkbox and label to the container
+            checkboxDiv.appendChild(checkboxInput);
+            checkboxDiv.appendChild(label);
+        
+            // Append the container to the checkbox container
+            checkboxContainer.appendChild(checkboxDiv);
+        });
+        
+        console.log("add pets to page is finished");
+        }
+          
 
     /**
      * Method to run when the create reservation submit button is pressed. Call the MusicPlaylistService to create the
@@ -32,46 +86,29 @@ class CreateReservation extends BindingClass {
      */
     async submit(evt) {
         evt.preventDefault();
-
-        // option 1
-        // Get the current date
-        const currentDate = new Date();
-
-        // Format the current date as YYYY-MM-DD (the required format for input type="date")
-        const year = currentDate.getFullYear();
-        const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Adding 1 because months are 0-indexed
-        const day = String(currentDate.getDate()).padStart(2, '0');
-
-        const formattedDate = `${year}-${month}-${day}`;
-
-        // Set the minimum attribute of the date input
-        document.getElementById('startDate').min = formattedDate;
-        document.getElementById('endDate').min = formattedDate;
-
-        // //option 2
-        // document.getElementById("startDate").min = new Date().toISOString().split("T")[0];
-
+    
         const errorMessageDisplay = document.getElementById('error-message');
-        errorMessageDisplay.innerText = ``;
+        errorMessageDisplay.innerText = '';
         errorMessageDisplay.classList.add('hidden');
-
+    
         const createButton = document.getElementById('create');
         const origButtonText = createButton.innerText;
-        createButton.innerText = 'Loading...';
-
+        createButton.innerText = 'Creating...';
+    
         const startDate = document.getElementById('startDate').value;
         const endDate = document.getElementById('endDate').value;
-        const petsText = document.getElementById('pets').value;
-
-
-
-        let petList;
-        if (petsText.length < 1) {
-            petList = null;
-        } else {
-            petList = petsText.split(/\s*,\s*/);
+    
+        // Get the selected checkboxes
+        const selectedCheckboxes = document.querySelectorAll('#checkbox-container input[type="checkbox"]:checked');
+        const petList = Array.from(selectedCheckboxes).map(checkbox => checkbox.value);
+    
+        if (petList.length === 0) {
+            errorMessageDisplay.innerText = 'Please select at least one pet.';
+            errorMessageDisplay.classList.remove('hidden');
+            createButton.innerText = origButtonText;
+            return;
         }
-
+    
         const reservation = await this.client.createReservation(startDate, endDate, petList, (error) => {
             createButton.innerText = origButtonText;
             errorMessageDisplay.innerText = `Error: ${error.message}`;
@@ -79,6 +116,7 @@ class CreateReservation extends BindingClass {
         });
         this.dataStore.set('reservation', reservation);
     }
+    
 
     /**
      * When the playlist is updated in the datastore, redirect to the view playlist page.
@@ -86,6 +124,7 @@ class CreateReservation extends BindingClass {
     redirectToViewReservation() {
         const reservation = this.dataStore.get('reservation');
         if (reservation != null) {
+            console.log("Redirecting to viewReservation.html");
             window.location.href = `/viewReservation.html?id=${reservation.reservationId}`;
         }
     }
