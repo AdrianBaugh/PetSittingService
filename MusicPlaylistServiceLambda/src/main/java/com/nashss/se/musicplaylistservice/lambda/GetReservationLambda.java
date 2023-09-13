@@ -3,7 +3,6 @@ package com.nashss.se.musicplaylistservice.lambda;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 
-import com.nashss.se.musicplaylistservice.activity.requests.GetPlaylistRequest;
 import com.nashss.se.musicplaylistservice.activity.requests.GetReservationRequest;
 import com.nashss.se.musicplaylistservice.activity.results.GetReservationResult;
 
