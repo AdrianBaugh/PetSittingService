@@ -19,7 +19,6 @@ class ViewAllReservations extends BindingClass {
     }
 
     async clientLoaded() {
-        //loadin icon?
         const reservations = await this.client.viewAllReservations();
         this.dataStore.set('reservations', reservations);
     }

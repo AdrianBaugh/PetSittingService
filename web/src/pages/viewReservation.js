@@ -24,7 +24,6 @@ class ViewReservation extends BindingClass {
     async clientLoaded() {
         const urlParams = new URLSearchParams(window.location.search);
         const reservationId = urlParams.get('id');
-//        const petOwnerId = urlParams.get('id1');
 
         const reservation = await this.client.viewReservation(reservationId);
         this.dataStore.set('reservation', reservation);
@@ -39,7 +38,6 @@ class ViewReservation extends BindingClass {
         this.client = new RiverPetSittingClient();
         this.clientLoaded();
         document.getElementById('cancelReservationButton').addEventListener('click', this.redirectToCancellation);
-
     }
 
     /**
@@ -79,13 +77,9 @@ class ViewReservation extends BindingClass {
         cancelButton.style.display = 'none';
         messageContainer.style.display = 'block';
   
-        // Set the message content
         cancelMessage.textContent = 'This reservation has been canceled!';
 
         setTimeout(() => {
-            // goes to the previous page user was on
-            //window.history.back();
-            // goes to the reservation options page
             window.location.href = `/reservationOptions.html`;
           }, 3000); //3000 milli = 3 sec
     }
