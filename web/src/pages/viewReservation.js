@@ -68,8 +68,11 @@ class ViewReservation extends BindingClass {
         document.getElementById('pet-list').innerHTML = petListHtml;
     }
 
-    redirectToCancelation() {
-        const reservation = this.dataStore.get('reservation')
+    redirectToCancellation() {
+        const reservation = this.dataStore.get('reservation');
+        const cancelButton = document.getElementById('cancelReservationButton');
+        const messageContainer = document.getElementById('messageContainer');
+        const cancelMessage = document.getElementById('message');
 
         this.client.cancelReservation(reservation.reservationId);
         
