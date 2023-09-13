@@ -122,6 +122,23 @@
     justify-content: space-between; 
   }
 
+/* Style for the custom checkboxes */
+.custom-checkbox {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .custom-checkbox input[type="checkbox"] {
+    margin-right: 8px;
+  }
+  
+  /* Additional styling for checked checkboxes */
+  .custom-checkbox input[type="checkbox"]:checked + label {
+    text-decoration: none;
+    color: var(--tertiary-color);
+  }
+
 .tags {
     display: flex;
     flex-direction: row;

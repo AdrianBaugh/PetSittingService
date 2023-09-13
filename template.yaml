@@ -248,8 +248,7 @@ Resources:
           Properties:
             Path: /pets
             Method: post
-            Auth:
-              Authorizer: 'NONE'
+
 
   GetPetLambda:
     Type: AWS::Serverless::Function
@@ -292,8 +291,7 @@ Resources:
           Properties:
             Path: /pets
             Method: get
-            Auth:
-              Authorizer: 'NONE'
+
 
   CreateReservationLambda:
     Type: AWS::Serverless::Function
@@ -314,8 +312,7 @@ Resources:
           Properties:
             Path: /reservations
             Method: post
-            Auth:
-              Authorizer: 'NONE'
+
 
   GetReservationLambda:
     Type: AWS::Serverless::Function
@@ -336,8 +333,7 @@ Resources:
           Properties:
             Path: /reservations/{reservationId}
             Method: get
-            Auth:
-              Authorizer: 'NONE'
+
 
   GetAllReservationsLambda:
     Type: AWS::Serverless::Function
@@ -358,8 +354,7 @@ Resources:
           Properties:
             Path: /reservations
             Method: get
-            Auth:
-              Authorizer: 'NONE'
+
 
 
   UpdateReservationLambda:
@@ -381,8 +376,7 @@ Resources:
           Properties:
             Path: /reservations/{reservationId}
             Method: put
-            Auth:
-              Authorizer: 'NONE'
+
 
   CancelReservationLambda:
     Type: AWS::Serverless::Function
@@ -403,8 +397,7 @@ Resources:
           Properties:
             Path: /reservations/{reservationId}
             Method: delete
-            Auth:
-              Authorizer: 'NONE'
+            
   #-----------------------------------------------------
   # DynamoDB Configuration
   #-----------------------------------------------------
