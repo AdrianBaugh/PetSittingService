@@ -2,6 +2,7 @@ import RiverPetSittingClient from '../api/riverPetSittingClient';
 import Header from '../components/header';
 import BindingClass from "../util/bindingClass";
 import DataStore from "../util/DataStore";
+import { formatDateToMMDDYYYY } from '../util/dateUtils';
 
 /**
  * Logic needed for the view all reservations page of the website.
@@ -45,8 +46,8 @@ class ViewAllReservations extends BindingClass {
                 <td>
                     <a href="/viewReservation.html?id1=${reservation.petOwnerId}&id2=${reservation.reservationId}">${reservation.reservationId}</a>
                 </td>    
-                    <td>${reservation.startDate}</td>
-                    <td>${reservation.endDate}</td>
+                    <td>${formatDateToMMDDYYYY(reservation.startDate)}</td>
+                    <td>${formatDateToMMDDYYYY(reservation.endDate)}</td>
                 </tr>
             `;
         }
