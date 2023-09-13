@@ -1,8 +1,10 @@
 package com.nashss.se.musicplaylistservice.dynamodb;
 
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBDeleteExpression;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 
+import com.amazonaws.services.dynamodbv2.model.ConditionalCheckFailedException;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Reservation;
 import com.nashss.se.musicplaylistservice.exceptions.ReservationNotFoundException;
 import com.nashss.se.musicplaylistservice.metrics.MetricsConstants;
@@ -18,7 +20,7 @@ public class ReservationDao {
     private final MetricsPublisher metricsPublisher;
 
     /**
-     * Instantiates a PlaylistDao object.
+     * Instantiates a ReservationDao object.
      *
      * @param dynamoDbMapper   the {@link DynamoDBMapper} used to interact with the playlists table
      * @param metricsPublisher the {@link MetricsPublisher} used to record metrics.
@@ -30,7 +32,7 @@ public class ReservationDao {
     }
 
     /**
-     * Retrieves a reservation by its ID.
+     * Retrieves a reservation by its IDs.
      *
      * @param reservationId The ID of the reservation to retrieve.
      * @return The reservation object if found, or null if not found.
@@ -68,5 +70,18 @@ public class ReservationDao {
         this.dynamoDbMapper.save(newReservation);
         return newReservation;
 
+    }
+
+    public String deleteReservation(String ownerId, String reservationId) {
+
+        Reservation reservationToDelete = new Reservation();
+
+        reservationToDelete.setPetOwnerId(ownerId);
+        reservationToDelete.setReservationId(reservationId);
+
+        dynamoDbMapper.delete(reservationToDelete);
+
+        metricsPublisher.addCount(MetricsConstants.CANCELRESERVATION_RESERVATIONNOTFOUND_COUNT, 0);
+        return String.format("Reservation, %s, successfully canceled.", reservationId);
     }
 }

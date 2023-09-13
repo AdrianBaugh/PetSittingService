@@ -411,20 +411,11 @@ Resources:
         Variables:
           JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
       Events:
-        GetReservationHashKey:
+        MusicPlaylistService:
           Type: Api
           Properties:
-            Path: /reservations/{ownerId}
+            Path: /reservations/{reservationId}
             Method: get
-            Auth:
-              Authorizer: 'NONE'
-        GetReservationRangeKey:
-          Type: Api
-          Properties:
-            Path: /reservations/{ownerId}/{reservationId}
-            Method: get
-            Auth:
-              Authorizer: 'NONE'
 
   GetAllReservationsLambda:
     Type: AWS::Serverless::Function
@@ -445,6 +436,7 @@ Resources:
           Properties:
             Path: /reservations
             Method: get
+
 
   UpdatePlaylistLambda:
     Type: AWS::Serverless::Function
@@ -486,6 +478,25 @@ Resources:
             Path: /playlists/{id}/songs
             Method: post
 
+  CancelReservationLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt AccessRole.Arn
+      CodeUri: MusicPlaylistServiceLambda
+      Handler: com.nashss.se.musicplaylistservice.lambda.CancelReservationLambda::handleRequest
+      Runtime: java11
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment:
+        Variables:
+          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+      Events:
+        MusicPlaylistService:
+          Type: Api
+          Properties:
+            Path: /reservations/{reservationId}
+            Method: delete
   #-----------------------------------------------------
   # DynamoDB Configuration
   #-----------------------------------------------------
