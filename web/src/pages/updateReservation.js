@@ -9,30 +9,29 @@ import DataStore from '../util/DataStore';
 class UpdateReservation extends BindingClass {
     constructor() {
         super();
-        this.bindClassMethods(['clientLoaded', 'mount', 'submit', 'redirectToUpdateReservation'], this);
+        this.bindClassMethods(['clientLoaded', 'mount', 'submit', 'redirectToViewReservation'], this);
         this.dataStore = new DataStore();
-        this.dataStore.addChangeListener(this.redirectToUpdateReservation);
+        this.dataStore.addChangeListener(this.redirectToViewReservation);
         this.header = new Header(this.dataStore);
     }
 
-    async clientLoaded() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const reservationId = urlParams.get('id2');
-        const petOwnerId = urlParams.get('id1');
-
-        const reservation = await this.client.updateReservation(petOwnerId, reservationId);
-        this.dataStore.set('reservation', reservation);
-    }
+    // async clientLoaded() {
+    //     const urlParams = new URLSearchParams(window.location.search);
+    //     const reservationId = urlParams.get('id');
+    //     document.getElementById('startDate').value = reservation.startDate;
+    //     document.getElementById("endDate").value = reservation.endDate;
+    //     const reservation = await this.client.updateReservation(reservationId);
+    //     this.dataStore.set('reservation', reservation);
+    // }
     /**
      * Add the header to the page and load the MusicPlaylistClient.
      */
     mount() {
-        document.getElementById('updating').addEventListener('click', this.submit);
 
         this.header.addHeaderToPage();
-
         this.client = new RiverPetSittingClient();
-        this.clientLoaded();
+        document.getElementById('updating').addEventListener('click', this.submit);
+        // this.clientLoaded();
 
         // const reservation = this.dataStore.get("reservation");
         // if(reservation){
@@ -47,23 +46,6 @@ class UpdateReservation extends BindingClass {
      */
     async submit(evt) {
         evt.preventDefault();
-
-        // option 1
-        // Get the current date
-        const currentDate = new Date();
-
-        // Format the current date as YYYY-MM-DD (the required format for input type="date")
-        const year = currentDate.getFullYear();
-        const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Adding 1 because months are 0-indexed
-        const day = String(currentDate.getDate()).padStart(2, '0');
-        const formattedDate = `${year}-${month}-${day}`;
-
-        // Set the minimum attribute of the date input
-        document.getElementById('startDate').min = formattedDate;
-        document.getElementById('endDate').min = formattedDate;
-
-        // //option 2
-        // document.getElementById("startDate").min = new Date().toISOString().split("T")[0];
         const errorMessageDisplay = document.getElementById('error-message');
         errorMessageDisplay.innerText = ``;
         errorMessageDisplay.classList.add('hidden');
@@ -72,43 +54,35 @@ class UpdateReservation extends BindingClass {
         const origButtonText = createButton.innerText;
         createButton.innerText = 'updating...';
 
-
+        const urlParams = new URLSearchParams(window.location.search);
+        const reservationId = urlParams.get('id');
         const startDate = document.getElementById('startDate').value;
         const endDate = document.getElementById('endDate').value;
-        // const petsText = document.getElementById('pets').value;
 
-        // let petList;
-        // if (petsText.length < 1) {
-        //     petList = null;
-        // } else {
-        //     petList = petsText.split(/\s*,\s*/);
-        // }
-
-       try{
         //Make a updateReservationRequest
         const reservation = await this.client.updateReservation(
+          reservationId,
           startDate,
           endDate,
-        //   petList,
           (error) => {
             createButton.innerText = origButtonText;
             errorMessageDisplay.innerText = `Error: ${error.message}`;
             errorMessageDisplay.classList.remove('hidden');
         });
         this.dataStore.set('reservation', reservation);
-          }catch(error) {
-        console.error(error);
-          }
+        
     }
 
     /**
      * When the pet is updated in the datastore, redirect to the Update Reservation page.
      */
-    redirectToUpdateReservation() {
+    redirectToViewReservation() {
         const reservation = this.dataStore.get('reservation');
         if (reservation != null) {
-            window.location.href = `/viewReservation.html?id1=${reservation.petOwnerId}&id2=${reservation.reservationId}`;
-        }
+            setTimeout(() => {
+            window.location.href = `/viewReservation.html?id=${reservation.reservationId}`;
+        }, 3000); //3000 milli = 3 sec
+    }
     }
 }
 

@@ -9,18 +9,27 @@ import org.apache.logging.log4j.Logger;
 
 public class UpdateReservationLambda
         extends LambdaActivityRunner<UpdateReservationRequest, UpdateReservationResult>
-        implements RequestHandler<LambdaRequest<UpdateReservationRequest>, LambdaResponse> {
+        implements RequestHandler<AuthenticatedLambdaRequest<UpdateReservationRequest>, LambdaResponse> {
 
     private final Logger log = LogManager.getLogger();
+
     @Override
-    public LambdaResponse handleRequest(LambdaRequest<UpdateReservationRequest> input, Context context) {
-        log.info("handleRequest from Update Reservation Lambda");
+    public LambdaResponse handleRequest(AuthenticatedLambdaRequest<UpdateReservationRequest> input, Context context) {
+        log.info("handleRequest from Get Reservation LAMBDA");
         return super.runActivity(
-                () -> input.fromPath(path ->
-                        UpdateReservationRequest.builder()
-                                .withReservationId(path.get("reservationId"))
-                                .withPetOwnerId(path.get("petOwnerId"))
-                                .build()),
+                () -> {
+                    UpdateReservationRequest unauthenticatedRequest = input.fromPath(path ->
+                            UpdateReservationRequest.builder()
+                                    .withReservationId(path.get("reservationId"))
+                                    .build());
+
+                    return input.fromUserClaims(claims ->
+                            UpdateReservationRequest.builder()
+                                    .withReservationId(unauthenticatedRequest.getReservationId())
+                                    .withPetOwnerId(claims.get("email"))
+                                    .build());
+                },
+
                 (request, serviceComponent) ->
                         serviceComponent.provideUpdateReservationActivity().handleRequest(request)
         );

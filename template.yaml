@@ -458,12 +458,12 @@ Resources:
             Path: /playlists/{id}
             Method: put
 
-  updateReservationLamnda:
+  UpdateReservationLambda:
     Type: AWS::Serverless::Function
     Properties:
       Role: !GetAtt AccessRole.Arn
       CodeUri: MusicPlaylistServiceLambda
-      Handler: com.nashss.se.musicplaylistservice.lambda.updateReservationLambda::handleRequest
+      Handler: com.nashss.se.musicplaylistservice.lambda.UpdateReservationLambda::handleRequest
       Runtime: java11
       Architectures:
         - x86_64
@@ -475,7 +475,7 @@ Resources:
         MusicPlaylistService:
           Type: Api
           Properties:
-            Path: /reservations/{ownerId}/{reservationId}
+            Path: /reservations/{reservationId}
             Method: put
 
   AddSongToPlaylistLambda:
