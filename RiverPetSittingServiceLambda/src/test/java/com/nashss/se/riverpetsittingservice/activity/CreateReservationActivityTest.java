@@ -8,6 +8,7 @@ import com.nashss.se.riverpetsittingservice.dynamodb.ReservationDao;
 
 import com.nashss.se.riverpetsittingservice.dynamodb.models.Reservation;
 
+import com.nashss.se.riverpetsittingservice.exceptions.ReservationException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -36,12 +37,12 @@ class CreateReservationActivityTest {
     }
 
     @Test
-    public void handleRequest_withValidFields_createsAndSavesReservation() {
+    public void handleRequest_withValidFields_createsAndSavesReservation() throws ReservationException {
         LocalDateConverter converter = new LocalDateConverter();
 
-       LocalDate expectedStartDate = LocalDate.of(2023, 9, 6);
+       LocalDate expectedStartDate = LocalDate.of(2024, 9, 6);
 
-       LocalDate expectedEndDate = LocalDate.of(2023,9,10);
+       LocalDate expectedEndDate = LocalDate.of(2024,9,10);
 
        List<String> petList = new ArrayList<>();
        petList.add("Fluffers");

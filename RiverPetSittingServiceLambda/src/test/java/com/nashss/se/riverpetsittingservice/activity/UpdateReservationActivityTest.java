@@ -7,6 +7,8 @@ import com.nashss.se.riverpetsittingservice.activity.results.UpdateReservationRe
 import com.nashss.se.riverpetsittingservice.dynamodb.ReservationDao;
 import com.nashss.se.riverpetsittingservice.dynamodb.models.Reservation;
 
+import com.nashss.se.riverpetsittingservice.exceptions.ReservationException;
+import com.nashss.se.riverpetsittingservice.exceptions.ReservationNotFoundException;
 import com.nashss.se.riverpetsittingservice.metrics.MetricsPublisher;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -34,13 +36,13 @@ public class UpdateReservationActivityTest {
         updateReservationActivity = new UpdateReservationActivity(reservationDao, metricsPublisher);
     }
     @Test
-    public void handleRequest_goodRequest_updatesReservationDates() {
+    public void handleRequest_goodRequest_updatesReservationDates() throws ReservationException {
 
         // GIVEN
         String petOwnerId = "Bob";
         String reservationId = "expectedReservationId";
-        LocalDate expectedStartDate = LocalDate.parse("2023-09-12");
-        LocalDate expectedEndDate = LocalDate.parse("2023-09-15");
+        LocalDate expectedStartDate = LocalDate.parse("2024-09-12");
+        LocalDate expectedEndDate = LocalDate.parse("2024-09-15");
 
         UpdateReservationRequest request = UpdateReservationRequest.builder()
                                             .withReservationId(reservationId)
@@ -52,8 +54,8 @@ public class UpdateReservationActivityTest {
         Reservation startingReservation = new Reservation();
         startingReservation.setReservationId(reservationId);
         startingReservation.setPetOwnerId(petOwnerId);
-        startingReservation.setEndDate(LocalDate.parse("2023-09-20"));
-        startingReservation.setStartDate(LocalDate.parse("2023-09-10"));
+        startingReservation.setEndDate(LocalDate.parse("2024-09-20"));
+        startingReservation.setStartDate(LocalDate.parse("2024-09-10"));
 
         when(reservationDao.getReservationById(petOwnerId, reservationId)).thenReturn(startingReservation);
         when(reservationDao.saveReservation(startingReservation)).thenReturn(startingReservation);

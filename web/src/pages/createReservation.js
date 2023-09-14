@@ -42,7 +42,7 @@ class CreateReservation extends BindingClass {
     addPetsToPage() {
         console.log("add pets to page is starting");
         const pets = this.dataStore.get('pets');
-        console.log("Pets", pets);
+        console.log("pets", pets);
         
         if (pets == null) {
             return;

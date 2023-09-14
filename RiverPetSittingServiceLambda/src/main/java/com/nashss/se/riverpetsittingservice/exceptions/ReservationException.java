@@ -1,16 +1,11 @@
 package com.nashss.se.riverpetsittingservice.exceptions;
 
-/**
- * Exception to throw when a given Reservation is not found in the database.
- */
-public class ReservationNotFoundException extends ReservationException {
-
-    private static final long serialVersionUID = -912326717789387971L;
+public class ReservationException extends Exception {
 
     /**
      * Exception with no message or cause.
      */
-    public ReservationNotFoundException() {
+    public ReservationException() {
         super();
     }
 
@@ -18,7 +13,7 @@ public class ReservationNotFoundException extends ReservationException {
      * Exception with a message, but no cause.
      * @param message A descriptive message for this exception.
      */
-    public ReservationNotFoundException(String message) {
+    public ReservationException(String message) {
         super(message);
     }
 
@@ -26,7 +21,7 @@ public class ReservationNotFoundException extends ReservationException {
      * Exception with no message, but with a cause.
      * @param cause The original throwable resulting in this exception.
      */
-    public ReservationNotFoundException(Throwable cause) {
+    public ReservationException(Throwable cause) {
         super(cause);
     }
 
@@ -35,7 +30,8 @@ public class ReservationNotFoundException extends ReservationException {
      * @param message A descriptive message for this exception.
      * @param cause The original throwable resulting in this exception.
      */
-    public ReservationNotFoundException(String message, Throwable cause) {
+    public ReservationException(String message, Throwable cause) {
         super(message, cause);
     }
 }
+

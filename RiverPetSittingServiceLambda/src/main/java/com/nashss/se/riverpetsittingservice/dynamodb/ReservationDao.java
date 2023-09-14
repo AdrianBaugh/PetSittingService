@@ -35,7 +35,7 @@ public class ReservationDao {
      * @param reservationId The ID of the reservation to retrieve.
      * @return The reservation object if found, or null if not found.
      */
-    public Reservation getReservationById(String ownerId, String reservationId) {
+    public Reservation getReservationById(String ownerId, String reservationId) throws ReservationNotFoundException {
         Reservation reservation = dynamoDbMapper.load(Reservation.class, ownerId, reservationId);
         if (reservation == null) {
             metricsPublisher.addCount(MetricsConstants.GETRESERVATION_RESERVATIONNOTFOUND_COUNT, 1);
@@ -45,7 +45,7 @@ public class ReservationDao {
         return reservation;
     }
 
-    public List<Reservation> getAllReservationsByOwnerId(String ownerId) {
+    public List<Reservation> getAllReservationsByOwnerId(String ownerId) throws ReservationNotFoundException {
 
         Reservation reservation = new Reservation();
         reservation.setPetOwnerId(ownerId);

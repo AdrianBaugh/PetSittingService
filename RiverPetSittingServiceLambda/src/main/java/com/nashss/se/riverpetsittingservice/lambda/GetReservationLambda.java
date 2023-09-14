@@ -6,6 +6,7 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.nashss.se.riverpetsittingservice.activity.requests.GetReservationRequest;
 import com.nashss.se.riverpetsittingservice.activity.results.GetReservationResult;
 
+import com.nashss.se.riverpetsittingservice.exceptions.ReservationNotFoundException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -33,7 +34,13 @@ public class GetReservationLambda
                 },
 
                 (request, serviceComponent) ->
-                        serviceComponent.provideGetReservationActivity().handleRequest(request)
+                {
+                    try {
+                        return serviceComponent.provideGetReservationActivity().handleRequest(request);
+                    } catch (ReservationNotFoundException e) {
+                        throw new RuntimeException(e.getMessage());
+                    }
+                }
         );
     }
 }
