@@ -41,7 +41,7 @@ public class ReservationDaoTest {
     }
 
     @Test
-    public void getReservationById_withCombinationKey_returnsReservation() {
+    public void getReservationById_withCombinationKey_returnsReservation() throws ReservationNotFoundException {
         // GIVEN
         String reservationId = "ReservationId";
         String petOwnerID = "OwnerId";
@@ -70,7 +70,7 @@ public class ReservationDaoTest {
     }
 
     @Test
-    public void getAllReservationsByOwnerId_withOwnerId_returnsReservationsList() {
+    public void getAllReservationsByOwnerId_withOwnerId_returnsReservationsList() throws ReservationNotFoundException {
         // GIVEN
         String petOwnerID = "OwnerId";
 
