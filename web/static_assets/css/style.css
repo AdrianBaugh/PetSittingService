@@ -162,6 +162,10 @@
     max-width: 500px;
 }
 
+.card-content-right {
+    float: center;
+}
+
 .card-content .form-field {
     display: flex;
     flex-direction: column;

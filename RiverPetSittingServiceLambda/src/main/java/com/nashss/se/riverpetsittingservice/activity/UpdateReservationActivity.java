@@ -46,7 +46,7 @@ public class UpdateReservationActivity {
             throw new ReservationException("Cannot update a Completed reservation...");
         }
 
-        if (!(updatedStartDate.compareTo(LocalDate.now()) >= 0)) {
+        if (!(updatedStartDate.compareTo(LocalDate.now()) > 0) && updatedStartDate.compareTo(reservation.getStartDate()) != 0) {
             throw new ReservationException("Cannot update reservation to Start before today...");
         }
         if (Objects.equals(reservationStatus, String.valueOf(StatusEnum.IN_PROGRESS)) && !updatedStartDate.isEqual(reservation.getStartDate())) {

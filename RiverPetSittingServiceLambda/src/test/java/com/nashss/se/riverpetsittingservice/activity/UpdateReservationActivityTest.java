@@ -54,8 +54,8 @@ public class UpdateReservationActivityTest {
         Reservation startingReservation = new Reservation();
         startingReservation.setReservationId(reservationId);
         startingReservation.setPetOwnerId(petOwnerId);
-        startingReservation.setEndDate(LocalDate.now());
-        startingReservation.setStartDate(LocalDate.now().plusDays(5));
+        startingReservation.setEndDate(LocalDate.now().plusDays(5));
+        startingReservation.setStartDate(LocalDate.now());
 
         when(reservationDao.getReservationById(petOwnerId, reservationId)).thenReturn(startingReservation);
         when(reservationDao.saveReservation(startingReservation)).thenReturn(startingReservation);
