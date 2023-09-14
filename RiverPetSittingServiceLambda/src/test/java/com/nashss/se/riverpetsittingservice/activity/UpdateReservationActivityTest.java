@@ -2,7 +2,6 @@ package com.nashss.se.riverpetsittingservice.activity;
 
 import com.nashss.se.riverpetsittingservice.activity.requests.UpdateReservationRequest;
 
-
 import com.nashss.se.riverpetsittingservice.activity.results.UpdateReservationResult;
 
 import com.nashss.se.riverpetsittingservice.dynamodb.ReservationDao;
@@ -34,7 +33,6 @@ public class UpdateReservationActivityTest {
         openMocks(this);
         updateReservationActivity = new UpdateReservationActivity(reservationDao, metricsPublisher);
     }
-
     @Test
     public void handleRequest_goodRequest_updatesReservationDates() {
 
@@ -67,5 +65,4 @@ public class UpdateReservationActivityTest {
         assertEquals(expectedStartDate, result.getReservation().getStartDate());
         assertEquals(expectedEndDate, result.getReservation().getEndDate());
     }
-
 }

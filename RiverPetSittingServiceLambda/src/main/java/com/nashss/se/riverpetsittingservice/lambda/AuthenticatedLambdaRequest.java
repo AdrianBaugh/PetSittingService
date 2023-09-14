@@ -17,7 +17,7 @@ public class AuthenticatedLambdaRequest<T> extends LambdaRequest<T> {
     /**
      * Use the given converter to create an instance of T from the claims included in the request's JWT token.
      * @param converter Contains the conversion code
-     * @return A instance of T that contains data from the request's claims.
+     * @return An instance of T that contains data from the request's claims.
      */
     public T fromUserClaims(Function<Map<String, String>, T> converter) {
         try {

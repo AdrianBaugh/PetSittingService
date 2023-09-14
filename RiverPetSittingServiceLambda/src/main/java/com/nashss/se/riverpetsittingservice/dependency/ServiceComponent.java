@@ -7,7 +7,7 @@ import dagger.Component;
 import javax.inject.Singleton;
 
 /**
- * Dagger component for providing dependency injection in the Music Reservation Service.
+ * Dagger component for providing dependency injection in the River Pet Sitting Service.
  */
 @Singleton
 @Component(modules = {DaoModule.class, MetricsModule.class})

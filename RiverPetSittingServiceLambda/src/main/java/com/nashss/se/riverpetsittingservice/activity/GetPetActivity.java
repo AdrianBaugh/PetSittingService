@@ -15,8 +15,7 @@ import org.apache.logging.log4j.Logger;
 import javax.inject.Inject;
 
     /**
-     * Implementation of the GetPetActivity for the MusicPetService's GetPet API.
-     *
+     * Implementation of the GetPetActivity for the PetService's GetPet API.
      * This API allows the customer to get one of their saved pets.
      */
     public class GetPetActivity {
@@ -40,7 +39,7 @@ import javax.inject.Inject;
          * <p>
          * If the pet does not exist, this should throw a PeNotFoundException.
          *
-         * @param getPetRequest request object containing the pet ID
+         * @param getPetRequest request an object containing the pet ID
          * @return getPetResult result object containing the API defined {@link PetModel}
          */
 

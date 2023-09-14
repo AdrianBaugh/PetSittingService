@@ -1,13 +1,9 @@
 package com.nashss.se.riverpetsittingservice.converters;
 
-
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTypeConverter;
-
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
-
 
 public class LocalDateConverter implements DynamoDBTypeConverter<String, LocalDate> {
 

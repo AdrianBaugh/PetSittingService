@@ -6,7 +6,6 @@ import com.nashss.se.riverpetsittingservice.activity.results.CreateReservationRe
 import com.nashss.se.riverpetsittingservice.converters.LocalDateConverter;
 import com.nashss.se.riverpetsittingservice.dynamodb.ReservationDao;
 
-
 import com.nashss.se.riverpetsittingservice.dynamodb.models.Reservation;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -28,7 +27,6 @@ class CreateReservationActivityTest {
     private ReservationDao reservationDao;
 
     private CreateReservationActivity createReservationActivity;
-
 
     @BeforeEach
     void setUp() {
@@ -66,8 +64,6 @@ class CreateReservationActivityTest {
         assertNotNull(result.getReservation().getStatus());
 
         assertEquals(expectedEndDate, result.getReservation().getEndDate());
-
-
     }
 }
 

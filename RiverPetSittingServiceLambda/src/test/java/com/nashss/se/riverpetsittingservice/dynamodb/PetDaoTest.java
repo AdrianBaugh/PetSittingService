@@ -3,6 +3,7 @@ package com.nashss.se.riverpetsittingservice.dynamodb;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedQueryList;
+
 import com.nashss.se.riverpetsittingservice.dynamodb.models.Pet;
 import com.nashss.se.riverpetsittingservice.metrics.MetricsPublisher;
 import org.junit.jupiter.api.BeforeEach;
@@ -43,7 +44,6 @@ class PetDaoTest {
         when(paginatedQueryList.toArray()).thenReturn(new Object[0]);
     }
 
-
     @Test
     void getPetById_withValidIt_returnsPet() {
     }
@@ -81,7 +81,5 @@ class PetDaoTest {
         assertEquals(paginatedQueryList, results);
 
         verify(mapper, times(1)).query(eq(Pet.class), queryCaptor.capture());
-
-
     }
 }
