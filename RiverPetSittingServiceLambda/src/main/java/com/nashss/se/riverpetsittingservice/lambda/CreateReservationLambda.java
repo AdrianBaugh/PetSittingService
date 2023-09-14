@@ -4,6 +4,7 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.nashss.se.riverpetsittingservice.activity.requests.CreateReservationRequest;
 import com.nashss.se.riverpetsittingservice.activity.results.CreateReservationResult;
+import com.nashss.se.riverpetsittingservice.exceptions.ReservationException;
 
 public class CreateReservationLambda
         extends LambdaActivityRunner<CreateReservationRequest, CreateReservationResult>
@@ -23,7 +24,13 @@ public class CreateReservationLambda
                                     .build());
                 },
                 (request, serviceComponent) ->
-                        serviceComponent.provideCreateReservationActivity().handleRequest(request)
+                {
+                    try {
+                        return serviceComponent.provideCreateReservationActivity().handleRequest(request);
+                    } catch (ReservationException e) {
+                        throw new RuntimeException(e.getMessage());
+                    }
+                }
         );
     }
 }

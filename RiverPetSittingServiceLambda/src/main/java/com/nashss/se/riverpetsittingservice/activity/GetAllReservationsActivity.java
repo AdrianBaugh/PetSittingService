@@ -5,6 +5,7 @@ import com.nashss.se.riverpetsittingservice.activity.results.GetAllReservationsR
 import com.nashss.se.riverpetsittingservice.converters.ModelConverter;
 import com.nashss.se.riverpetsittingservice.dynamodb.ReservationDao;
 import com.nashss.se.riverpetsittingservice.dynamodb.models.Reservation;
+import com.nashss.se.riverpetsittingservice.exceptions.ReservationNotFoundException;
 import com.nashss.se.riverpetsittingservice.models.ReservationModel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -42,7 +43,7 @@ public class GetAllReservationsActivity {
      * @param getAllReservationsRequest request object containing the petOwner ID to look up reservations for
      * @return GetAllReservationsResult result object containing the reservation's list of API-defined ReservationModel
      */
-    public GetAllReservationsResult handleRequest(final GetAllReservationsRequest getAllReservationsRequest) {
+    public GetAllReservationsResult handleRequest(final GetAllReservationsRequest getAllReservationsRequest) throws ReservationNotFoundException {
         log.info("Received GetAllReservationsRequest {}", getAllReservationsRequest);
 
         List<Reservation> reservations = reservationDao.getAllReservationsByOwnerId(getAllReservationsRequest.getPetOwnerId());

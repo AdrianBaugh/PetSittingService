@@ -5,6 +5,7 @@ import com.nashss.se.riverpetsittingservice.activity.results.GetReservationResul
 import com.nashss.se.riverpetsittingservice.dynamodb.ReservationDao;
 import com.nashss.se.riverpetsittingservice.dynamodb.models.Reservation;
 
+import com.nashss.se.riverpetsittingservice.exceptions.ReservationNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -24,7 +25,7 @@ public class GetReservationActivityTest {
         getReservationActivity = new GetReservationActivity(reservationDao);
     }
     @Test
-    public void handleRequest_withValidFields_getReservationSuccess() {
+    public void handleRequest_withValidFields_getReservationSuccess() throws ReservationNotFoundException {
         // GIVEN
         String ownerId = "ownerID";
         String reservationId = "666666";

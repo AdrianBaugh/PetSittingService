@@ -38,7 +38,7 @@ public class GetReservationActivity{
      * @param getReservationRequest request object containing the reservation ID
      * @return getReservationResponse result object containing the API defined {@link ReservationModel}
      */
-    public GetReservationResult handleRequest(final GetReservationRequest getReservationRequest){
+    public GetReservationResult handleRequest(final GetReservationRequest getReservationRequest) throws ReservationNotFoundException {
     log.info("Received GetReservationRequest {}", getReservationRequest.getReservationId());
     String requestReservationId  = getReservationRequest.getReservationId();
     String requestOwnerId = getReservationRequest.getPetOwnerId();

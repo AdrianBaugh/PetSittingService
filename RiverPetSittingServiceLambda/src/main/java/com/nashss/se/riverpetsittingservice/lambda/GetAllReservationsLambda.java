@@ -4,6 +4,7 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.nashss.se.riverpetsittingservice.activity.requests.GetAllReservationsRequest;
 import com.nashss.se.riverpetsittingservice.activity.results.GetAllReservationsResult;
+import com.nashss.se.riverpetsittingservice.exceptions.ReservationNotFoundException;
 
 public class GetAllReservationsLambda
         extends LambdaActivityRunner<GetAllReservationsRequest, GetAllReservationsResult>
@@ -17,7 +18,13 @@ public class GetAllReservationsLambda
                                 .withPetOwnerId(claims.get("email"))
                                 .build()),
                 (request, serviceComponent) ->
-                        serviceComponent.provideGetAllReservationsActivity().handleRequest(request)
+                {
+                    try {
+                        return serviceComponent.provideGetAllReservationsActivity().handleRequest(request);
+                    } catch (ReservationNotFoundException e) {
+                        throw new RuntimeException(e.getMessage());
+                    }
+                }
         );
     }
 }
