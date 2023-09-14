@@ -2,7 +2,6 @@ package com.nashss.se.riverpetsittingservice.exceptions;
 
 /**
  * General exception covering cases where an attribute is invalid.
- *
  * For example, formatting/validation errors, or if the attribute is being modified
  * when it should not.
  */
@@ -33,7 +32,7 @@ public class InvalidAttributeException extends RuntimeException {
     }
 
     /**
-     * Exception with message and cause.
+     * Exception with a message and cause.
      * @param message A descriptive message for this exception.
      * @param cause The original throwable resulting in this exception.
      */

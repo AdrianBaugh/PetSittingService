@@ -16,7 +16,7 @@ module.exports = {
 };
 ```
 
-2. Entry Points:
+1. Entry Points:
 ```javascript
 entry: {
   createPlaylist: path.resolve(__dirname, 'src', 'pages', 'createPlaylist.js'),
@@ -24,11 +24,11 @@ entry: {
   searchPlaylists: path.resolve(__dirname, 'src', 'pages', 'searchPlaylists.js'),
 },
 ```
-These are the entry points for the application. Each entry point represents a separate JavaScript file that serves as the starting point for creating the bundles. When you want to link a new js file in html 
+These are the entry points for the application. Each entry point represents a separate JavaScript file that serves as the starting point for creating the bundles. When you want to link a new js file in html, 
 this section shall be appended with info pointing to the new js file.
 
 
-3. Output Configuration:
+1. Output Configuration:
 ```javascript
 output: {
   path: path.resolve(__dirname, 'build', 'assets'),

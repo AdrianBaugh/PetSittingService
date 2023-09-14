@@ -45,6 +45,5 @@ class CreatePetActivityTest {
 
         assertNotNull(result.getPet().getPetId());
         assertEquals(expectedName, result.getPet().getPetName());
-
     }
 }

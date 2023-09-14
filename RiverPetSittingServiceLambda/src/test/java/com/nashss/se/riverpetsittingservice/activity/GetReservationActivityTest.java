@@ -23,7 +23,6 @@ public class GetReservationActivityTest {
         initMocks(this);
         getReservationActivity = new GetReservationActivity(reservationDao);
     }
-
     @Test
     public void handleRequest_withValidFields_getReservationSuccess() {
         // GIVEN

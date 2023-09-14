@@ -31,7 +31,7 @@ public class ReservationNotFoundException extends RuntimeException {
     }
 
     /**
-     * Exception with message and cause.
+     * Exception with a message and cause.
      * @param message A descriptive message for this exception.
      * @param cause The original throwable resulting in this exception.
      */

@@ -42,7 +42,7 @@ The class `Header` contains several methods for building and adding the header t
 
 - `addHeaderToPage()`: This method is called to add the header to the webpage. It [awaits](https://www.theodinproject.com/lessons/node-path-javascript-async-and-await) the result of calling `this.client.getIdentity()` to get the current user's information. Then, it creates the site title and user information elements and appends them to the header element with the ID 'header'.
 
-- `createSiteTitle()`: This method creates the site title element, which includes a home button with a link to the 'index.html' page. The title is wrapped in a `div` with the class 'site-title'.
+- `createSiteTitle()`: This method creates the site title element, which includes a home button with a link to the 'index.html' page. The title is wrapped in a `div` with the class 'site-title.'
 
 - `createUserInfoForHeader(currentUser)`: This method creates the user information section for the header. It takes the `currentUser` object (user information) as an argument and decides whether to show the login or logout button based on the user's authentication status. It calls `this.createLoginButton()` or `this.createLogoutButton(currentUser)` accordingly.
 

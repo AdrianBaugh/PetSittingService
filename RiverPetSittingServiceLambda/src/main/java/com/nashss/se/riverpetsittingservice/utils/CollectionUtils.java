@@ -15,7 +15,7 @@ public class CollectionUtils {
     private CollectionUtils() { }
 
     /**
-     * If the parameter is not null, create a new Set with the collections contents.
+     * If the parameter is not null, create a new Set with the collection contents.
      * If the parameter is null, return null.
      * @param collectionToWrap The collection to copy into a Set.
      * @param <E> The type of element in the collection.
@@ -26,7 +26,7 @@ public class CollectionUtils {
     }
 
     /**
-     * If the parameter is not null, create a new List with the collections contents.
+     * If the parameter is not null, create a new List with the collection contents.
      * If the parameter is null, return null.
      * @param collectionToWrap The collection to copy into a List.
      * @param <E> The type of element in the collection.

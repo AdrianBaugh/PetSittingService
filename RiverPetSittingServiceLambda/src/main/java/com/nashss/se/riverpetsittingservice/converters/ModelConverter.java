@@ -6,7 +6,6 @@ import com.nashss.se.riverpetsittingservice.dynamodb.models.Reservation;
 import com.nashss.se.riverpetsittingservice.models.PetModel;
 import com.nashss.se.riverpetsittingservice.models.ReservationModel;
 
-
 import java.util.ArrayList;
 import java.util.List;
 

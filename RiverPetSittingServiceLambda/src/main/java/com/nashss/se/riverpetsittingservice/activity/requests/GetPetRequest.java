@@ -1,6 +1,5 @@
 package com.nashss.se.riverpetsittingservice.activity.requests;
 
-
     public class GetPetRequest {
         private final String petId;
 

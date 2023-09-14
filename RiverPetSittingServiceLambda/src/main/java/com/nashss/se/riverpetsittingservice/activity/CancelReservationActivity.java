@@ -18,6 +18,7 @@ public class CancelReservationActivity {
     }
 
     public CancelReservationResult handleRequest(final CancelReservationRequest cancelReservationRequest) {
+        log.info("received cancelReservationRequest {}", cancelReservationRequest);
         String ownerId = cancelReservationRequest.getPetOwnerId();
         String reservationId = cancelReservationRequest.getReservationId();
 

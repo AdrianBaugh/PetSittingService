@@ -21,7 +21,6 @@ class ViewAllPets extends BindingClass {
      * Once the client is loaded, get the pet metadata.
      */
     async clientLoaded() {
-        //This is undefined Right Now
         const pets = await this.client.viewAllPets();
         this.dataStore.set('pets', pets);
     }
@@ -30,7 +29,6 @@ class ViewAllPets extends BindingClass {
      * Add the header to the page and load the PetClient.
      */
     mount() {
-
         this.header.addHeaderToPage();
         this.client = new RiverPetSittingClient();
         this.clientLoaded();
@@ -42,7 +40,6 @@ class ViewAllPets extends BindingClass {
 
     addPetsToPage() {
         console.log("add pets to page is starting");
-        //This is undefined right now 
         const pets = this.dataStore.get('pets')
         console.log("Pets")
 
@@ -64,16 +61,6 @@ class ViewAllPets extends BindingClass {
         console.log("add pets to page is finished");
 
     }
-//                <li class="pet">
-//                <span class="petName">PetName: $(pet.petName)</span>
-//                </li>            `;
-//            <li class="pets">
-//                document.getElementById('petName').innerText = pet.petName;
-//
-//            }
-//            document.getElementById('petList').innerHTML = petHtml;
-
-
 }
 
 /**
