@@ -10,6 +10,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
+import java.time.LocalDate;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -32,6 +34,8 @@ public class GetReservationActivityTest {
         Reservation reservation = new Reservation();
         reservation.setPetOwnerId(ownerId);
         reservation.setReservationId(reservationId);
+        reservation.setStartDate(LocalDate.now());
+        reservation.setEndDate(LocalDate.now().plusDays(1));
 
         //WHEN
         when(reservationDao.getReservationById(ownerId, reservationId)).thenReturn(reservation);

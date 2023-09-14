@@ -2,6 +2,7 @@ import RiverPetSittingClient from '../api/riverPetSittingClient';
 import Header from '../components/header';
 import BindingClass from '../util/bindingClass';
 import DataStore from '../util/DataStore';
+import { formatDateToMMDDYYYY } from '../util/dateUtils';
 
 /**
  * Logic needed for the update reservation page of the website.
@@ -9,10 +10,19 @@ import DataStore from '../util/DataStore';
 class UpdateReservation extends BindingClass {
     constructor() {
         super();
-        this.bindClassMethods(['mount', 'submit', 'redirectToViewReservation'], this);
+        this.bindClassMethods([ 'mount', 'clientLoaded', 'submit', 'redirectToViewReservation', 'viewReservation'], this);
         this.dataStore = new DataStore();
         this.dataStore.addChangeListener(this.redirectToViewReservation);
+        this.dataStore.addChangeListener(this.viewReservation);
         this.header = new Header(this.dataStore);
+    }
+
+    async clientLoaded() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const reservationId = urlParams.get('id');
+
+        const ogReservation = await this.client.viewReservation(reservationId);
+        this.dataStore.set('ogReservation', ogReservation);
     }
 
     /**
@@ -22,6 +32,7 @@ class UpdateReservation extends BindingClass {
 
         this.header.addHeaderToPage();
         this.client = new RiverPetSittingClient();
+        this.clientLoaded();
         document.getElementById('submit-btn').addEventListener('click', this.submit);
     }
 
@@ -56,6 +67,15 @@ class UpdateReservation extends BindingClass {
         });
         this.dataStore.set('reservation', reservation);
         
+    }
+
+    viewReservation() {
+        const ogReservation = this.dataStore.get('ogReservation');
+        if (ogReservation == null) {
+            return;
+        }
+        document.getElementById('start-date').innerText = formatDateToMMDDYYYY(ogReservation.startDate);
+        document.getElementById('end-date').innerText = formatDateToMMDDYYYY(ogReservation.endDate);
     }
 
     /**

@@ -41,8 +41,8 @@ public class UpdateReservationActivityTest {
         // GIVEN
         String petOwnerId = "Bob";
         String reservationId = "expectedReservationId";
-        LocalDate expectedStartDate = LocalDate.parse("2024-09-12");
-        LocalDate expectedEndDate = LocalDate.parse("2024-09-15");
+        LocalDate expectedStartDate = LocalDate.now();
+        LocalDate expectedEndDate = LocalDate.now().plusDays(1);
 
         UpdateReservationRequest request = UpdateReservationRequest.builder()
                                             .withReservationId(reservationId)
@@ -54,8 +54,8 @@ public class UpdateReservationActivityTest {
         Reservation startingReservation = new Reservation();
         startingReservation.setReservationId(reservationId);
         startingReservation.setPetOwnerId(petOwnerId);
-        startingReservation.setEndDate(LocalDate.parse("2024-09-20"));
-        startingReservation.setStartDate(LocalDate.parse("2024-09-10"));
+        startingReservation.setEndDate(LocalDate.now().plusDays(5));
+        startingReservation.setStartDate(LocalDate.now());
 
         when(reservationDao.getReservationById(petOwnerId, reservationId)).thenReturn(startingReservation);
         when(reservationDao.saveReservation(startingReservation)).thenReturn(startingReservation);
