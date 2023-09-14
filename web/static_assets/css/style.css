@@ -52,7 +52,9 @@
   opacity: 0.9;
   border-radius: 12px;
   font-size: 18px;
+
 }
+
 
 .button1 {
     background-color: var(--error-color);
