@@ -10,11 +10,15 @@ import com.nashss.se.riverpetsittingservice.exceptions.ReservationException;
 import com.nashss.se.riverpetsittingservice.exceptions.ReservationNotFoundException;
 import com.nashss.se.riverpetsittingservice.metrics.MetricsPublisher;
 
+import com.nashss.se.riverpetsittingservice.utils.StatusEnum;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.inject.Inject;
 import java.time.LocalDate;
+import java.time.Year;
+import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 public class UpdateReservationActivity {
 
@@ -35,13 +39,24 @@ public class UpdateReservationActivity {
 
         Reservation reservation = reservationDao.getReservationById(updateReservationRequest.getPetOwnerId(), updateReservationRequest.getReservationId());
         LocalDate updatedStartDate = converter.unconvert(updateReservationRequest.getStartDate());
+        LocalDate updatedEndDate = converter.unconvert(updateReservationRequest.getEndDate());
+        String reservationStatus = reservation.getStatus();
+
+        if (Objects.equals(reservationStatus, String.valueOf(StatusEnum.COMPLETE))) {
+            throw new ReservationException("Cannot update a Completed reservation...");
+        }
+
         if (!(updatedStartDate.compareTo(LocalDate.now()) >= 0)) {
             throw new ReservationException("Cannot update reservation to Start before today...");
         }
-        LocalDate updatedEndDate = converter.unconvert(updateReservationRequest.getEndDate());
+        if (Objects.equals(reservationStatus, String.valueOf(StatusEnum.IN_PROGRESS)) && !updatedStartDate.isEqual(reservation.getStartDate())) {
+            throw new ReservationException("Cannot update the Start date of a reservation in progress. Start date: " + reservation.getStartDate().format(DateTimeFormatter.ofPattern("MM/dd/uuuu")));
+        }
+
         if (updatedEndDate.isBefore(updatedStartDate)) {
             throw new ReservationException("Cannot make End date before Start date...");
         }
+
         reservation.setStartDate(updatedStartDate);
         reservation.setEndDate(updatedEndDate);
         reservation = reservationDao.saveReservation(reservation);

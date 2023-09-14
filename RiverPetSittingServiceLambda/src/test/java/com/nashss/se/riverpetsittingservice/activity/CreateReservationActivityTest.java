@@ -40,9 +40,9 @@ class CreateReservationActivityTest {
     public void handleRequest_withValidFields_createsAndSavesReservation() throws ReservationException {
         LocalDateConverter converter = new LocalDateConverter();
 
-       LocalDate expectedStartDate = LocalDate.of(2024, 9, 6);
+       LocalDate expectedStartDate = LocalDate.now();
 
-       LocalDate expectedEndDate = LocalDate.of(2024,9,10);
+       LocalDate expectedEndDate = LocalDate.now().plusDays(4);
 
        List<String> petList = new ArrayList<>();
        petList.add("Fluffers");

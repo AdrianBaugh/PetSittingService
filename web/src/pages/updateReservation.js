@@ -9,7 +9,7 @@ import DataStore from '../util/DataStore';
 class UpdateReservation extends BindingClass {
     constructor() {
         super();
-        this.bindClassMethods(['mount', 'submit', 'redirectToViewReservation'], this);
+        this.bindClassMethods(['mount', 'clientLoaded', 'submit', 'redirectToViewReservation'], this);
         this.dataStore = new DataStore();
         this.dataStore.addChangeListener(this.redirectToViewReservation);
         this.header = new Header(this.dataStore);
@@ -23,6 +23,14 @@ class UpdateReservation extends BindingClass {
         this.header.addHeaderToPage();
         this.client = new RiverPetSittingClient();
         document.getElementById('submit-btn').addEventListener('click', this.submit);
+    }
+
+    async clientLoaded() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const reservationId = urlParams.get('id');
+
+        const reservation = client.viewReservation(urlParams.get'id');
+        this.datastore.set('ogReservation', ogReservation);
     }
 
     /**
@@ -56,6 +64,12 @@ class UpdateReservation extends BindingClass {
         });
         this.dataStore.set('reservation', reservation);
         
+    }
+
+    viewReservation() {
+        const ogReservation = this.dataStore.get('ogReservation');
+        document.getElementById('ogReservationStartDate').innerText = ogReservation.startDate;
+        document.getElementById('ogReservationEndDate').innerText = ogReservation.endDate;
     }
 
     /**

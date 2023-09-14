@@ -8,10 +8,13 @@ import com.nashss.se.riverpetsittingservice.dynamodb.models.Reservation;
 import com.nashss.se.riverpetsittingservice.exceptions.ReservationNotFoundException;
 
 import com.nashss.se.riverpetsittingservice.models.ReservationModel;
+import com.nashss.se.riverpetsittingservice.utils.StatusEnum;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.inject.Inject;
+import java.time.LocalDate;
+
 /**
  * Implementation of the GetReservationActivity for the PetService's GetReservation API.
  * This API allows the customer to get one of their saved reservations.
@@ -46,6 +49,16 @@ public class GetReservationActivity{
 
         if(reservation == null){
             throw new ReservationNotFoundException("Reservation with id "+requestReservationId + " not found");
+        }
+
+        if (reservation.getEndDate().isBefore(LocalDate.now())) {
+            reservation.setStatus(String.valueOf(StatusEnum.COMPLETE));
+            reservationDao.saveReservation(reservation);
+        }
+
+        if (LocalDate.now().compareTo(reservation.getStartDate()) >= 0 && reservation.getEndDate().isAfter(LocalDate.now())) {
+            reservation.setStatus(String.valueOf(StatusEnum.IN_PROGRESS));
+            reservationDao.saveReservation(reservation);
         }
 
         ReservationModel reservationModel = new ModelConverter().toReservationModel(reservation);
