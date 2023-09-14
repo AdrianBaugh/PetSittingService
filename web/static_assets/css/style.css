@@ -50,6 +50,8 @@
   text-decoration: none;
   cursor: pointer;
   opacity: 0.9;
+  border-radius: 12px;
+  font-size: 18px;
 }
 
 .button1 {
@@ -62,14 +64,36 @@
     text-decoration: none;
     cursor: pointer;
     opacity: 0.9;
+    border-radius: 12px;
+    font-size: 18px;
+  }
+  .button2 {
+    background-color: var(--tertiary-color);
+    border: none;
+    color: var(--secondary-color);
+    padding: 10px 12px 8px 12px;
+    text-align: center;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    opacity: 0.9;
+    border-radius: 12px;
+    font-size: 20px;
+    width: 40%
+    
   }
 
 .button:hover {opacity:1}
 
 .button-group {
     display: flex;
+    position: relative;
     justify-content: space-between;
+    flex-direction: row;
+    
+    
 }
+
 
 .hidden-button {
     background-color: var(--tertiary-color);
@@ -118,10 +142,12 @@
     padding: 8px;
 }
 
-img {
-    padding: 5px;
-    width: 150px;
-  }
+.container img {
+    object-fit: contain;
+    width: 355px;
+    height: 100%;
+  } 
+  
 
 .validated-field:invalid {
     outline: 2px solid var(--error-color);
