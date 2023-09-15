@@ -31,19 +31,34 @@ export default class Header extends BindingClass {
         header.appendChild(userInfo);
     }
 
-    createSiteTitle() {
-        const homeButton = document.createElement('a');
-        homeButton.classList.add('header_home');
-        homeButton.href = 'index.html';
-        homeButton.innerText = 'River';
+createSiteTitle() {
 
-        const siteTitle = document.createElement('div');
-        siteTitle.classList.add('site-title');
-        siteTitle.appendChild(homeButton);
+    const logo = document.createElement('img');
+    logo.src = 'shortRiver.jpg';
+    logo.width = 300;
+    logo.height = 220;
+    const homeButton = document.createElement('a');
+    const logoContainer = document.createElement('div');
 
-        return siteTitle;
-    }
+    const siteTitle = document.createElement('div');
 
+    homeButton.classList.add('header-home');
+    homeButton.href = 'index.html';
+    const siteLink = document.createElement('a');
+    siteLink.href = 'index.html';
+    const riverText = document.createElement('span');
+    riverText.classList.add('river-text');
+
+
+    logoContainer.appendChild(logo);
+    logoContainer.appendChild(riverText);
+    // Append the logo container to the anchor element
+    siteLink.appendChild(logoContainer);
+    // Append the anchor element to the site title
+    siteTitle.appendChild(siteLink);
+    siteTitle.appendChild(homeButton);
+    return siteTitle;
+}
     createUserInfoForHeader(currentUser) {
         const userInfo = document.createElement('div');
         userInfo.classList.add('user');
