@@ -34,13 +34,7 @@ public class GetReservationLambda
                 },
 
                 (request, serviceComponent) ->
-                {
-                    try {
-                        return serviceComponent.provideGetReservationActivity().handleRequest(request);
-                    } catch (ReservationNotFoundException e) {
-                        throw new RuntimeException(e.getMessage());
-                    }
-                }
+                    serviceComponent.provideGetReservationActivity().handleRequest(request)
         );
     }
 }

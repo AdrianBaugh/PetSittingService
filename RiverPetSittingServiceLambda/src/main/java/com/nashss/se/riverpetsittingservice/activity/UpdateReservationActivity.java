@@ -32,7 +32,7 @@ public class UpdateReservationActivity {
     }
 
 
-    public UpdateReservationResult handleRequest(final UpdateReservationRequest updateReservationRequest) throws ReservationException {
+    public UpdateReservationResult handleRequest(final UpdateReservationRequest updateReservationRequest) {
         log.info("Received the Update reservation request {}", updateReservationRequest);
 
         LocalDateConverter converter = new LocalDateConverter();

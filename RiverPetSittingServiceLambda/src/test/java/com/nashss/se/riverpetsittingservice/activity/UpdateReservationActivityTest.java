@@ -36,7 +36,7 @@ public class UpdateReservationActivityTest {
         updateReservationActivity = new UpdateReservationActivity(reservationDao, metricsPublisher);
     }
     @Test
-    public void handleRequest_goodRequest_updatesReservationDates() throws ReservationException {
+    public void handleRequest_goodRequest_updatesReservationDates() {
 
         // GIVEN
         String petOwnerId = "Bob";

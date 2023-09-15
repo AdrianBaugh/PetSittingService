@@ -43,8 +43,8 @@ public class CreatePetActivity {
         log.info("received CreatePetRequest {}", createPetRequest);
 
         if (!IdUtils.isValidString(createPetRequest.getPetName())) {
-            throw new InvalidAttributeValueException("Reservation name [" + createPetRequest.getPetName() +
-                    "] contains illegal characters");
+            throw new InvalidAttributeValueException("Pet name [" + createPetRequest.getPetName() +
+                    "] contains illegal characters or is empty");
         }
 
         Pet newPet = new Pet();

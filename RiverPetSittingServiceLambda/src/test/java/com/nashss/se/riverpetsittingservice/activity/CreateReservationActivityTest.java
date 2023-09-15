@@ -37,7 +37,7 @@ class CreateReservationActivityTest {
     }
 
     @Test
-    public void handleRequest_withValidFields_createsAndSavesReservation() throws ReservationException {
+    public void handleRequest_withValidFields_createsAndSavesReservation() {
         LocalDateConverter converter = new LocalDateConverter();
 
        LocalDate expectedStartDate = LocalDate.now();

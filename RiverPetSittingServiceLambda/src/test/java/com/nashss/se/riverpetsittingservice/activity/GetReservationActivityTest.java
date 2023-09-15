@@ -27,7 +27,7 @@ public class GetReservationActivityTest {
         getReservationActivity = new GetReservationActivity(reservationDao);
     }
     @Test
-    public void handleRequest_withValidFields_getReservationSuccess() throws ReservationNotFoundException {
+    public void handleRequest_withValidFields_getReservationSuccess() {
         // GIVEN
         String ownerId = "ownerID";
         String reservationId = "666666";

@@ -43,7 +43,7 @@ public class GetAllReservationsActivity {
      * @param getAllReservationsRequest request object containing the petOwner ID to look up reservations for
      * @return GetAllReservationsResult result object containing the reservation's list of API-defined ReservationModel
      */
-    public GetAllReservationsResult handleRequest(final GetAllReservationsRequest getAllReservationsRequest) throws ReservationNotFoundException {
+    public GetAllReservationsResult handleRequest(final GetAllReservationsRequest getAllReservationsRequest) {
         log.info("Received GetAllReservationsRequest {}", getAllReservationsRequest);
 
         List<Reservation> reservations = reservationDao.getAllReservationsByOwnerId(getAllReservationsRequest.getPetOwnerId());
