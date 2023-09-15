@@ -18,13 +18,7 @@ public class GetAllReservationsLambda
                                 .withPetOwnerId(claims.get("email"))
                                 .build()),
                 (request, serviceComponent) ->
-                {
-                    try {
-                        return serviceComponent.provideGetAllReservationsActivity().handleRequest(request);
-                    } catch (ReservationNotFoundException e) {
-                        throw new RuntimeException(e.getMessage());
-                    }
-                }
+                 serviceComponent.provideGetAllReservationsActivity().handleRequest(request)
         );
     }
 }

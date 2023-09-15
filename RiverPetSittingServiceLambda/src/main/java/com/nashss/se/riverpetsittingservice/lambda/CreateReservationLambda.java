@@ -24,13 +24,7 @@ public class CreateReservationLambda
                                     .build());
                 },
                 (request, serviceComponent) ->
-                {
-                    try {
-                        return serviceComponent.provideCreateReservationActivity().handleRequest(request);
-                    } catch (ReservationException e) {
-                        throw new RuntimeException(e.getMessage());
-                    }
-                }
+                    serviceComponent.provideCreateReservationActivity().handleRequest(request)
         );
     }
 }

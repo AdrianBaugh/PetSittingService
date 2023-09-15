@@ -35,13 +35,7 @@ public class UpdateReservationLambda
                 },
 
                 (request, serviceComponent) ->
-                {
-                    try {
-                        return serviceComponent.provideUpdateReservationActivity().handleRequest(request);
-                    } catch (ReservationException e) {
-                        throw new RuntimeException(e.getMessage());
-                    }
-                }
+                    serviceComponent.provideUpdateReservationActivity().handleRequest(request)
         );
     }
 }

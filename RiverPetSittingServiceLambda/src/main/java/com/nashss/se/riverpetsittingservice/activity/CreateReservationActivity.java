@@ -34,7 +34,7 @@ public class CreateReservationActivity {
     }
 
 
-    public CreateReservationResult handleRequest(final CreateReservationRequest createReservationRequest) throws ReservationException {
+    public CreateReservationResult handleRequest(final CreateReservationRequest createReservationRequest) {
         log.info("received CreateReservationRequest {}", createReservationRequest);
 
         LocalDateConverter converter = new LocalDateConverter();
@@ -63,6 +63,4 @@ public class CreateReservationActivity {
                 .withReservation(reservationModel)
                 .build();
     }
-
-
 }

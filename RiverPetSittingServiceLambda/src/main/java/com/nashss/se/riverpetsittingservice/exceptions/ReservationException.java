@@ -1,6 +1,6 @@
 package com.nashss.se.riverpetsittingservice.exceptions;
 
-public class ReservationException extends Exception {
+public class ReservationException extends RuntimeException {
 
     /**
      * Exception with no message or cause.
