@@ -56,7 +56,7 @@ public class GetReservationActivity{
             reservationDao.saveReservation(reservation);
         }
 
-        if (LocalDate.now().compareTo(reservation.getStartDate()) >= 0 && reservation.getEndDate().isAfter(LocalDate.now())) {
+        if (LocalDate.now().compareTo(reservation.getStartDate()) >= 0 && LocalDate.now().compareTo(reservation.getEndDate()) <= 0) {
             reservation.setStatus(String.valueOf(StatusEnum.IN_PROGRESS));
             reservationDao.saveReservation(reservation);
         }
